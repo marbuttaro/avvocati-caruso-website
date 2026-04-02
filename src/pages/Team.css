@@ -1,91 +1,107 @@
-.team-section {
-  background-color: var(--color-secondary);
+.team-v2 {
+  padding-top: 5rem;
 }
 
-.team-grid {
+.team-header {
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.team-grid-section {
+  background-color: var(--bg-primary);
+}
+
+.team-v2-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 3rem;
-  padding: 2rem 0;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 5rem 3rem;
+  padding: 4rem 0;
 }
 
-.team-member {
+.team-v2-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  cursor: pointer;
 }
 
-.member-image-container {
+.team-v2-image-wrapper {
   position: relative;
-  width: 240px;
-  height: 240px;
+  width: 250px;
+  height: 250px;
   border-radius: 50%;
   overflow: hidden;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  border: 4px solid #fff;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: var(--bg-secondary);
 }
 
-.member-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
+.team-v2-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
 }
 
-.member-image-container:hover .member-image {
-  transform: scale(1.05);
-}
-
-.member-bio-overlay {
+.team-v2-bio-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(26, 54, 75, 0.95); /* Primary color slightly transparent */
-  color: var(--color-secondary);
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  border-radius: 50%;
+  padding: 2rem;
+  z-index: 10;
 }
 
-.member-image-container:hover .member-bio-overlay {
-  opacity: 1;
-}
-
-.bio-text {
+.team-v2-bio-text {
   font-size: 0.9rem;
-  line-height: 1.5;
+  line-height: 1.6;
+  font-weight: 300;
+  color: var(--bg-secondary);
   margin: 0;
 }
 
-.member-info {
+.team-v2-info {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.5rem;
 }
 
-.member-name {
-  font-size: 1.25rem;
-  color: var(--color-primary);
-  margin-bottom: 0;
-}
-
-.member-area {
-  font-size: 1rem;
+.team-v2-name {
+  font-size: 1.5rem;
+  color: var(--text-primary);
   font-weight: 600;
-  color: var(--color-highlight);
 }
 
-.member-role {
+.team-v2-area {
   font-size: 0.9rem;
-  color: var(--color-dark);
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+
+.team-v2-role {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
   font-weight: 300;
+  font-style: italic;
+}
+
+.join-team {
+  background-color: var(--bg-secondary);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 768px) {
+  .team-v2-image-wrapper {
+    width: 200px;
+    height: 200px;
+  }
 }

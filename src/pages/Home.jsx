@@ -1,111 +1,171 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ArrowUpRight, Scale, FileText, Briefcase, Anchor } from 'lucide-react';
 import './Home.css';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
-
-const fadingMessages = [
-  "Eccellenza e serietà nella tutela dei vostri diritti.",
-  "La competenza al servizio del cliente.",
-  "Soluzioni legali su misura per ogni esigenza.",
-  "Affidabilità istituzionale dal 1990."
-];
 
 const Home = () => {
-  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
-  const [fade, setFade] = useState(true);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setFade(false); // Start fading out
-
-      setTimeout(() => {
-        setCurrentMessageIndex((prev) => (prev + 1) % fadingMessages.length);
-        setFade(true); // Start fading in
-      }, 500); // 500ms delay for the fade out transition
-
-    }, 4000); // Change message every 4 seconds
-
-    return () => clearInterval(interval);
-  }, []);
+  const practiceAreas = [
+    { title: 'Diritto Penale', icon: <Scale />, link: '/aree-competenza#penale' },
+    { title: 'Diritto Civile', icon: <FileText />, link: '/aree-competenza#civile' },
+    { title: 'Diritto Commerciale', icon: <Briefcase />, link: '/aree-competenza#commerciale' },
+    { title: 'Diritto della Navigazione', icon: <Anchor />, link: '/aree-competenza#navigazione' },
+  ];
 
   return (
-    <div className="home-page">
+    <div className="home-v2">
       {/* Hero Section */}
-      <section className="hero-section">
-        <div className="hero-overlay"></div>
-        <div className="container hero-content text-center">
-          <h2 className={`fading-text ${fade ? 'fade-in' : 'fade-out'}`}>
-            {fadingMessages[currentMessageIndex]}
-          </h2>
-          <p className="hero-subtitle">Proattività, competenza e stretto rapporto fiduciario.</p>
+      <section className="hero-v2">
+        <div className="container">
+          <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="hero-text-wrapper"
+          >
+            <h1 className="hero-title">
+              Studio Legale <br />
+              <span className="accent-text italic">Caruso</span>
+            </h1>
+            <div className="hero-bottom-grid">
+              <p className="hero-description">
+                Eccellenza, proattività e serietà nella tutela dei vostri diritti. 
+                Un approccio sartoriale per ogni sfida legale.
+              </p>
+              <motion.div 
+                whileHover={{ scale: 1.05 }}
+                className="hero-cta-circle"
+              >
+                <a href="#contatti">
+                  <span>Inizia Qui</span>
+                  <ArrowUpRight size={24} />
+                </a>
+              </motion.div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Lo Studio Section */}
-      <section className="section about-section">
-        <div className="container">
-          <div className="about-grid">
-            <div className="about-text">
-              <h2>Lo Studio</h2>
-              <div className="divider"></div>
-              <p className="mb-3">
-                Lo Studio Legale Caruso offre assistenza e consulenza legale qualificata. 
-                Siamo formati da un team di professionisti di comprovata esperienza, specializzati 
-                nelle diverse aree del diritto per fornire una tutela a 360 gradi.
-              </p>
-              <p className="mb-4">
-                La dedizione e il massimo impegno per la causa del cliente sono i nostri valori fondamentali, 
-                accompagnati da un rigoroso aggiornamento professionale e dall'utilizzo delle più moderne tecnologie.
-              </p>
-              <ul className="values-list">
-                <li><CheckCircle2 color="var(--color-highlight)" size={20} /> Metodo Sartoriale e Personalizzato</li>
-                <li><CheckCircle2 color="var(--color-highlight)" size={20} /> Massima Trasparenza Preventiva</li>
-                <li><CheckCircle2 color="var(--color-highlight)" size={20} /> Tutela in Sede Stragiudiziale e Giudiziale</li>
-              </ul>
-            </div>
-            <div className="about-image-container">
-               {/* Un'immagine fittizia istituzionale */}
-               <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=800" alt="Studio Legale Caruso" className="about-img" />
-            </div>
+      {/* Philosophy Section - Asymmetric Layout */}
+      <section className="philosophy-section section-padding">
+        <div className="container asymmetric-grid">
+          <div className="philosophy-image-col">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.2 }}
+              viewport={{ once: true }}
+              className="image-reveal-wrapper"
+            >
+              <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=1200" alt="Legal Excellence" />
+            </motion.div>
+          </div>
+          <div className="philosophy-text-col">
+            <h2 className="section-subtitle">Oltre il Parere Legale</h2>
+            <h3 className="section-title">Una visione <span className="serif italic">dinamica</span> della giustizia.</h3>
+            <p className="mb-4">
+              Fondato su decenni di esperienza, lo Studio Caruso si evolve costantemente 
+              per rispondere alla complessità del panorama giuridico contemporaneo. 
+              Non ci limitiamo alla consulenza: costruiamo strategie di difesa proattive.
+            </p>
+            <button className="btn-minimal">Scopri la nostra storia</button>
           </div>
         </div>
       </section>
 
-      {/* Booking Widget */}
-      <section className="section booking-section">
-        <div className="container text-center">
-          <h2>Richiedi un Appuntamento</h2>
-          <div className="divider mx-auto"></div>
-          <p className="mb-5 booking-disclaimer">
-            La richiesta di prenotazione deve essere necessariamente condizionata ad accettazione da parte dello Studio.
-          </p>
+      {/* Interactive Practice Areas List */}
+      <section className="practice-areas-v2 section-padding">
+        <div className="container">
+          <h2 className="section-title text-center mb-5">Aree di <span className="serif">Competenza</span></h2>
+          <div className="practice-list">
+            {practiceAreas.map((area, index) => (
+              <motion.div 
+                key={index}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="practice-item"
+              >
+                <a href={area.link} className="practice-link">
+                  <div className="practice-info">
+                    <span className="practice-num">0{index + 1}</span>
+                    <h4 className="practice-name">{area.title}</h4>
+                  </div>
+                  <div className="practice-action">
+                    <span className="practice-tag">Dettagli</span>
+                    <ArrowUpRight className="practice-arrow" />
+                  </div>
+                </a>
+                <div className="practice-line"></div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          <form className="booking-form" onSubmit={(e) => e.preventDefault()}>
-            <div className="form-group">
-              <input type="text" placeholder="Nome e Cognome *" required />
+      {/* Bridge Call to Actions */}
+      <section className="bridge-section">
+        <div className="bridge-grid">
+          <a href="/team" className="bridge-card team-bridge">
+            <div className="bridge-overlay"></div>
+            <div className="bridge-content">
+              <h4>Incontra i Professionisti</h4>
+              <p>Il cuore pulsante della nostra eccellenza.</p>
+              <span className="bridge-link-text">Vedi il Team →</span>
             </div>
-            <div className="form-group">
-              <input type="email" placeholder="Email *" required />
+          </a>
+          <a href="#prenota" className="bridge-card booking-bridge">
+            <div className="bridge-overlay"></div>
+            <div className="bridge-content">
+              <h4>Consulenza Specializzata</h4>
+              <p>Pianifica un incontro conoscitivo.</p>
+              <span className="bridge-link-text">Prenota Ora →</span>
             </div>
-            <div className="form-group">
-              <input type="tel" placeholder="Telefono *" required />
+          </a>
+        </div>
+      </section>
+
+      {/* Refined Booking Form */}
+      <section id="contatti" className="booking-v2 section-padding">
+        <div className="container split-layout">
+          <div className="booking-info">
+            <h2 className="section-title">Contatti & Prenotazioni</h2>
+            <p className="mb-4">Ogni richiesta viene analizzata con la massima attenzione. <br/>Riceverete una conferma entro 24 ore lavorative dal nostro team di segreteria.</p>
+            <div className="contact-details">
+              <div className="contact-item">
+                <span className="label">Ufficio</span>
+                <p>Roma, Via dei Fori Imperiali 12</p>
+              </div>
+              <div className="contact-item">
+                <span className="label">Contatto Diretto</span>
+                <p>+39 06 9876543 <br/> segreteria@studiocaruso.it</p>
+              </div>
             </div>
-            <div className="form-group">
-              <select required>
-                <option value="" disabled selected>Seleziona l'area di interesse *</option>
-                <option value="penale">Diritto Penale</option>
-                <option value="civile">Diritto Civile</option>
-                <option value="commerciale">Diritto Commerciale</option>
-                <option value="navigazione">Diritto della Navigazione</option>
-                <option value="altro">Altro</option>
-              </select>
-            </div>
-            <div className="form-group full-width">
-              <textarea placeholder="Descrizione sommaria preliminare del quesito" rows="4"></textarea>
-            </div>
-            <div className="form-group full-width text-center">
-              <button type="submit" className="btn btn-submit">Invia Richiesta di Prenotazione <ArrowRight size={18} style={{marginLeft: '8px', verticalAlign: 'middle'}} /></button>
-            </div>
-          </form>
+          </div>
+          <div className="booking-form-wrapper">
+            <form className="minimal-form">
+              <div className="form-row">
+                <input type="text" placeholder="Nome" required />
+                <input type="email" placeholder="Email" required />
+              </div>
+              <div className="form-row">
+                <select>
+                  <option value="" disabled selected>Seleziona l'Area Legale</option>
+                  <option>Penale</option>
+                  <option>Civile</option>
+                  <option>Commerciale</option>
+                  <option>Navigazione</option>
+                </select>
+              </div>
+              <textarea placeholder="Il tuo quesito (breve descrizione)" rows="4"></textarea>
+              <div className="consent-box">
+                <input type="checkbox" id="privacy" required />
+                <label htmlFor="privacy">Accetto il trattamento dei dati personali</label>
+              </div>
+              <button type="submit" className="btn-minimal w-full">Invia Richiesta</button>
+              <p className="disclaimer mt-3">* La prenotazione è soggetta ad accettazione dello studio.</p>
+            </form>
+          </div>
         </div>
       </section>
     </div>
