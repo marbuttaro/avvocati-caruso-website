@@ -1,0 +1,123 @@
+.page-header {
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+  padding: 8rem 0 4rem 0; /* extra top padding for fixed navbar */
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-secondary);
+}
+
+.header-subtitle {
+  font-size: 1.1rem;
+  color: #ccc;
+}
+
+.areas-section {
+  background-color: var(--color-secondary);
+}
+
+.areas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+}
+
+.area-card {
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.area-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.area-image-wrapper {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.area-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.area-card:hover .area-image {
+  transform: scale(1.1);
+}
+
+.area-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-primary);
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.area-card:hover .area-image-overlay {
+  opacity: 0.3;
+}
+
+.area-icon-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  color: var(--color-secondary);
+  background-color: rgba(26, 54, 75, 0.8);
+  padding: 1rem;
+  border-radius: 50%;
+  border: 2px solid var(--color-highlight);
+}
+
+.area-content {
+  padding: 2rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.area-title {
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.subcategories-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.subcategories-list li {
+  display: flex;
+  align-items: flex-start;
+  color: var(--color-dark);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.bullet-icon {
+  color: var(--color-highlight);
+  margin-right: 8px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}

@@ -1,0 +1,91 @@
+.team-section {
+  background-color: var(--color-secondary);
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 3rem;
+  padding: 2rem 0;
+}
+
+.team-member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.member-image-container {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  border: 4px solid #fff;
+}
+
+.member-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.member-image-container:hover .member-image {
+  transform: scale(1.05);
+}
+
+.member-bio-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(26, 54, 75, 0.95); /* Primary color slightly transparent */
+  color: var(--color-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  border-radius: 50%;
+}
+
+.member-image-container:hover .member-bio-overlay {
+  opacity: 1;
+}
+
+.bio-text {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.member-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.member-name {
+  font-size: 1.25rem;
+  color: var(--color-primary);
+  margin-bottom: 0;
+}
+
+.member-area {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-highlight);
+}
+
+.member-role {
+  font-size: 0.9rem;
+  color: var(--color-dark);
+  font-weight: 300;
+}
