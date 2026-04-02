@@ -3,7 +3,28 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight, Scale, FileText, Briefcase, Anchor } from 'lucide-react';
 import './Home.css';
 
+const fadingMessages = [
+  "Eccellenza e serietà nella tutela dei vostri diritti.",
+  "La competenza al servizio del cliente.",
+  "Soluzioni legali su misura per ogni esigenza.",
+  "Affidabilità istituzionale dal 1990."
+];
+
 const Home = () => {
+  const [currentMessageIndex, setCurrentMessageIndex] = React.useState(0);
+  const [fade, setFade] = React.useState(true);
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setFade(false);
+      setTimeout(() => {
+        setCurrentMessageIndex((prev) => (prev + 1) % fadingMessages.length);
+        setFade(true);
+      }, 500);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
   const practiceAreas = [
     { title: 'Diritto Penale', icon: <Scale />, link: '/aree-competenza#penale' },
     { title: 'Diritto Civile', icon: <FileText />, link: '/aree-competenza#civile' },
@@ -27,10 +48,15 @@ const Home = () => {
               <span className="accent-text italic">Caruso</span>
             </h1>
             <div className="hero-bottom-grid">
-              <p className="hero-description">
-                Eccellenza, proattività e serietà nella tutela dei vostri diritti. 
-                Un approccio sartoriale per ogni sfida legale.
-              </p>
+              <div className="hero-description-container">
+                <p className={`hero-description ${fade ? 'fade-in' : 'fade-out'}`}>
+                  {fadingMessages[currentMessageIndex]}
+                </p>
+                <div className="hero-subtext">
+                  Eccellenza, proattività e serietà nella tutela dei vostri diritti. 
+                  Un approccio sartoriale per ogni sfida legale.
+                </div>
+              </div>
               <motion.div 
                 whileHover={{ scale: 1.05 }}
                 className="hero-cta-circle"

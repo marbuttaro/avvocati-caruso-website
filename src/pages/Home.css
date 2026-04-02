@@ -34,10 +34,36 @@
   margin-top: 2rem;
 }
 
-.hero-description {
+.hero-description-container {
   max-width: 450px;
-  font-size: 1.1rem;
-  margin: 0;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.hero-description {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.8rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.hero-description.fade-in {
+  opacity: 1;
+}
+
+.hero-description.fade-out {
+  opacity: 0;
+}
+
+.hero-subtext {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  opacity: 0.8;
+  line-height: 1.4;
 }
 
 .hero-cta-circle {
