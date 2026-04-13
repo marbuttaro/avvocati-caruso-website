@@ -1,29 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* OKLCH Color Palette - Perceptually Uniform */
-  --bg-primary: oklch(98% 0.01 64); /* Warm paper / Off-white */
-  --bg-secondary: oklch(94% 0.02 64);
-  --text-primary: oklch(25% 0.03 260); /* Deep Slate */
-  --text-secondary: oklch(45% 0.02 260);
-  --accent: oklch(65% 0.14 45); /* Rich Terra Cotta / Muted Gold */
-  --accent-dark: oklch(55% 0.12 45);
+  /* Figma Palette */
+  --color-cream: #EAE3D3;
+  --color-steel-blue: #5B7F9B;
+  --color-navy: #1C2E4A;
+  --color-white: #FFFFFF;
+  --color-text: #1C2E4A;
+  --color-text-muted: rgba(28, 46, 74, 0.7);
   
-  --font-serif: 'Cormorant Garamond', serif;
-  --font-sans: 'Manrope', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'Inter', sans-serif;
   
-  /* Fluid Typography with clamp() */
-  --fs-hero: clamp(3rem, 8vw + 1rem, 10rem);
-  --fs-h1: clamp(2.5rem, 5vw + 1rem, 6rem);
-  --fs-h2: clamp(2rem, 3vw + 1rem, 4rem);
-  --fs-h3: clamp(1.5rem, 2vw + 1rem, 2.5rem);
-  --fs-body: clamp(1rem, 0.5vw + 0.8rem, 1.25rem);
+  /* Fluid Typography */
+  --fs-hero-main: clamp(4rem, 10vw, 8rem);
+  --fs-hero-title: clamp(1.5rem, 3vw, 2.5rem);
+  --fs-section-title: clamp(2.5rem, 5vw, 4.5rem);
+  --fs-body: clamp(1rem, 0.5vw + 0.9rem, 1.2rem);
   
   --container-width: 1400px;
-  --spacing-fluid: clamp(2rem, 5vw, 6rem);
+  --section-padding: clamp(4rem, 8vw, 10rem);
   
-  --transition-smooth: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --transition-classic: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 * {
@@ -31,14 +29,13 @@
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  line-height: 1.5;
+  background-color: var(--color-cream);
+  color: var(--color-text);
+  line-height: 1.6;
   overflow-x: hidden;
 }
 
@@ -46,19 +43,20 @@ h1, h2, h3, h4, .serif {
   font-family: var(--font-serif);
   font-weight: 500;
   line-height: 1.1;
-  letter-spacing: -0.02em;
+}
+
+.serif-italic {
+  font-style: italic;
 }
 
 p {
   font-size: var(--fs-body);
-  font-weight: 300;
-  color: var(--text-secondary);
 }
 
 a {
   text-decoration: none;
   color: inherit;
-  transition: var(--transition-smooth);
+  transition: var(--transition-classic);
 }
 
 .container {
@@ -68,87 +66,41 @@ a {
 }
 
 .section-padding {
-  padding: var(--spacing-fluid) 0;
+  padding: var(--section-padding) 0;
 }
 
-/* Editorial Layout Utilities */
-.split-layout {
-  display: flex;
-  justify-content: space-between;
-  gap: 4rem;
-  flex-wrap: wrap;
-}
-
-.asymmetric-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 1rem;
-}
-
-.btn-minimal {
-  padding: 1rem 2rem;
-  border: 1px solid var(--text-primary);
-  background: transparent;
-  font-family: var(--font-sans);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 0.8rem;
+/* Button Figma Style */
+.btn-navy {
+  padding: 1.25rem 3rem;
+  background-color: var(--color-navy);
+  color: var(--color-white);
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  border: none;
   cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: var(--transition-smooth);
+  transition: transform 0.3s, background-color 0.3s;
+  display: inline-block;
 }
 
-.btn-minimal:hover {
-  background: var(--text-primary);
-  color: var(--bg-primary);
+.btn-navy:hover {
+  background-color: #2a4163;
+  transform: translateY(-2px);
 }
 
-.btn-minimal::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.4s var(--ease-out-expo);
+/* Grid Layouts */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
 }
 
-.btn-minimal:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
+@media (max-width: 992px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
 }
 
-/* Scroll Animation Utilities */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 1s var(--ease-out-expo), transform 1s var(--ease-out-expo);
-}
-
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-primary);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--text-secondary);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent);
-}
+/* Base Utility Classes */
+.bg-cream { background-color: var(--color-cream); }
+.bg-blue { background-color: var(--color-steel-blue); }
+.bg-navy { background-color: var(--color-navy); color: var(--color-white); }

@@ -11,7 +11,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -21,39 +21,40 @@ const Navbar = () => {
     setIsOpen(false);
   }, [location.pathname]);
 
+  const isHome = location.pathname === '/';
+
   return (
-    <nav className={`navbar-v2 ${scrolled ? 'scrolled' : ''}`}>
-      <div className="container nav-v2-container">
-        <Link to="/" className="brand-v2">
-          <span className="serif italic">Caruso</span> <span className="sans">Legal</span>
+    <nav className={`navbar-v3 ${scrolled ? 'scrolled' : ''} ${!isHome && !scrolled ? 'page-style' : ''}`}>
+      <div className="container nav-v3-container">
+        <Link to="/" className="brand-v3-new">
+          <span className="serif">Caruso</span>
         </Link>
         
-        <div className="nav-v2-desktop">
-          <Link to="/" className={location.pathname === '/' ? 'active' : ''}>Protagonisti</Link>
+        <div className="nav-v3-links">
+          <Link to="/" className={location.pathname === '/' ? 'active' : ''}>Lo studio</Link>
           <Link to="/aree-competenza" className={location.pathname === '/aree-competenza' ? 'active' : ''}>Competenze</Link>
-          <Link to="/team" className={location.pathname === '/team' ? 'active' : ''}>Team</Link>
-          <a href="#contatti" className="nav-cta-btn">Prenota</a>
+          <Link to="/team" className={location.pathname === '/team' ? 'active' : ''}>I professionisti</Link>
+          <a href="#contatti" className="nav-cta-v3">Contatti</a>
         </div>
 
-        <button className="mobile-toggle-v2" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        <button className="mobile-toggle-v3" onClick={() => setIsOpen(!isOpen)}>
+          {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
 
       <AnimatePresence>
         {isOpen && (
           <motion.div 
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="mobile-menu-v2"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="mobile-menu-v3"
           >
-            <div className="mobile-links-v2">
-              <Link to="/">Protagonisti</Link>
+            <div className="mobile-links-v3">
+              <Link to="/">Lo studio</Link>
               <Link to="/aree-competenza">Competenze</Link>
-              <Link to="/team">Team</Link>
-              <Link to="#contatti" className="mobile-cta-v2">Prenota</Link>
+              <Link to="/team">I professionisti</Link>
+              <a href="#contatti">Contatti</a>
             </div>
           </motion.div>
         )}

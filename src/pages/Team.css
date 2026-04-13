@@ -1,107 +1,56 @@
-.team-v2 {
+.team-v3-page {
   padding-top: 5rem;
+  color: var(--color-white);
 }
 
-.team-header {
-  background-color: var(--bg-primary);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
+.text-white { color: var(--color-white) !important; }
 
-.team-grid-section {
-  background-color: var(--bg-primary);
-}
-
-.team-v2-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 5rem 3rem;
-  padding: 4rem 0;
-}
-
-.team-v2-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  cursor: pointer;
-}
-
-.team-v2-image-wrapper {
-  position: relative;
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-bottom: 2rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: var(--bg-secondary);
-}
-
-.team-v2-img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  display: block !important;
-}
-
-.team-v2-bio-overlay {
+.prof-bio-overlay-v3 {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--text-primary);
-  color: var(--bg-primary);
+  background-color: var(--color-navy);
+  color: var(--color-cream);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem;
   z-index: 10;
+  text-align: center;
 }
 
-.team-v2-bio-text {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  font-weight: 300;
-  color: var(--bg-secondary);
-  margin: 0;
+.prof-bio-text-v3 {
+  font-size: 1.1rem;
+  line-height: 1.5;
 }
 
-.team-v2-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.figma-frame {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
-.team-v2-name {
-  font-size: 1.5rem;
-  color: var(--text-primary);
-  font-weight: 600;
+.prof-info-v3 {
+  margin-top: 1.5rem;
+  text-align: left;
 }
 
-.team-v2-area {
-  font-size: 0.9rem;
-  color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-weight: 700;
+.prof-name-v3 {
+  font-size: 1.6rem;
 }
 
-.team-v2-role {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  font-weight: 300;
-  font-style: italic;
+.prof-role-v3 {
+  opacity: 0.8;
+  margin-top: 0.25rem;
 }
 
-.join-team {
-  background-color: var(--bg-secondary);
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+.join-team-v3 {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 @media (max-width: 768px) {
-  .team-v2-image-wrapper {
-    width: 200px;
-    height: 200px;
+  .team-header-v3 {
+    padding-top: 6rem;
   }
 }
