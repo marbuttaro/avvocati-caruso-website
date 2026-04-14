@@ -99,8 +99,8 @@
   transition: transform 0.4s;
 }
 
-.prof-card-v3:hover {
-  transform: translateY(-10px);
+.prof-card-v3 {
+  /* Only tilt and scale effects now handled by TiltedCard */
 }
 
 .prof-img-wrapper {
@@ -143,6 +143,24 @@
   height: 1px;
   background-color: var(--color-navy);
   opacity: 0.15;
+}
+
+.staggered-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.stagger-1 { width: 40%; margin-left: 0; }
+.stagger-2 { width: 40%; margin-left: 15%; }
+.stagger-3 { width: 40%; margin-left: 30%; }
+.stagger-4 { width: 40%; margin-left: 45%; }
+.stagger-5 { width: 40%; margin-left: 60%; }
+
+@media (max-width: 992px) {
+  .stagger-1, .stagger-2, .stagger-3, .stagger-4, .stagger-5 {
+    width: 100%;
+    margin-left: 0;
+  }
 }
 
 .area-content-v3 {

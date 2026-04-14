@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import TiltedCard from '../components/TiltedCard/TiltedCard';
+import ImageTrail from '../components/ImageTrail/ImageTrail';
 import './Home.css';
 
 const Home = () => {
@@ -83,12 +84,12 @@ const Home = () => {
                     containerWidth="100%"
                     imageHeight="100%"
                     imageWidth="100%"
-                    rotateAmplitude={12}
-                    scaleOnHover={1.05}
+                    rotateAmplitude={18}
+                    scaleOnHover={1.2}
                     showMobileWarning={false}
                     showTooltip={false}
                     displayOverlayContent={false}
-                    imageStyle={i === 3 ? { transform: 'scale(1.6)', transformOrigin: '50% 15%' } : {}}
+                    imageStyle={i === 3 ? { transform: 'scale(1.8)', transformOrigin: 'center 40%' } : {}}
                   />
                 </div>
                 <div className="prof-info-v3">
@@ -104,25 +105,27 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Aree di Competenza Preview */}
-      <section className="areas-preview section-padding bg-cream">
+      {/* Aree di Competenza Preview FIGMA STYLE */}
+      <section className="areas-preview section-padding bg-cream overflow-hidden">
         <div className="container">
-          <div className="areas-list-v3">
+          <div className="areas-list-v3 staggered-layout">
             {[
-              { id: '01', title: 'Diritto Penale' },
-              { id: '02', title: 'Diritto Civile' },
-              { id: '03', title: 'Diritto Commerciale' },
-              { id: '04', title: 'Diritto della Navigazione' },
-              { id: '05', title: 'Compliance 231' }
+              { id: '01', title: 'Diritto Penale', img: '/assets/services/scott-graham-OQMZwNd3ThU-unsplash.jpg' },
+              { id: '02', title: 'Diritto Civile', img: '/assets/services/close-up-businesswoman-joining-team.jpg' },
+              { id: '03', title: 'Diritto Commerciale', img: '/assets/services/close-up-businessman-signing-lease-agreement-carcreated-with-generative-ai-technology.jpg' },
+              { id: '04', title: 'Diritto della Navigazione', img: '/assets/services/gaetan-marceau-caron-BEKde68fePU-unsplash.jpg' },
+              { id: '05', title: 'Compliance 231', img: '/assets/services/carrie-allen-www-carrieallen-com-1H1LBKvD7ew-unsplash.jpg' }
             ].map((area, i, arr) => (
-              <div key={i} className="area-item-v3">
-                <div className="area-line-top"></div>
-                <div className="area-content-v3">
-                  <span className="area-id serif">{area.id}</span>
-                  <h3 className="area-title-v3 serif">{area.title}</h3>
-                  <ArrowUpRight className="area-arrow" size={32} />
-                </div>
-                {i === arr.length - 1 && <div className="area-line-bottom"></div>}
+              <div key={i} className={`area-item-v3 stagger-${i + 1}`}>
+                <ImageTrail items={Array(10).fill(area.img)} variant={1}>
+                  <div className="area-line-top"></div>
+                  <div className="area-content-v3">
+                    <span className="area-id serif">{area.id}</span>
+                    <h3 className="area-title-v3 serif">{area.title}</h3>
+                    <ArrowUpRight className="area-arrow" size={32} />
+                  </div>
+                  {i === arr.length - 1 && <div className="area-line-bottom"></div>}
+                </ImageTrail>
               </div>
             ))}
           </div>
