@@ -68,18 +68,22 @@ const Home = () => {
       <section className="professionals-preview section-padding bg-blue overflow-hidden">
         <div className="container relative">
           <div className="prof-header-row">
-            <SplitText 
-              text="I professionisti" 
-              className="section-title-v3-large serif-italic text-white" 
-              delay={0.08}
-            />
+            <motion.h2 
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="section-title-v3-large serif-italic text-white"
+            >
+              I professionisti
+            </motion.h2>
           </div>
           <div className="prof-grid-v3">
             {[
               { name: 'Avv. Alfredo Caruso', role: 'Avvocato penalista', img: '/assets/prof-mario.jpg' },
               { name: 'Avv. Alfredo Caruso', role: 'Avvocato penalista', img: '/assets/prof-luca.jpg' },
               { name: 'Avv. Alfredo Caruso', role: 'Avvocato penalista', img: '/assets/prof-giulia.jpg' },
-              { name: 'Avv. Alfredo Caruso', role: 'Avvocato penalista', img: '/assets/portrait-smile-business-man-with-confidence-pride-corporate-career-office-face-arms-crossed-happy-professional-lawyer-attorney-employee-suit-company-australia.jpg' }
+              { name: 'Avv. Alfredo Caruso', role: 'Avvocato penalista', img: '/assets/prof-last.png' }
             ].map((prof, i) => (
               <div key={i} className="prof-card-v3">
                 <div className="prof-img-wrapper">
@@ -92,7 +96,7 @@ const Home = () => {
                     imageHeight="100%"
                     imageWidth="100%"
                     rotateAmplitude={18}
-                    scaleOnHover={1.2}
+                    scaleOnHover={1}
                     showMobileWarning={false}
                     showTooltip={false}
                     displayOverlayContent={false}
@@ -124,7 +128,7 @@ const Home = () => {
               { id: '05', title: 'Compliance 231', img: '/assets/services/carrie-allen-www-carrieallen-com-1H1LBKvD7ew-unsplash.jpg' }
             ].map((area, i, arr) => (
               <div key={i} className={`area-item-v3 stagger-${i + 1}`}>
-                <ImageTrail items={Array(10).fill(area.img)} variant={1}>
+                <ImageTrail items={[area.img]} variant={1}>
                   <div className="area-line-top"></div>
                   <div className="area-content-v3">
                     <span className="area-id serif">{area.id}</span>

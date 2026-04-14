@@ -1045,6 +1045,31 @@ class ImageTrailVariant8 {
   }
 }
 
+class SingleImageHover {
+  constructor(container) {
+    this.container = container;
+    this.img = container.querySelector('.content__img');
+    if (!this.img) return;
+    
+    const handleMove = (ev) => {
+      const rect = container.getBoundingClientRect();
+      const x = ev.clientX - rect.left;
+      const y = ev.clientY - rect.top;
+      gsap.to(this.img, {
+        duration: 0.5,
+        opacity: 1,
+        x: x - (this.img.offsetWidth / 2),
+        y: y - (this.img.offsetHeight / 2),
+        ease: 'power3.out'
+      });
+    };
+
+    container.addEventListener('mousemove', handleMove);
+    container.addEventListener('mouseenter', () => gsap.to(this.img, { opacity: 1, duration: 0.3 }));
+    container.addEventListener('mouseleave', () => gsap.to(this.img, { opacity: 0, duration: 0.3 }));
+  }
+}
+
 const variantMap = {
   1: ImageTrailVariant1,
   2: ImageTrailVariant2,
@@ -1053,7 +1078,8 @@ const variantMap = {
   5: ImageTrailVariant5,
   6: ImageTrailVariant6,
   7: ImageTrailVariant7,
-  8: ImageTrailVariant8
+  8: ImageTrailVariant8,
+  'single': SingleImageHover
 };
 
 export default function ImageTrail({ items = [], variant = 1, children }) {
@@ -1062,7 +1088,8 @@ export default function ImageTrail({ items = [], variant = 1, children }) {
   useEffect(() => {
     if (!containerRef.current) return;
 
-    const Cls = variantMap[variant] || variantMap[1];
+    const useVariant = items.length === 1 ? 'single' : variant;
+    const Cls = variantMap[useVariant] || variantMap[1];
     new Cls(containerRef.current);
   }, [variant, items]);
 
