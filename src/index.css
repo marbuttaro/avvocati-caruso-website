@@ -71,20 +71,22 @@ a {
 
 /* Button Figma Style */
 .btn-navy {
-  padding: 1.25rem 3rem;
+  padding: 0.8rem 2.5rem;
   background-color: var(--color-navy);
-  color: var(--color-white);
+  color: var(--color-cream);
   font-family: var(--font-serif);
   font-size: 1.2rem;
   border: none;
+  border-radius: 15px; /* Pronounced rounding as requested */
   cursor: pointer;
-  transition: transform 0.3s, background-color 0.3s;
+  transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
   display: inline-block;
 }
 
 .btn-navy:hover {
   background-color: #2a4163;
   transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(28, 46, 74, 0.2);
 }
 
 /* Grid Layouts */

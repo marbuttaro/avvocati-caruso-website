@@ -190,14 +190,21 @@
 }
 
 .btn-navy-light {
-  padding: 1rem 2rem;
+  padding: 0.8rem 2.2rem;
   background-color: var(--color-steel-blue);
   color: var(--color-white);
   border: none;
+  border-radius: 12px;
   font-family: var(--font-serif);
   font-size: 1.1rem;
   cursor: pointer;
   align-self: flex-start;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.btn-navy-light:hover {
+  background-color: #4a6a84;
+  transform: translateY(-2px);
 }
 
 .link-more {
