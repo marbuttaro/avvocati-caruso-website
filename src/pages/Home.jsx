@@ -10,7 +10,7 @@ const Home = () => {
       <section className="hero-v3">
         <div className="hero-v3-bg">
           <img src="/assets/hero-main.jpg" alt="Legal Excellence" />
-          <div className="hero-v3-overlay"></div>
+          <img src="/assets/overlay.svg" alt="" className="hero-v3-overlay-img" />
         </div>
         <div className="container hero-v3-content">
           <div className="hero-v3-left">
@@ -21,7 +21,7 @@ const Home = () => {
               className="hero-v3-main-title"
             >
               <span className="serif">Studio Legale</span><br />
-              <span className="serif-bold">CARUSO</span>
+              <span className="caruso-light">CARUSO</span>
             </motion.h1>
           </div>
           <div className="hero-v3-right">
@@ -32,7 +32,7 @@ const Home = () => {
               className="hero-v3-tagline-box"
             >
               <p className="hero-v3-tagline serif">
-                Eccellenza e serietà nella tutela dei vostri diritti.
+                Eccellenza e serietà nella<br />tutela dei vostri diritti.
               </p>
               <button className="btn-navy mt-4">Contatta lo studio</button>
             </motion.div>
