@@ -190,13 +190,13 @@
 }
 
 .btn-navy-light {
-  padding: 0.8rem 2.2rem;
+  padding: 0.8rem 21px;
   background-color: var(--color-steel-blue);
   color: var(--color-white);
   border: none;
-  border-radius: 12px;
-  font-family: var(--font-serif);
-  font-size: 1.1rem;
+  border-radius: 9px;
+  font-family: var(--font-button);
+  font-size: 1.2rem;
   cursor: pointer;
   align-self: flex-start;
   transition: transform 0.3s, background-color 0.3s;

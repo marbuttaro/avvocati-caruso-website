@@ -55,13 +55,14 @@
 }
 
 .nav-cta-v3 {
-  padding: 0.6rem 2rem !important;
+  padding: 0.6rem 21px !important;
   background-color: var(--color-navy);
   color: var(--color-cream) !important;
-  border-radius: 12px;
+  border-radius: 9px;
   opacity: 1 !important;
   font-style: normal !important;
-  font-family: var(--font-serif);
+  font-family: var(--font-button);
+  font-size: 1.1rem;
 }
 
 .mobile-toggle-v3 {

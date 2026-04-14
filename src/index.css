@@ -1,5 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap');
 
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('/fonts/InstrumentSerif-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('/fonts/InstrumentSerif-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
 :root {
   /* Figma Palette */
   --color-cream: #EAE3D3;
@@ -11,6 +25,9 @@
   
   --font-serif: 'Playfair Display', serif;
   --font-sans: 'Inter', sans-serif;
+  --font-button: 'Instrument Serif', serif;
+  
+  --color-footer: #10202C;
   
   /* Fluid Typography */
   --fs-hero-main: clamp(4rem, 10vw, 8rem);
@@ -71,13 +88,13 @@ a {
 
 /* Button Figma Style */
 .btn-navy {
-  padding: 0.8rem 2.5rem;
+  padding: 0.8rem 21px;
   background-color: var(--color-navy);
   color: var(--color-cream);
-  font-family: var(--font-serif);
-  font-size: 1.2rem;
+  font-family: var(--font-button);
+  font-size: 1.3rem; /* Slightly larger for Instrument Serif visibility */
   border: none;
-  border-radius: 15px; /* Pronounced rounding as requested */
+  border-radius: 9px;
   cursor: pointer;
   transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
   display: inline-block;
@@ -106,3 +123,4 @@ a {
 .bg-cream { background-color: var(--color-cream); }
 .bg-blue { background-color: var(--color-steel-blue); }
 .bg-navy { background-color: var(--color-navy); color: var(--color-white); }
+.bg-footer { background-color: var(--color-footer); color: var(--color-white); }
