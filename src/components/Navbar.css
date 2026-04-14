@@ -54,6 +54,11 @@
   opacity: 1;
 }
 
+.navbar-v3.scrolled .nav-v3-links a,
+.navbar-v3.page-style .nav-v3-links a {
+  color: #183144;
+}
+
 .nav-cta-v3 {
   padding: 4px 21px !important;
   background-color: var(--color-navy);
@@ -69,8 +74,13 @@
   display: none;
   background: none;
   border: none;
-  color: var(--color-navy);
+  color: #E9E2D2;
   cursor: pointer;
+}
+
+.navbar-v3.scrolled .mobile-toggle-v3,
+.navbar-v3.page-style .mobile-toggle-v3 {
+  color: #183144;
 }
 
 .mobile-menu-v3 {
