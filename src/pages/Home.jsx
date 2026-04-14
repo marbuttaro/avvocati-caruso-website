@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
+import TiltedCard from '../components/TiltedCard/TiltedCard';
 import './Home.css';
 
 const Home = () => {
@@ -74,10 +75,20 @@ const Home = () => {
             ].map((prof, i) => (
               <div key={i} className="prof-card-v3">
                 <div className="prof-img-wrapper">
-                  <img 
-                    src={prof.img} 
-                    alt={prof.name} 
-                    style={i === 3 ? { transform: 'scale(1.6)', transformOrigin: '50% 15%' } : {}}
+                  <TiltedCard
+                    imageSrc={prof.img}
+                    altText={prof.name}
+                    captionText={prof.name}
+                    containerHeight="100%"
+                    containerWidth="100%"
+                    imageHeight="100%"
+                    imageWidth="100%"
+                    rotateAmplitude={12}
+                    scaleOnHover={1.05}
+                    showMobileWarning={false}
+                    showTooltip={false}
+                    displayOverlayContent={false}
+                    imageStyle={i === 3 ? { transform: 'scale(1.6)', transformOrigin: '50% 15%' } : {}}
                   />
                 </div>
                 <div className="prof-info-v3">

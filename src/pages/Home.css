@@ -186,7 +186,8 @@
   justify-content: space-between;
   align-items: stretch;
   gap: 3rem;
-  padding: 2rem 0;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .contact-info-figma {
