@@ -43,7 +43,7 @@
 
 .nav-v3-links a {
   font-family: var(--font-serif);
-  font-size: 24pt;
+  font-size: 24px;
   font-style: italic;
   color: #E9E2D2;
   opacity: 0.75;
@@ -55,14 +55,14 @@
 }
 
 .nav-cta-v3 {
-  padding: 0.6rem 21px !important;
+  padding: 8px 21px !important;
   background-color: var(--color-navy);
   color: var(--color-cream) !important;
   border-radius: 9px;
   opacity: 1 !important;
   font-style: normal !important;
   font-family: var(--font-button);
-  font-size: 1.1rem;
+  font-size: 36px;
 }
 
 .mobile-toggle-v3 {

@@ -46,7 +46,7 @@
 
 .hero-v3-main-title {
   font-family: var(--font-button); /* Instrument Serif */
-  font-size: 82pt; /* As specified */
+  font-size: 82px; /* As specified */
   color: var(--color-white);
   line-height: 0.9;
   font-weight: 400;
@@ -201,13 +201,13 @@
 }
 
 .btn-navy-light {
-  padding: 0.8rem 21px;
+  padding: 8px 21px;
   background-color: var(--color-steel-blue);
   color: var(--color-white);
   border: none;
   border-radius: 9px;
   font-family: var(--font-button);
-  font-size: 1.2rem;
+  font-size: 36px;
   cursor: pointer;
   align-self: flex-start;
   transition: transform 0.3s, background-color 0.3s;

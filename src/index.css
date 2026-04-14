@@ -107,11 +107,11 @@ a {
 
 /* Button Figma Style */
 .btn-navy {
-  padding: 0.8rem 21px;
+  padding: 8px 21px;
   background-color: var(--color-navy);
   color: var(--color-cream);
   font-family: var(--font-button);
-  font-size: 1.3rem; /* Slightly larger for Instrument Serif visibility */
+  font-size: 36px;
   border: none;
   border-radius: 9px;
   cursor: pointer;
