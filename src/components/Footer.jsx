@@ -7,8 +7,8 @@ const Footer = () => {
       <div className="container footer-v3-inner">
         <div className="footer-v3-main">
           <div className="footer-v3-brand">
-            <h2 className="serif text-white">Caruso</h2>
-            <p className="mt-3 opacity-60">Eccellenza legale, rigore professionale e innovazione strategica dal 1990.</p>
+            <img src="/assets/logo-completo.svg" alt="Studio Legale Caruso" className="footer-logo-img" />
+            <p className="mt-4 opacity-60">Eccellenza legale, rigore professionale e innovazione strategica dal 1990.</p>
           </div>
           
           <div className="footer-v3-grid">

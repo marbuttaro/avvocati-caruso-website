@@ -27,7 +27,7 @@ const Navbar = () => {
     <nav className={`navbar-v3 ${scrolled ? 'scrolled' : ''} ${!isHome && !scrolled ? 'page-style' : ''}`}>
       <div className="container nav-v3-container">
         <Link to="/" className="brand-v3-new">
-          <span className="serif">Caruso</span>
+          <img src="/assets/logotipo.svg" alt="Studio Legale Caruso" className="logo-img" />
         </Link>
         
         <div className="nav-v3-links">

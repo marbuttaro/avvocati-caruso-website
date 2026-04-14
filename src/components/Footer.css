@@ -16,12 +16,13 @@
 }
 
 .footer-v3-brand {
-  flex-basis: 300px;
+  flex-basis: 350px;
 }
 
-.footer-v3-brand h2 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+.footer-logo-img {
+  height: 80px; /* Larger logo for the footer */
+  width: auto;
+  filter: brightness(0) invert(1); /* Ensure it's white on navy if not already */
 }
 
 .footer-v3-grid {
