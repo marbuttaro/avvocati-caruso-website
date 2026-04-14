@@ -1056,7 +1056,7 @@ const variantMap = {
   8: ImageTrailVariant8
 };
 
-export default function ImageTrail({ items = [], variant = 1 }) {
+export default function ImageTrail({ items = [], variant = 1, children }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -1073,6 +1073,7 @@ export default function ImageTrail({ items = [], variant = 1 }) {
           <div className="content__img-inner" style={{ backgroundImage: `url(${url})` }} />
         </div>
       ))}
+      {children}
     </div>
   );
 }

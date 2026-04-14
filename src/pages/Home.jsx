@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import TiltedCard from '../components/TiltedCard/TiltedCard';
 import ImageTrail from '../components/ImageTrail/ImageTrail';
+import SplitText from '../components/SplitText/SplitText';
 import './Home.css';
 
 const Home = () => {
@@ -63,10 +64,16 @@ const Home = () => {
         </div>
       </section>
 
-      {/* I Professionisti Preview */}
-      <section className="professionals-preview section-padding bg-blue">
-        <div className="container">
-          <h2 className="section-title-v3 serif-italic text-white mb-5">I professionisti</h2>
+      {/* I Professionisti Preview FIGMA STYLE */}
+      <section className="professionals-preview section-padding bg-blue overflow-hidden">
+        <div className="container relative">
+          <div className="prof-header-row">
+            <SplitText 
+              text="I professionisti" 
+              className="section-title-v3-large serif-italic text-white" 
+              delay={0.08}
+            />
+          </div>
           <div className="prof-grid-v3">
             {[
               { name: 'Avv. Alfredo Caruso', role: 'Avvocato penalista', img: '/assets/prof-mario.jpg' },
@@ -99,8 +106,8 @@ const Home = () => {
               </div>
             ))}
           </div>
-          <div className="text-center mt-5">
-            <a href="/team" className="link-more serif-italic">Vedi tutto il team →</a>
+          <div className="text-center mt-12">
+            <a href="/team" className="btn-pill-navy serif">Scopri il nostro Team</a>
           </div>
         </div>
       </section>
