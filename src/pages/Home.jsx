@@ -74,7 +74,11 @@ const Home = () => {
             ].map((prof, i) => (
               <div key={i} className="prof-card-v3">
                 <div className="prof-img-wrapper">
-                  <img src={prof.img} alt={prof.name} />
+                  <img 
+                    src={prof.img} 
+                    alt={prof.name} 
+                    style={i === 3 ? { objectPosition: 'center top', transform: 'scale(1.2)' } : {}}
+                  />
                 </div>
                 <div className="prof-info-v3">
                   <h4 className="prof-name-v3 serif">{prof.name}</h4>
@@ -97,8 +101,9 @@ const Home = () => {
               { id: '01', title: 'Diritto Penale' },
               { id: '02', title: 'Diritto Civile' },
               { id: '03', title: 'Diritto Commerciale' },
-              { id: '04', title: 'Diritto della Navigazione' }
-            ].map((area, i) => (
+              { id: '04', title: 'Diritto della Navigazione' },
+              { id: '05', title: 'Compliance 231' }
+            ].map((area, i, arr) => (
               <div key={i} className="area-item-v3">
                 <div className="area-line-top"></div>
                 <div className="area-content-v3">
@@ -106,12 +111,9 @@ const Home = () => {
                   <h3 className="area-title-v3 serif">{area.title}</h3>
                   <ArrowUpRight className="area-arrow" size={32} />
                 </div>
-                {i === 3 && <div className="area-line-bottom"></div>}
+                {i === arr.length - 1 && <div className="area-line-bottom"></div>}
               </div>
             ))}
-          </div>
-          <div className="text-center mt-5">
-            <a href="/aree-competenza" className="link-more serif-italic">Esplora tutte le competenze →</a>
           </div>
         </div>
       </section>
