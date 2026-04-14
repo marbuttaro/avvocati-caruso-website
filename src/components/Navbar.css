@@ -31,7 +31,7 @@
 }
 
 .logo-img {
-  height: 40px; /* Adjust based on SVG proportions */
+  height: 64px; /* Proportional to Figma design */
   width: auto;
 }
 
