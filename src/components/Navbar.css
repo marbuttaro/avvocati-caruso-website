@@ -3,13 +3,14 @@
   top: 0;
   left: 0;
   width: 100%;
-  padding: 2.5rem 0;
+  height: 96px;
+  display: flex;
+  align-items: center;
   z-index: 1000;
   transition: all 0.5s var(--transition-classic);
 }
 
 .navbar-v3.scrolled {
-  padding: 1.25rem 0;
   background-color: rgba(234, 227, 211, 0.95);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(28, 46, 74, 0.1);
@@ -31,7 +32,7 @@
 }
 
 .logo-img {
-  height: 64px; /* Proportional to Figma design */
+  height: 56px; /* As specified */
   width: auto;
 }
 

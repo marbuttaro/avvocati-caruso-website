@@ -70,7 +70,7 @@ const Home = () => {
               { name: 'Avv. Alfredo Caruso', role: 'Avvocato penalista', img: '/assets/prof-mario.jpg' },
               { name: 'Avv. Alfredo Caruso', role: 'Avvocato penalista', img: '/assets/prof-luca.jpg' },
               { name: 'Avv. Alfredo Caruso', role: 'Avvocato penalista', img: '/assets/prof-giulia.jpg' },
-              { name: 'Avv. Alfredo Caruso', role: 'Avvocato penalista', img: '/assets/prof-elena.jpg' }
+              { name: 'Avv. Alfredo Caruso', role: 'Avvocato penalista', img: '/assets/portrait-smile-business-man-with-confidence-pride-corporate-career-office-face-arms-crossed-happy-professional-lawyer-attorney-employee-suit-company-australia.jpg' }
             ].map((prof, i) => (
               <div key={i} className="prof-card-v3">
                 <div className="prof-img-wrapper">
