@@ -89,9 +89,16 @@ a {
 }
 
 .container {
-  width: 90%;
+  width: 100%;
   max-width: var(--container-width);
   margin: 0 auto;
+  padding: 0 88px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 24px;
+  }
 }
 
 .section-padding {
