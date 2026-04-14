@@ -107,7 +107,7 @@ a {
 
 /* Button Figma Style */
 .btn-navy {
-  padding: 8px 21px;
+  padding: 4px 21px;
   background-color: var(--color-navy);
   color: var(--color-cream);
   font-family: var(--font-button);

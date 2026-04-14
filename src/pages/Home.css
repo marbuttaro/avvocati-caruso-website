@@ -54,6 +54,7 @@
 
 .caruso-light {
   font-family: 'Instrument Serif', serif;
+  font-size: 155px;
   font-weight: 400;
   font-style: normal;
   letter-spacing: 0.01em;
@@ -74,6 +75,7 @@
   font-size: 1.8rem;
   color: var(--color-white); /* High contrast on dark overlay */
   line-height: 1.2;
+  margin-bottom: 2rem; /* Added spacing from button */
 }
 
 /* Studio Section */
@@ -201,7 +203,7 @@
 }
 
 .btn-navy-light {
-  padding: 8px 21px;
+  padding: 4px 21px;
   background-color: var(--color-steel-blue);
   color: var(--color-white);
   border: none;
