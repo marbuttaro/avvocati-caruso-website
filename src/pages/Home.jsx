@@ -120,22 +120,41 @@ const Home = () => {
 
       {/* Contacts & Footer Bridge */}
       <section className="contact-v3 section-padding bg-navy">
-        <div className="container grid-2">
-          <div className="contact-info-v3">
-            <h2 className="section-title-v3 serif-italic">Contatti</h2>
-            <p className="mt-4 opacity-70">Siamo a vostra disposizione per analizzare il vostro caso e proporvi la migliore strategia legale.</p>
-            <div className="contact-details-v3 mt-5">
-              <p className="serif-italic">Roma, Via dei Fori Imperiali 12</p>
-              <p className="serif-italic">+39 06 9876543</p>
-              <p className="serif-italic">segreteria@studiocaruso.it</p>
-            </div>
+        <div className="container contact-container-figma">
+          <div className="contact-info-figma">
+            <h2 className="serif">Hai bisogno di<br/>una consulenza<br/>legale?</h2>
+            <p className="sans">Siamo a disposizione per rispondere<br/>alle vostre esigenze legali. Compilate<br/>il modulo per richiedere un primo<br/>colloquio.</p>
           </div>
-          <div className="contact-form-v3">
-            <form className="figma-form">
-              <input type="text" placeholder="Nome e Cognome" />
-              <input type="email" placeholder="Email" />
-              <textarea placeholder="Messaggio / Quesito legale" rows="4"></textarea>
-              <button type="submit" className="btn-navy-light mt-3">Invia Richiesta</button>
+          
+          <div className="contact-divider-figma"></div>
+          
+          <div className="contact-form-figma">
+            <form className="figma-form-new">
+              <div className="form-row-2">
+                <div className="input-group">
+                  <label className="serif">Nome</label>
+                  <input type="text" placeholder="Mario" />
+                </div>
+                <div className="input-group">
+                  <label className="serif">Cognome</label>
+                  <input type="text" placeholder="Rossi" />
+                </div>
+              </div>
+              <div className="form-row-1">
+                <div className="input-group">
+                  <label className="serif">Indirizzo Mail</label>
+                  <input type="email" placeholder="mariorossi@gmail.com" />
+                </div>
+              </div>
+              <div className="form-row-1">
+                <div className="input-group">
+                  <label className="serif">Messaggio</label>
+                  <input type="text" placeholder="Scrivi qui il tuo messaggio..." />
+                </div>
+              </div>
+              <div className="form-submit-row">
+                <button type="submit" className="btn-navy-light mt-3">Contatta lo studio</button>
+              </div>
             </form>
           </div>
         </div>
