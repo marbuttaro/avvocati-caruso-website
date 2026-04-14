@@ -77,7 +77,7 @@ const Home = () => {
                   <img 
                     src={prof.img} 
                     alt={prof.name} 
-                    style={i === 3 ? { objectPosition: 'center top', transform: 'scale(1.2)' } : {}}
+                    style={i === 3 ? { transform: 'scale(1.6)', transformOrigin: '50% 15%' } : {}}
                   />
                 </div>
                 <div className="prof-info-v3">
