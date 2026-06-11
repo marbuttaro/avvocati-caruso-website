@@ -45,14 +45,32 @@
 .nav-v3-links a {
   font-family: var(--font-serif);
   font-size: 24px;
-  font-style: italic;
+  font-style: normal;
   color: #E9E2D2;
   opacity: 0.75;
   transition: opacity 0.3s;
+  position: relative;
+  padding-bottom: 3px;
 }
 
-.nav-v3-links a:hover, .nav-v3-links a.active {
+.nav-v3-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #E98D47;
+  transition: width 0.3s ease;
+}
+
+.nav-v3-links a:hover,
+.nav-v3-links a.active {
   opacity: 1;
+}
+
+.nav-v3-links a:hover::after {
+  width: 100%;
 }
 
 .navbar-v3.scrolled .nav-v3-links a,
@@ -61,14 +79,10 @@
 }
 
 .nav-cta-v3 {
-  padding: 4px 21px !important;
-  background-color: var(--color-navy);
-  color: var(--color-cream) !important;
-  border-radius: 9px;
-  opacity: 1 !important;
-  font-style: normal !important;
-  font-family: var(--font-button);
-  font-size: 36px;
+  background: none;
+  border-radius: 0;
+  padding: 0;
+  padding-bottom: 3px;
 }
 
 .mobile-toggle-v3 {

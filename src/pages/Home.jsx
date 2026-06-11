@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import TiltedCard from '../components/TiltedCard/TiltedCard';
@@ -6,61 +6,131 @@ import ImageTrail from '../components/ImageTrail/ImageTrail';
 import SplitText from '../components/SplitText/SplitText';
 import './Home.css';
 
+const tickerItems = ['Consulenza', 'Difesa in giudizio', 'Compliance'];
+
+const services = [
+  { id: '01', title: 'Diritto Penale',           slug: '/aree-competenza' },
+  { id: '02', title: 'Diritto Civile',            slug: '/aree-competenza' },
+  { id: '03', title: 'Diritto Commerciale',       slug: '/aree-competenza' },
+  { id: '04', title: 'Diritto della Navigazione', slug: '/aree-competenza' },
+  { id: '05', title: 'Compliance 231',            slug: '/aree-competenza' },
+];
+
+function StudioSlider() {
+  const trackRef = useRef(null);
+  const [progress, setProgress] = useState(0);
+  const [hoveredIdx, setHoveredIdx] = useState(null);
+  const dragging = useRef(false);
+  const startX = useRef(0);
+  const startScroll = useRef(0);
+
+  const onScroll = useCallback(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const max = el.scrollWidth - el.clientWidth;
+    setProgress(max > 0 ? el.scrollLeft / max : 0);
+  }, []);
+
+  const onMouseDown = (e) => {
+    dragging.current = true;
+    startX.current = e.pageX;
+    startScroll.current = trackRef.current.scrollLeft;
+    trackRef.current.style.cursor = 'grabbing';
+    setHoveredIdx(null);
+  };
+
+  const onMouseMove = (e) => {
+    if (!dragging.current) return;
+    const walk = (e.pageX - startX.current) * 1.5;
+    trackRef.current.scrollLeft = startScroll.current - walk;
+  };
+
+  const stopDrag = () => {
+    dragging.current = false;
+    if (trackRef.current) trackRef.current.style.cursor = 'grab';
+  };
+
+  return (
+    <div className="studio-slider-root">
+      <div
+        ref={trackRef}
+        className="studio-slider-track"
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={stopDrag}
+        onMouseLeave={stopDrag}
+        onScroll={onScroll}
+      >
+        {services.map((svc, i) => (
+          <div
+            key={i}
+            className="studio-slide-item"
+            onMouseEnter={() => { if (!dragging.current) setHoveredIdx(i); }}
+            onMouseLeave={() => setHoveredIdx(null)}
+          >
+            <span className="slide-num">{svc.id}</span>
+            <div style={{ position: 'relative' }}>
+              <h3 className="slide-title">{svc.title}</h3>
+              <a
+                href={svc.slug}
+                className={`btn-scopri${hoveredIdx === i ? ' visible' : ''}`}
+                tabIndex={hoveredIdx === i ? 0 : -1}
+              >
+                Scopri di più
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="studio-progress-track">
+        <div className="studio-progress-bar" style={{ width: `${progress * 100}%` }} />
+      </div>
+    </div>
+  );
+}
+
 const Home = () => {
   return (
     <div className="home-v3">
-      {/* Hero Section Figma Style */}
-      <section className="hero-v3">
-        <div className="hero-v3-bg">
-          <img src="/assets/hero-main.jpg" alt="Legal Excellence" />
-          <img src="/assets/overlay.svg" alt="" className="hero-v3-overlay-img" />
-        </div>
-        <div className="container hero-v3-content">
-          <div className="hero-v3-left">
-            <motion.h1 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="hero-v3-main-title"
-            >
-              <span className="serif">Studio Legale</span><br />
-              <span className="caruso-light">CARUSO</span>
-            </motion.h1>
-          </div>
-          <div className="hero-v3-right">
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="hero-v3-tagline-box"
-            >
-              <p className="hero-v3-tagline serif">
-                Eccellenza e serietà nella<br />tutela dei vostri diritti.
-              </p>
-              <button className="btn-navy mt-4">Contatta lo studio</button>
-            </motion.div>
+      {/* Hero Section — Homepage 5 */}
+      <section className="hero-v5">
+        <img src="/assets/logotipo-watermark.svg" alt="" className="hero-v5-watermark" aria-hidden="true" />
+        <div className="hero-v5-ticker-wrap" aria-hidden="true">
+          <div className="hero-v5-ticker">
+            {[...tickerItems, ...tickerItems, ...tickerItems, ...tickerItems].map((item, i) => (
+              <React.Fragment key={i}>
+                <span className="ticker-text serif">{item}</span>
+                <img src="/assets/logotipo-orange.svg" alt="" className="ticker-sep" />
+              </React.Fragment>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Lo Studio Section */}
-      <section className="studio-section section-padding bg-cream">
-        <div className="container grid-2">
-          <div className="studio-title-col">
-            <h2 className="section-title-v3 serif-italic">Lo studio</h2>
+      <section className="studio-v5 section-padding bg-cream">
+        <div className="container">
+          <div className="studio-v5-top">
+            <div className="studio-v5-left">
+              <h2 className="studio-v5-title serif">Lo studio</h2>
+            </div>
+            <div className="studio-v5-right">
+              <p className="mb-4">
+                Fondato su decenni di esperienza, lo Studio Caruso si evolve costantemente
+                per rispondere alla complessità del panorama giuridico contemporaneo.
+                Non ci limitiamo alla consulenza: costruiamo strategie di difesa proattive.
+              </p>
+              <p>
+                Il nostro approccio unisce rigore accademico e pragmatismo operativo per risolvere
+                le sfide legali più complesse, con una dedizione particolare al dettaglio e alla
+                relazione di fiducia con il cliente.
+              </p>
+            </div>
           </div>
-          <div className="studio-text-col">
-            <p className="mb-4">
-              Fondato su decenni di esperienza, lo Studio Caruso si evolve costantemente 
-              per rispondere alla complessità del panorama giuridico contemporaneo. 
-              Non ci limitiamo alla consulenza: costruiamo strategie di difesa proattive.
-            </p>
-            <p>
-              Il nostro approccio unisce rigore accademico e pragmatismo operativo per risolvere 
-              le sfide legali più complesse, con una dedizione particolare al dettaglio e alla 
-              relazione di fiducia con il cliente.
-            </p>
-          </div>
+          <p className="studio-v5-tagline">
+            Consulenze legali<br />su misura per imprese e privati.
+          </p>
+          <StudioSlider />
         </div>
       </section>
 
