@@ -1,5 +1,6 @@
-import React, { useRef, useState, useCallback } from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef, useState, useCallback, useLayoutEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import TiltedCard from '../components/TiltedCard/TiltedCard';
 import ImageTrail from '../components/ImageTrail/ImageTrail';
@@ -9,12 +10,233 @@ import './Home.css';
 const tickerItems = ['Consulenza', 'Difesa in giudizio', 'Compliance'];
 
 const services = [
-  { id: '01', title: 'Diritto Penale',           slug: '/aree-competenza' },
+  { id: '01', title: 'Diritto Penale',           slug: '/diritto-penale' },
   { id: '02', title: 'Diritto Civile',            slug: '/aree-competenza' },
   { id: '03', title: 'Diritto Commerciale',       slug: '/aree-competenza' },
   { id: '04', title: 'Diritto della Navigazione', slug: '/aree-competenza' },
   { id: '05', title: 'Compliance 231',            slug: '/aree-competenza' },
 ];
+
+const newsItems = [
+  { id: 1, date: '8/06/2026', title: 'Via libera alla riforma forense: cambia l\'accesso alla professione legale', slug: '/news' },
+  { id: 2, date: '8/06/2026', title: 'Nuove norme sulla responsabilità d\'impresa: cosa cambia per le PMI', slug: '/news' },
+  { id: 3, date: '8/06/2026', title: 'Diritto della navigazione: aggiornamenti normativi del 2026', slug: '/news' },
+  { id: 4, date: '8/06/2026', title: 'Compliance 231: la nuova guida operativa per gli enti', slug: '/news' },
+  { id: 5, date: '8/06/2026', title: 'Riforma del processo civile: tempi più brevi per le cause commerciali', slug: '/news' },
+];
+
+const faqItems = [
+  {
+    q: 'È possibile impugnare un contratto già firmato?',
+    a: 'Sì, in determinati casi un contratto già firmato può essere impugnato per vizi del consenso, illiceità dell\'oggetto o della causa, o per mancanza dei requisiti di forma previsti dalla legge. È fondamentale agire tempestivamente, poiché i termini di prescrizione variano a seconda del tipo di vizio contestato.',
+  },
+  {
+    q: 'Quando è necessario avviare una pratica di successione?',
+    a: 'La pratica successoria deve essere avviata entro dodici mesi dal decesso del de cuius per evitare sanzioni fiscali. Include la dichiarazione di successione, la valutazione dei beni ereditari e, se necessario, la rinuncia all\'eredità in caso di debiti superiori all\'attivo.',
+  },
+  {
+    q: 'Quali vantaggi offre una consulenza legale preventiva per le imprese?',
+    a: 'La consulenza preventiva consente di individuare e gestire i rischi prima che si trasformino in controversie. Attraverso l\'analisi di contratti, assetti societari, procedure aziendali e profili di compliance, è possibile ridurre costi, responsabilità e potenziali contenziosi futuri.',
+  },
+  {
+    q: 'Come tutelarsi in caso di controversia commerciale?',
+    a: 'In presenza di una controversia commerciale è opportuno raccogliere tutta la documentazione contrattuale e le comunicazioni intercorse, procedere con una messa in mora formale e valutare se ricorrere alla mediazione obbligatoria o all\'azione giudiziale, in base all\'entità del danno e ai tempi stimati.',
+  },
+];
+
+const professionals = [
+  {
+    id: 0, prefix: 'Avv.', name: 'Alessandro Caruso',
+    img: '/assets/prof-mario.jpg',
+    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
+  },
+  {
+    id: 1, prefix: 'Avv.', name: 'Marco Ferretti',
+    img: '/assets/prof-luca.jpg',
+    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
+  },
+  {
+    id: 2, prefix: 'Avv.ssa', name: 'Laura Bianchi',
+    img: '/assets/prof-giulia.jpg',
+    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
+  },
+  {
+    id: 3, prefix: 'Avv.ssa', name: 'Giulia Romano',
+    img: '/assets/prof-elena.jpg',
+    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
+  },
+];
+
+function NewsSlider() {
+  const trackRef = useRef(null);
+  const dragging = useRef(false);
+  const startX = useRef(0);
+  const startScroll = useRef(0);
+
+  const onMouseDown = (e) => {
+    dragging.current = true;
+    startX.current = e.pageX;
+    startScroll.current = trackRef.current.scrollLeft;
+    trackRef.current.style.cursor = 'grabbing';
+  };
+
+  const onMouseMove = (e) => {
+    if (!dragging.current) return;
+    const walk = (e.pageX - startX.current) * 1.5;
+    trackRef.current.scrollLeft = startScroll.current - walk;
+  };
+
+  const stopDrag = () => {
+    dragging.current = false;
+    if (trackRef.current) trackRef.current.style.cursor = 'grab';
+  };
+
+  return (
+    <div
+      ref={trackRef}
+      className="news-v5-track"
+      onMouseDown={onMouseDown}
+      onMouseMove={onMouseMove}
+      onMouseUp={stopDrag}
+      onMouseLeave={stopDrag}
+    >
+      {newsItems.map((item) => (
+        <div key={item.id} className="news-v5-card">
+          <div className="news-v5-card-header">
+            <span className="news-v5-date">{item.date}</span>
+            <div className="news-v5-header-line" />
+            <img src="/assets/logotipo-dark.svg" alt="" className="news-v5-icon" />
+          </div>
+          <h3 className="news-v5-card-title serif">{item.title}</h3>
+          <a href={item.slug} className="news-v5-link">Leggi l'articolo</a>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+const SIZE_OPACITY = { sm: 0.42, md: 0.68, lg: 1 };
+function StudioRisponde() {
+  const [openIdx, setOpenIdx] = useState(null);
+
+  const toggle = (i) => setOpenIdx(openIdx === i ? null : i);
+
+  return (
+    <section className="faq-v5">
+      <div className="faq-v5-inner">
+        <div className="faq-v5-left">
+          <h2 className="faq-v5-title serif">Lo Studio<br />risponde</h2>
+          <p className="faq-v5-subtitle">
+            Risposte chiare alle domande più frequenti su diritto penale, civile, societario e compliance.
+          </p>
+        </div>
+        <div className="faq-v5-right">
+          {faqItems.map((item, i) => (
+            <div key={i} className="faq-item" onClick={() => toggle(i)}>
+              <div className="faq-item-header">
+                <span className="faq-item-question serif">{item.q}</span>
+                <img
+                  src={openIdx === i ? '/assets/minus.svg' : '/assets/plus.svg'}
+                  alt=""
+                  className="faq-item-icon"
+                />
+              </div>
+              <AnimatePresence initial={false}>
+                {openIdx === i && (
+                  <motion.div
+                    key="answer"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    style={{ overflow: 'hidden' }}
+                  >
+                    <p className="faq-item-answer">{item.a}</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const SLIDE_EASE = [0.16, 1, 0.3, 1];
+
+function ProfessionistiSlider() {
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [dir, setDir] = useState(1);
+  const n = professionals.length;
+
+  const navigate = (d) => {
+    setDir(d);
+    setActiveIdx(i => (i + d + n) % n);
+  };
+
+  // Left→right: [sm=idx+2, md=idx+1, lg=idx]
+  // On next (+1): md grows→lg (layout), sm shifts→md (layout), old lg fades out, new sm enters from left
+  const visiblePhotos = [
+    { key: (activeIdx + 2) % n, prof: professionals[(activeIdx + 2) % n], size: 'sm' },
+    { key: (activeIdx + 1) % n, prof: professionals[(activeIdx + 1) % n], size: 'md' },
+    { key: activeIdx,            prof: professionals[activeIdx],            size: 'lg' },
+  ];
+
+  const active = professionals[activeIdx];
+
+  return (
+    <section className="prof-v5">
+      <div className="prof-v5-layout">
+        <div className="prof-v5-left">
+          <h2 className="prof-v5-title serif">I professionisti</h2>
+          <div className="prof-v5-photos">
+            <AnimatePresence mode="popLayout" initial={false}>
+              {visiblePhotos.map(({ key, prof, size }) => (
+                <motion.div
+                  key={key}
+                  layout
+                  initial={{ opacity: 0, x: dir > 0 ? -40 : 40 }}
+                  animate={{ opacity: SIZE_OPACITY[size], x: 0 }}
+                  exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.28, ease: 'easeOut' } }}
+                  transition={{ duration: 0.65, ease: SLIDE_EASE }}
+                  className={`prof-v5-photo prof-v5-photo--${size}`}
+                >
+                  <img src={prof.img} alt={prof.name} draggable="false" />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+        </div>
+
+        <div className="prof-v5-info">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={activeIdx}
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -14 }}
+              transition={{ duration: 0.35, ease: 'easeOut' }}
+              className="prof-v5-info-inner"
+            >
+              <span className="prof-v5-prefix serif">{active.prefix}</span>
+              <h3 className="prof-v5-name serif">{active.name}</h3>
+              <p className="prof-v5-bio">{active.bio}</p>
+            </motion.div>
+          </AnimatePresence>
+          <div className="prof-v5-arrows">
+            <button onClick={() => navigate(-1)} className="prof-arrow-btn" aria-label="Precedente">
+              <img src="/assets/arrow.svg" alt="" style={{ transform: 'scaleX(-1)' }} />
+            </button>
+            <button onClick={() => navigate(1)} className="prof-arrow-btn" aria-label="Successivo">
+              <img src="/assets/arrow.svg" alt="" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 function StudioSlider() {
   const trackRef = useRef(null);
@@ -71,13 +293,14 @@ function StudioSlider() {
             <span className="slide-num">{svc.id}</span>
             <div style={{ position: 'relative' }}>
               <h3 className="slide-title">{svc.title}</h3>
-              <a
-                href={svc.slug}
+              <Link
+                to={svc.slug}
                 className={`btn-scopri${hoveredIdx === i ? ' visible' : ''}`}
                 tabIndex={hoveredIdx === i ? 0 : -1}
+                onMouseDown={(e) => e.stopPropagation()}
               >
                 Scopri di più
-              </a>
+              </Link>
             </div>
           </div>
         ))}
@@ -90,10 +313,43 @@ function StudioSlider() {
 }
 
 const Home = () => {
+  const heroRef       = useRef(null);
+  const studioRef     = useRef(null);
+
+  // Set studio sticky bottom so it stays visible exactly while hero scrolls over it
+  useLayoutEffect(() => {
+    const setBottom = () => {
+      if (studioRef.current) {
+        const offset = 180;
+        const b = window.innerHeight - studioRef.current.offsetHeight - offset;
+        studioRef.current.style.bottom = `${b}px`;
+      }
+    };
+    setBottom();
+    window.addEventListener('resize', setBottom);
+    return () => window.removeEventListener('resize', setBottom);
+  }, []);
+
+  // Track hero scrolling off: progress 0 = hero at top, 1 = hero fully gone
+  const { scrollYProgress: heroScroll } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+  // Studio overlay fades from opaque → transparent as hero scrolls away
+  const studioOverlayOpacity = useTransform(heroScroll, [0, 1], [1, 0]);
+  // Studio inner content rises as hero scrolls off (parallax: starts 120px lower)
+  const studioContentY = useTransform(heroScroll, [0, 1], [120, 0]);
+
   return (
     <div className="home-v3">
-      {/* Hero Section — Homepage 5 */}
-      <section className="hero-v5">
+
+      {/* ── CodyHouse Revealing Hero ─────────────────────────────────────────
+          DOM order: hero  FIRST  (z-index 2, scrolls away normally)
+                     studio SECOND (sticky bottom, z-index 1, revealed underneath)
+      ─────────────────────────────────────────────────────────────────────── */}
+
+      {/* 1. Hero — first in DOM, z-index 2, scrolls off to reveal studio */}
+      <section ref={heroRef} className="hero-v5">
         <img src="/assets/logotipo-watermark.svg" alt="" className="hero-v5-watermark" aria-hidden="true" />
         <div className="hero-v5-ticker-wrap" aria-hidden="true">
           <div className="hero-v5-ticker">
@@ -107,122 +363,67 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Lo Studio Section */}
-      <section className="studio-v5 section-padding bg-cream">
-        <div className="container">
-          <div className="studio-v5-top">
-            <div className="studio-v5-left">
-              <h2 className="studio-v5-title serif">Lo studio</h2>
+      {/* 2. Studio — sticky (bottom set via JS), z-index 1, overlay fades as hero scrolls off */}
+      <section ref={studioRef} className="studio-v5 section-padding bg-cream">
+        <motion.div className="studio-reveal-overlay" style={{ opacity: studioOverlayOpacity }} aria-hidden="true" />
+        <motion.div style={{ y: studioContentY }}>
+          <div className="container">
+            <div className="studio-v5-top">
+              <div className="studio-v5-left">
+                <h2 className="studio-v5-title serif">Lo studio</h2>
+              </div>
+              <div className="studio-v5-right">
+                <p className="mb-4">
+                  Fondato su decenni di esperienza, lo Studio Caruso si evolve costantemente
+                  per rispondere alla complessità del panorama giuridico contemporaneo.
+                  Non ci limitiamo alla consulenza: costruiamo strategie di difesa proattive.
+                </p>
+                <p>
+                  Il nostro approccio unisce rigore accademico e pragmatismo operativo per risolvere
+                  le sfide legali più complesse, con una dedizione particolare al dettaglio e alla
+                  relazione di fiducia con il cliente.
+                </p>
+              </div>
             </div>
-            <div className="studio-v5-right">
-              <p className="mb-4">
-                Fondato su decenni di esperienza, lo Studio Caruso si evolve costantemente
-                per rispondere alla complessità del panorama giuridico contemporaneo.
-                Non ci limitiamo alla consulenza: costruiamo strategie di difesa proattive.
-              </p>
-              <p>
-                Il nostro approccio unisce rigore accademico e pragmatismo operativo per risolvere
-                le sfide legali più complesse, con una dedizione particolare al dettaglio e alla
-                relazione di fiducia con il cliente.
-              </p>
-            </div>
+            <p className="studio-v5-tagline">
+              Consulenze legali<br />su misura per imprese e privati.
+            </p>
           </div>
-          <p className="studio-v5-tagline">
-            Consulenze legali<br />su misura per imprese e privati.
-          </p>
           <StudioSlider />
-        </div>
+        </motion.div>
       </section>
 
-      {/* I Professionisti Preview FIGMA STYLE */}
-      <section className="professionals-preview section-padding bg-blue overflow-hidden">
-        <div className="container relative">
-          <div className="prof-header-row">
-            <motion.h2 
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="section-title-v3-large serif-italic text-white"
-            >
-              I professionisti
-            </motion.h2>
-          </div>
-          <div className="prof-grid-v3">
-            {[
-              { name: 'Avv. Alfredo Caruso', role: 'Avvocato penalista', img: '/assets/prof-mario.jpg' },
-              { name: 'Avv. Alfredo Caruso', role: 'Avvocato penalista', img: '/assets/prof-luca.jpg' },
-              { name: 'Avv. Alfredo Caruso', role: 'Avvocato penalista', img: '/assets/prof-giulia.jpg' },
-              { name: 'Avv. Alfredo Caruso', role: 'Avvocato penalista', img: '/assets/prof-last.png' }
-            ].map((prof, i) => (
-              <div key={i} className="prof-card-v3">
-                <div className="prof-img-wrapper">
-                  <TiltedCard
-                    imageSrc={prof.img}
-                    altText={prof.name}
-                    captionText={prof.name}
-                    containerHeight="100%"
-                    containerWidth="100%"
-                    imageHeight="100%"
-                    imageWidth="100%"
-                    rotateAmplitude={18}
-                    scaleOnHover={1}
-                    showMobileWarning={false}
-                    showTooltip={false}
-                    displayOverlayContent={false}
-                    imageStyle={i === 3 ? { transform: 'scale(1.8)', transformOrigin: 'center 40%' } : {}}
-                  />
-                </div>
-                <div className="prof-info-v3">
-                  <h4 className="prof-name-v3 serif">{prof.name}</h4>
-                  <p className="prof-role-v3 serif-italic">{prof.role}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-12">
-            <a href="/team" className="btn-pill-navy serif">Scopri il nostro Team</a>
-          </div>
-        </div>
-      </section>
+      {/* 3. All sections after studio — z-index 2 to render above sticky studio */}
+      <div className="content-over-hero">
 
-      {/* Aree di Competenza Preview FIGMA STYLE */}
-      <section className="areas-preview section-padding bg-cream overflow-hidden">
-        <div className="container">
-          <div className="areas-list-v3 staggered-layout">
-            {[
-              { id: '01', title: 'Diritto Penale', img: '/assets/services/scott-graham-OQMZwNd3ThU-unsplash.jpg' },
-              { id: '02', title: 'Diritto Civile', img: '/assets/services/close-up-businesswoman-joining-team.jpg' },
-              { id: '03', title: 'Diritto Commerciale', img: '/assets/services/close-up-businessman-signing-lease-agreement-carcreated-with-generative-ai-technology.jpg' },
-              { id: '04', title: 'Diritto della Navigazione', img: '/assets/services/gaetan-marceau-caron-BEKde68fePU-unsplash.jpg' },
-              { id: '05', title: 'Compliance 231', img: '/assets/services/carrie-allen-www-carrieallen-com-1H1LBKvD7ew-unsplash.jpg' }
-            ].map((area, i, arr) => (
-              <div key={i} className={`area-item-v3 stagger-${i + 1}`}>
-                <ImageTrail items={[area.img]} variant={1}>
-                  <div className="area-line-top"></div>
-                  <div className="area-content-v3">
-                    <span className="area-id serif">{area.id}</span>
-                    <h3 className="area-title-v3 serif">{area.title}</h3>
-                    <ArrowUpRight className="area-arrow" size={32} />
-                  </div>
-                  {i === arr.length - 1 && <div className="area-line-bottom"></div>}
-                </ImageTrail>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        <ProfessionistiSlider />
 
-      {/* Contacts & Footer Bridge */}
-      <section className="contact-v3 section-padding bg-navy">
+        {/* News Section */}
+        <section className="news-v5 section-padding bg-cream">
+          <h2 className="news-v5-title serif">News</h2>
+          <NewsSlider />
+        </section>
+
+        {/* Lo Studio Risponde — FAQ */}
+        <StudioRisponde />
+
+        {/* Pattern separator */}
+        <img src="/assets/pattern.svg" alt="" className="pattern-separator" aria-hidden="true" />
+
+        {/* Full-width photo */}
+        <img src="/assets/foto.png" alt="" className="foto-full" />
+
+        {/* Contacts & Footer Bridge */}
+        <section className="contact-v3 section-padding bg-navy">
+          <img src="/assets/pattern-contatti.svg" className="contact-section-pattern" aria-hidden="true" />
         <div className="container contact-container-figma">
           <div className="contact-info-figma">
             <h2 className="serif">Hai bisogno di<br/>una consulenza<br/>legale?</h2>
             <p className="sans">Siamo a disposizione per rispondere<br/>alle vostre esigenze legali. Compilate<br/>il modulo per richiedere un primo<br/>colloquio.</p>
           </div>
-          
+
           <div className="contact-divider-figma"></div>
-          
+
           <div className="contact-form-figma">
             <form className="figma-form-new">
               <div className="form-row-2">
@@ -244,7 +445,7 @@ const Home = () => {
               <div className="form-row-1">
                 <div className="input-group">
                   <label className="serif">Messaggio</label>
-                  <input type="text" placeholder="Scrivi qui il tuo messaggio..." />
+                  <textarea placeholder="Scrivi qui il tuo messaggio..." rows="4" />
                 </div>
               </div>
               <div className="form-submit-row">
@@ -254,6 +455,8 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      </div>{/* end content-over-hero */}
     </div>
   );
 };

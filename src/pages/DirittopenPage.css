@@ -1,0 +1,188 @@
+.dp-page {
+  padding-top: 96px;
+}
+
+/* ── Titolo hero ──────────────────────────────────────── */
+.dp-title-section {
+  padding-top: clamp(3.5rem, 7vw, 7rem);
+  padding-bottom: clamp(2.5rem, 5vw, 5rem);
+}
+
+.dp-title {
+  font-size: clamp(3.5rem, 7vw, 98px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.05;
+  color: var(--color-navy);
+}
+
+/* ── Hero body: foto + testo ──────────────────────────── */
+.dp-body-section {
+  padding-bottom: clamp(4rem, 8vw, 8rem);
+}
+
+.dp-hero-grid {
+  display: grid;
+  grid-template-columns: 44% 1fr;
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.dp-hero-img {
+  width: 100%;
+  max-height: 560px;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 20px;
+  display: block;
+}
+
+.dp-hero-right {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  padding-top: 0.5rem;
+}
+
+.dp-intro {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--color-navy);
+  opacity: 0.75;
+}
+
+.dp-activities-title {
+  font-size: 60px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--color-navy);
+  margin-bottom: 1.2rem;
+}
+
+.dp-activities-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.dp-activities-list li {
+  font-size: 24px;
+  color: var(--color-navy);
+  opacity: 0.8;
+  padding: 0.75rem 0;
+  border-bottom: 0.5px solid #E98D47;
+}
+
+.dp-activities-list li:first-child {
+  border-top: 0.5px solid #E98D47;
+}
+
+/* ── Aree di intervento ───────────────────────────────── */
+.dp-areas-title {
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--color-navy);
+  margin-bottom: 2.5rem;
+}
+
+.dp-areas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 358px);
+  gap: 1.25rem;
+  justify-content: center;
+}
+
+.dp-area-card {
+  background: var(--color-cream);
+  border: 1px solid rgba(28, 46, 74, 0.22);
+  border-radius: 16px;
+  padding: 1.4rem 2rem 1.6rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  width: 358px;
+  height: 364px;
+}
+
+.dp-area-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.2rem;
+}
+
+.dp-area-divider {
+  flex: 1;
+  height: 1px;
+  background: rgba(28, 46, 74, 0.2);
+}
+
+.dp-area-icon {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+}
+
+.dp-area-card-title {
+  font-size: 32px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--color-navy);
+  line-height: 1.2;
+  flex: 1;
+  white-space: pre-line;
+}
+
+.dp-area-desc {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--color-navy);
+  opacity: 0.6;
+  margin-top: 1.2rem;
+}
+
+/* ── Contatti override ────────────────────────────────── */
+.dp-contact {
+  padding: 3.5rem 0;
+}
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 1160px) {
+  .dp-areas-grid {
+    grid-template-columns: repeat(2, 358px);
+  }
+}
+
+@media (max-width: 960px) {
+  .dp-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .dp-areas-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dp-area-card {
+    width: 100%;
+    height: 364px;
+  }
+}
+
+@media (max-width: 600px) {
+  .dp-title {
+    font-size: clamp(2.8rem, 10vw, 4rem);
+  }
+
+  .dp-areas-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dp-area-card {
+    width: 100%;
+    height: auto;
+    min-height: 320px;
+  }
+}

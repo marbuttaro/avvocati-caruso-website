@@ -28,7 +28,7 @@
 
 :root {
   /* Figma Palette */
-  --color-cream: #EAE3D3;
+  --color-cream: #F6F3ED;
   --color-steel-blue: #5B7F9B;
   --color-navy: #1C2E4A;
   --color-white: #E9E2D2;
@@ -50,6 +50,8 @@
   
   --container-width: 1400px;
   --section-padding: clamp(4rem, 8vw, 10rem);
+  /* Left indent that mirrors .container's content edge on any viewport width */
+  --section-indent: max(88px, calc((100vw - 1400px) / 2 + 88px));
   
   --transition-classic: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }

@@ -8,13 +8,7 @@ const Footer = () => {
         <div className="footer-v3-main">
           {/* Brand Column */}
           <div className="footer-v3-brand-stack">
-            <div className="footer-logo-box">
-              <img src="/assets/logotipo.svg" alt="" className="footer-icon-only" />
-              <div className="footer-brand-text">
-                <span className="caruso-light">CARUSO</span>
-                <span className="avvocati-tag">AVVOCATI</span>
-              </div>
-            </div>
+            <img src="/assets/logo-completo.svg" alt="Caruso Avvocati" className="footer-logo-complete" />
           </div>
           
           {/* Contacts Column */}
