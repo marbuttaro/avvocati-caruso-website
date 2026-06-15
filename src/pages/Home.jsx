@@ -5,6 +5,7 @@ import { ArrowUpRight } from 'lucide-react';
 import TiltedCard from '../components/TiltedCard/TiltedCard';
 import ImageTrail from '../components/ImageTrail/ImageTrail';
 import SplitText from '../components/SplitText/SplitText';
+import { newsItems } from '../data/newsData';
 import './Home.css';
 
 const tickerItems = ['Consulenza', 'Difesa in giudizio', 'Compliance'];
@@ -17,13 +18,7 @@ const services = [
   { id: '05', title: 'Compliance 231',            slug: '/aree-competenza' },
 ];
 
-const newsItems = [
-  { id: 1, date: '8/06/2026', title: 'Via libera alla riforma forense: cambia l\'accesso alla professione legale', slug: '/news' },
-  { id: 2, date: '8/06/2026', title: 'Nuove norme sulla responsabilità d\'impresa: cosa cambia per le PMI', slug: '/news' },
-  { id: 3, date: '8/06/2026', title: 'Diritto della navigazione: aggiornamenti normativi del 2026', slug: '/news' },
-  { id: 4, date: '8/06/2026', title: 'Compliance 231: la nuova guida operativa per gli enti', slug: '/news' },
-  { id: 5, date: '8/06/2026', title: 'Riforma del processo civile: tempi più brevi per le cause commerciali', slug: '/news' },
-];
+
 
 const faqItems = [
   {

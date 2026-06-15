@@ -19,7 +19,7 @@ function App() {
             <Route path="/aree-competenza" element={<AreeCompetenza />} />
             <Route path="/team" element={<Team />} />
             <Route path="/diritto-penale" element={<DirittopenPage />} />
-            <Route path="/news" element={<NewsPage />} />
+            <Route path="/news/:id" element={<NewsPage />} />
           </Routes>
         </main>
         <Footer />

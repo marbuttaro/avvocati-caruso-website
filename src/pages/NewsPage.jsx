@@ -1,5 +1,7 @@
 import React from 'react';
+import { useParams, Navigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { newsItems } from '../data/newsData';
 import './NewsPage.css';
 
 const fadeUp = {
@@ -7,54 +9,62 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
 };
 
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
-};
-
-const newsItems = [
-  { id: 1, date: '8/06/2026', title: 'Via libera alla riforma forense: cambia l\'accesso alla professione legale', slug: '/news' },
-  { id: 2, date: '8/06/2026', title: 'Nuove norme sulla responsabilità d\'impresa: cosa cambia per le PMI', slug: '/news' },
-  { id: 3, date: '8/06/2026', title: 'Diritto della navigazione: aggiornamenti normativi del 2026', slug: '/news' },
-  { id: 4, date: '8/06/2026', title: 'Compliance 231: la nuova guida operativa per gli enti', slug: '/news' },
-  { id: 5, date: '8/06/2026', title: 'Riforma del processo civile: tempi più brevi per le cause commerciali', slug: '/news' },
-  { id: 6, date: '15/06/2026', title: 'Intelligenza artificiale e diritto d\'autore: le nuove direttive europee', slug: '/news' },
-];
-
 const NewsPage = () => {
+  const { id } = useParams();
+  const article = newsItems.find(item => item.id === parseInt(id));
+
+  if (!article) {
+    return <Navigate to="/" replace />;
+  }
+
+  // Dividiamo il contenuto in paragrafi in base ai ritorni a capo doppi
+  const paragraphs = article.content.split('\n\n').filter(p => p.trim() !== '');
+
   return (
-    <div className="news-page bg-cream">
-      <section className="news-page-section section-padding">
-        <div className="container">
-          <motion.h1 
-            className="news-page-title serif"
+    <div className="single-news-page bg-cream">
+      <section className="single-news-section section-padding">
+        <div className="container single-news-container">
+          
+          <motion.div 
+            className="single-news-back"
             variants={fadeUp}
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
+            animate="visible"
           >
-            News
+            <Link to="/" className="back-link serif">← Torna alla Home</Link>
+          </motion.div>
+
+          <motion.div 
+            className="single-news-header"
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+          >
+            <span className="single-news-date">{article.date}</span>
+            <div className="single-news-header-line" />
+            <img src="/assets/logotipo-dark.svg" alt="" className="single-news-icon" />
+          </motion.div>
+
+          <motion.h1 
+            className="single-news-title serif"
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+          >
+            {article.title}
           </motion.h1>
 
           <motion.div 
-            className="news-page-grid"
-            variants={staggerContainer}
+            className="single-news-content sans"
+            variants={fadeUp}
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
+            animate="visible"
           >
-            {newsItems.map((item) => (
-              <motion.div key={item.id} className="news-page-card" variants={fadeUp}>
-                <div className="news-page-card-header">
-                  <span className="news-page-date">{item.date}</span>
-                  <div className="news-page-header-line" />
-                  <img src="/assets/logotipo-dark.svg" alt="" className="news-page-icon" />
-                </div>
-                <h3 className="news-page-card-title serif">{item.title}</h3>
-                <a href={item.slug} className="news-page-link">Leggi l'articolo</a>
-              </motion.div>
+            {paragraphs.map((p, i) => (
+              <p key={i}>{p}</p>
             ))}
           </motion.div>
+
         </div>
       </section>
     </div>
