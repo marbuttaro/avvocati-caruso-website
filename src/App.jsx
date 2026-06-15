@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import AreeCompetenza from './pages/AreeCompetenza';
 import Team from './pages/Team';
 import DirittopenPage from './pages/DirittopenPage';
+import NewsPage from './pages/NewsPage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/aree-competenza" element={<AreeCompetenza />} />
             <Route path="/team" element={<Team />} />
             <Route path="/diritto-penale" element={<DirittopenPage />} />
+            <Route path="/news" element={<NewsPage />} />
           </Routes>
         </main>
         <Footer />
