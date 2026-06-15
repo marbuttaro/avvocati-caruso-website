@@ -11,7 +11,7 @@
 .dp-title {
   font-size: clamp(3.5rem, 7vw, 98px);
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
   line-height: 1.05;
   color: var(--color-navy);
 }
@@ -83,7 +83,7 @@
 .dp-areas-title {
   font-size: clamp(2rem, 3.5vw, 3rem);
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
   color: var(--color-navy);
   margin-bottom: 2.5rem;
 }
@@ -128,7 +128,7 @@
 .dp-area-card-title {
   font-size: 32px;
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
   color: var(--color-navy);
   line-height: 1.2;
   flex: 1;

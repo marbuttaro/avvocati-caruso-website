@@ -165,7 +165,7 @@
 .mobile-links-v3 a {
   font-family: var(--font-serif);
   font-size: 1.5rem;
-  font-style: italic;
+  font-style: normal;
   color: var(--color-navy);
 }
 
