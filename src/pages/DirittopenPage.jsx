@@ -1,5 +1,16 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import './DirittopenPage.css';
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
+};
 
 const activities = [
   'Consulenza e pareri in materia penale',
@@ -43,54 +54,80 @@ const DirittopenPage = () => {
       {/* ── Hero: titolo a piena larghezza ─────────────────── */}
       <section className="dp-title-section bg-cream">
         <div className="container">
-          <h1 className="dp-title serif">
+          <motion.h1 
+            className="dp-title serif"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
             Difesa, consulenza<br />e tutela nei<br />procedimenti penali
-          </h1>
+          </motion.h1>
         </div>
       </section>
 
       {/* ── Hero body: foto + testo ─────────────────────────── */}
       <section className="dp-body-section bg-cream">
         <div className="container">
-          <div className="dp-hero-grid">
+          <motion.div 
+            className="dp-hero-grid"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
 
-            <div className="dp-hero-left">
+            <motion.div className="dp-hero-left" variants={fadeUp}>
               <img
                 src="/assets/services/close-up-businessman-signing-lease-agreement-carcreated-with-generative-ai-technology.jpg"
                 alt="Diritto Penale"
                 className="dp-hero-img"
               />
-            </div>
+            </motion.div>
 
             <div className="dp-hero-right">
-              <p className="dp-intro sans">
+              <motion.p className="dp-intro sans" variants={fadeUp}>
                 Difendiamo i nostri clienti con una solida conoscenza tecnica e
                 una consolidata esperienza nelle aule di giustizia. Il nostro
                 approccio combina preparazione accademica e pragmatismo
                 operativo per garantire una tutela efficace in ogni fase del
                 procedimento penale.
-              </p>
-              <div className="dp-activities">
+              </motion.p>
+              <motion.div className="dp-activities" variants={fadeUp}>
                 <h3 className="dp-activities-title serif">Attività principali</h3>
                 <ul className="dp-activities-list sans">
                   {activities.map((a, i) => (
                     <li key={i}>{a}</li>
                   ))}
                 </ul>
-              </div>
+              </motion.div>
             </div>
 
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* ── Aree di intervento ───────────────────────────────── */}
       <section className="dp-areas-section section-padding bg-cream">
         <div className="container">
-          <h2 className="dp-areas-title serif">Aree di intervento</h2>
-          <div className="dp-areas-grid">
+          <motion.h2 
+            className="dp-areas-title serif"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            Aree di intervento
+          </motion.h2>
+          <motion.div 
+            className="dp-areas-grid"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
             {areas.map((area, i) => (
-              <div key={i} className="dp-area-card">
+              <motion.div key={i} className="dp-area-card" variants={fadeUp}>
                 <div className="dp-area-header">
                   <div className="dp-area-divider" />
                   <img
@@ -102,9 +139,9 @@ const DirittopenPage = () => {
                 </div>
                 <h3 className="dp-area-card-title serif">{area.title}</h3>
                 <p className="dp-area-desc sans">{area.desc}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -112,12 +149,24 @@ const DirittopenPage = () => {
       <section className="contact-v3 bg-navy dp-contact">
         <img src="/assets/pattern-contatti.svg" className="contact-section-pattern" aria-hidden="true" />
         <div className="container contact-container-figma">
-          <div className="contact-info-figma">
+          <motion.div 
+            className="contact-info-figma"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
             <h2 className="serif">Hai bisogno di<br />una consulenza<br />legale?</h2>
             <p className="sans">Siamo a disposizione per rispondere alle vostre esigenze legali. Compilate il modulo per richiedere un primo colloquio.</p>
-          </div>
+          </motion.div>
           <div className="contact-divider-figma"></div>
-          <div className="contact-form-figma">
+          <motion.div 
+            className="contact-form-figma"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
             <form className="figma-form-new">
               <div className="form-row-2">
                 <div className="input-group">
@@ -145,7 +194,7 @@ const DirittopenPage = () => {
                 <button type="submit" className="btn-navy-light mt-3">Contatta lo studio</button>
               </div>
             </form>
-          </div>
+          </motion.div>
         </div>
       </section>
 
