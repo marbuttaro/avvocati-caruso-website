@@ -18,7 +18,7 @@
 
 /* ── Hero body: foto + testo ──────────────────────────── */
 .dp-body-section {
-  padding-bottom: clamp(4rem, 8vw, 8rem);
+  padding-bottom: clamp(2rem, 4vw, 4rem);
 }
 
 .dp-hero-grid {
@@ -55,7 +55,7 @@
 .dp-activities-title {
   font-size: 60px;
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
   color: var(--color-navy);
   margin-bottom: 1.2rem;
 }
