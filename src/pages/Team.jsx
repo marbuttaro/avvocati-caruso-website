@@ -5,110 +5,132 @@ import './Team.css';
 const professionals = [
   {
     id: 1,
-    name: 'Avv. Alfredo Caruso',
-    role: 'Founder & Senior Partner',
-    area: 'Diritto Penale & Commerciale',
-    bio: 'Fondatore dello studio, con oltre 30 anni di esperienza nel patrocinio avanti alle Giurisdizioni Superiori. Esperto in diritto penale dell\'economia e compliance societaria.',
-    image: '/assets/prof-mario.jpg'
+    prefix: 'Avv.',
+    name: 'Alfredo Caruso',
+    role: 'Avvocato Penalista',
+    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia. Ut sem ligula, fringilla eget tempor vel, tincidunt at magna. Quisque fermentum ante nec pellentesque luctus. Quisque vehicula nunc sed dui semper egestas.',
+    image: '/assets/prof-mario.jpg',
   },
   {
     id: 2,
-    name: 'Avv. Giulia Bianchi',
-    role: 'Partner',
-    area: 'Diritto Civile',
-    bio: 'Specializzata in successioni internazionali e contrattualistica d\'impresa. Guida il dipartimento civile con un approccio pragmatico e orientato al risultato.',
-    image: '/assets/prof-giulia.jpg'
+    prefix: 'Avv.ssa',
+    name: 'Giulia Bianchi',
+    role: 'Avvocato Civilista',
+    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia. Ut sem ligula, fringilla eget tempor vel, tincidunt at magna. Quisque fermentum ante nec pellentesque luctus.',
+    image: '/assets/prof-giulia.jpg',
   },
   {
     id: 3,
-    name: 'Avv. Luca Verdi',
-    role: 'Senior Associate',
-    area: 'Diritto Commerciale',
-    bio: 'Focus su operazioni di M&A e ristrutturazione del debito. Ha maturato una significativa esperienza in studi legali internazionali tra Milano e Londra.',
-    image: '/assets/prof-luca.jpg'
+    prefix: 'Avv.',
+    name: 'Luca Verdi',
+    role: 'Avvocato Commercialista',
+    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia. Ut sem ligula, fringilla eget tempor vel, tincidunt at magna. Quisque fermentum ante nec pellentesque luctus.',
+    image: '/assets/prof-luca.jpg',
   },
   {
     id: 4,
-    name: 'Avv. Elena Neri',
-    role: 'Senior Associate',
-    area: 'Diritto della Navigazione',
-    bio: 'Esperta riconosciuta in diritto marittimo e portuale. Assiste primarie compagnie armatoriali e operatori della logistica doganale.',
-    image: '/assets/prof-elena.jpg'
+    prefix: 'Avv.ssa',
+    name: 'Elena Neri',
+    role: 'Avvocato Marittimista',
+    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia. Ut sem ligula, fringilla eget tempor vel, tincidunt at magna. Quisque fermentum ante nec pellentesque luctus.',
+    image: '/assets/prof-elena.jpg',
   },
   {
     id: 5,
-    name: 'Avv. Marco Ferrari',
-    role: 'Associate',
-    area: 'Diritto Penale',
-    bio: 'Si occupa di reati contro la Pubblica Amministrazione e diritto penale ambientale. Segue con dedizione la tutela delle persone giuridiche.',
-    image: '/assets/prof-marco.jpg'
-  }
+    prefix: 'Avv.',
+    name: 'Marco Ferrari',
+    role: 'Avvocato Penalista',
+    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia. Ut sem ligula, fringilla eget tempor vel, tincidunt at magna. Quisque fermentum ante nec pellentesque luctus.',
+    image: '/assets/prof-marco.jpg',
+  },
 ];
 
-const Team = () => {
-  const [hoveredId, setHoveredId] = useState(null);
+function AccordionItem({ prof }) {
+  const [open, setOpen] = useState(false);
 
   return (
-    <div className="team-v3-page bg-blue">
-      <header className="team-header-v3 section-padding">
-        <div className="container">
-          <motion.h1 
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="section-title-v3 serif-italic text-white"
+    <div className="accordion-item">
+      <div className="accordion-separator" />
+
+      <div className="accordion-main">
+
+        {/* Colonna sinistra — tutta cliccabile */}
+        <div className="accordion-left" onClick={() => setOpen(!open)}>
+          <span className="accordion-prefix serif">{prof.prefix}</span>
+          <h2 className="accordion-name serif">{prof.name}</h2>
+
+          {/* Icona sotto il nome */}
+          <button
+            className="accordion-toggle"
+            aria-label={open ? 'Chiudi' : 'Apri'}
           >
-            I professionisti
-          </motion.h1>
-          <p className="max-w-md mt-4 text-white opacity-70">
-            Un team di esperti dediti all'eccellenza, uniti da una visione moderna della professione legale.
-          </p>
-        </div>
-      </header>
+            <img src={open ? '/assets/close-team.svg' : '/assets/plus-team.svg'} alt="" />
+          </button>
 
-      <section className="team-grid-section-v3 section-padding pb-5">
-        <div className="container">
-          <div className="prof-grid-v3">
-            {professionals.map((prof, index) => (
-              <motion.div 
-                key={prof.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="prof-card-v3"
-                onMouseEnter={() => setHoveredId(prof.id)}
-                onMouseLeave={() => setHoveredId(null)}
+          {/* Bio animata */}
+          <AnimatePresence initial={false}>
+            {open && (
+              <motion.div
+                key="bio"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
+                style={{ overflow: 'hidden' }}
               >
-                <div className="prof-img-wrapper figma-frame">
-                  <img src={prof.image} alt={prof.name} />
-                  <AnimatePresence>
-                    {hoveredId === prof.id && (
-                      <motion.div 
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="prof-bio-overlay-v3"
-                      >
-                        <p className="prof-bio-text-v3 serif-italic">{prof.bio}</p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-                <div className="prof-info-v3">
-                  <h4 className="prof-name-v3 serif">{prof.name}</h4>
-                  <p className="prof-role-v3 serif-italic">{prof.role}</p>
-                </div>
+                <p className="accordion-bio sans">{prof.bio}</p>
               </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+            )}
+          </AnimatePresence>
 
-      <section className="join-team-v3 section-padding text-center">
+          {/* Specializzazione — sempre visibile, subito sopra la linea */}
+          <span className="accordion-role">{prof.role.toUpperCase()}</span>
+        </div>
+
+        {/* Colonna destra: foto sempre visibile */}
+        <div className="accordion-photo-wrap">
+          <img src={prof.image} alt={prof.name} className="accordion-photo" />
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+const Team = () => {
+  return (
+    <div className="team-page bg-cream">
+      <section className="team-section">
         <div className="container">
-          <h2 className="serif-italic text-white mb-4">Lavora con noi</h2>
-          <button className="btn-navy-light">Invia CV</button>
+
+          <motion.div
+            className="team-header"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+          >
+            <h1 className="team-title serif">I professionisti</h1>
+            <p className="team-description sans">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis
+              fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo
+              et gravida lacinia. Ut sem ligula, fringilla eget tempor vel, tincidunt at
+              magna. Quisque fermentum ante nec pellentesque luctus. Quisque vehicula nunc
+              sed dui semper egestas.
+            </p>
+          </motion.div>
+
+          <motion.div
+            className="team-accordion"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            {professionals.map((prof) => (
+              <AccordionItem key={prof.id} prof={prof} />
+            ))}
+            <div className="accordion-separator" />
+          </motion.div>
+
         </div>
       </section>
     </div>

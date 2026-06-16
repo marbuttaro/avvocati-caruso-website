@@ -1,56 +1,198 @@
-.team-v3-page {
-  padding-top: 5rem;
-  color: var(--color-white);
+.team-page {
+  padding-top: 96px;
+  min-height: 100vh;
 }
 
-.text-white { color: var(--color-white) !important; }
+.team-section {
+  padding-top: 5rem;
+  padding-bottom: 6rem;
+}
 
-.prof-bio-overlay-v3 {
-  position: absolute;
-  top: 0;
-  left: 0;
+/* ── Header: più stretto, margini aumentati ── */
+.team-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  max-width: calc(100% - 388px - 3.5rem);
+  margin-bottom: 4rem;
+}
+
+.team-title {
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  font-weight: 400;
+  color: var(--color-navy);
+  line-height: 1.05;
+}
+
+.team-description {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--color-navy);
+  opacity: 0.75;
+  line-height: 1.8;
+  padding-top: 0.5rem;
+}
+
+/* ── Accordion ── */
+.team-accordion {
   width: 100%;
-  height: 100%;
-  background-color: var(--color-navy);
-  color: var(--color-cream);
+}
+
+.accordion-separator {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(28, 46, 74, 0.15);
+}
+
+/* ── Griglia item: sinistra | foto (388×457, sempre visibile) ── */
+.accordion-main {
+  display: grid;
+  grid-template-columns: 1fr 388px;
+  gap: 3.5rem;
+  align-items: start;
+  padding: 2rem 0 2rem;
+}
+
+/* ── Colonna sinistra ── */
+.accordion-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  cursor: pointer;
+  min-height: 100%;
+}
+
+/* "Avv." — stessa dimensione del nome */
+.accordion-prefix {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 400;
+  color: var(--color-navy);
+  line-height: 1.1;
+}
+
+/* Nome avvocato */
+.accordion-name {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 400;
+  color: var(--color-navy);
+  line-height: 1;
+  margin: 0;
+}
+
+/* Icona + / × — subito sotto il nome */
+.accordion-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 1rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  z-index: 10;
-  text-align: center;
+  transition: opacity 0.2s ease;
 }
 
-.prof-bio-text-v3 {
-  font-size: 1.1rem;
-  line-height: 1.5;
+.accordion-toggle:hover { opacity: 0.7; }
+
+.accordion-toggle img {
+  width: 28px;
+  height: auto;
+  display: block;
 }
 
-.figma-frame {
-  position: relative;
-  background-color: rgba(255, 255, 255, 0.05);
-}
-
-.prof-info-v3 {
-  margin-top: 1.5rem;
-  text-align: left;
-}
-
-.prof-name-v3 {
-  font-size: 1.6rem;
-}
-
-.prof-role-v3 {
+/* Bio — 24px, appare sotto l'icona quando aperto */
+.accordion-bio {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  color: var(--color-navy);
   opacity: 0.8;
-  margin-top: 0.25rem;
+  line-height: 1.7;
+  padding-top: 3.5rem;
+  padding-bottom: 0.5rem;
+  max-width: 50%;
 }
 
-.join-team-v3 {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+/* Specializzazione — uppercase, font ridotto, in fondo prima della linea */
+.accordion-role {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--color-navy);
+  opacity: 0.55;
+  line-height: 1.2;
+  margin-top: 3rem;
+  letter-spacing: 0.04em;
+}
+
+/* ── Foto: dimensioni fisse 388×457 ── */
+.accordion-photo-wrap {
+  width: 388px;
+  height: 457px;
+  flex-shrink: 0;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.accordion-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1100px) {
+  .accordion-main {
+    grid-template-columns: 1fr 300px;
+  }
+  .accordion-photo-wrap {
+    width: 300px;
+    height: 353px;
+  }
+}
+
+@media (max-width: 900px) {
+  .team-header {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .accordion-main {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .accordion-photo-wrap {
+    width: 100%;
+    height: 300px;
+    max-width: 388px;
+  }
 }
 
 @media (max-width: 768px) {
-  .team-header-v3 {
-    padding-top: 6rem;
+  .team-section {
+    padding-top: 3rem;
+    padding-bottom: 4rem;
+  }
+
+  .accordion-prefix,
+  .accordion-name {
+    font-size: 2rem;
+  }
+
+  .accordion-bio {
+    font-size: 18px;
+  }
+
+  .accordion-role {
+    font-size: 16px;
+  }
+
+  .accordion-toggle img {
+    width: 24px;
   }
 }

@@ -754,30 +754,12 @@
   }
 }
 
-/* ── News V5 ── */
-.news-v5-title {
-  font-size: clamp(3rem, 6vw, 5rem);
-  color: var(--color-navy);
-  font-weight: 400;
-  margin-bottom: 2.5rem;
-  padding-left: var(--section-indent);
-}
-
-.news-v5-track {
-  display: flex;
-  gap: 1.25rem;
-  overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding-left: var(--section-indent);
-  padding-bottom: 0.5rem;
-  cursor: grab;
-  user-select: none;
-}
-
-.news-v5-track:active { cursor: grabbing; }
-.news-v5-track::-webkit-scrollbar { display: none; }
-
+/* ──────────────────────────────────────────────────────────────────────
+   news_versione 2 — BACKUP dello stile precedente (riquadri chiari/bordo)
+   Salvato il 16/06/2026 su richiesta. Per ripristinarlo: rinominare questo
+   blocco con i selettori attivi (.news-v5-card, .news-v5-date, ecc.) e
+   commentare invece il blocco "news_versione 3" qui sotto.
+   ──────────────────────────────────────────────────────────────────────
 .news-v5-card {
   flex-shrink: 0;
   width: 358px;
@@ -793,12 +775,6 @@
 
 .news-v5-card:hover {
   border-color: rgba(28, 46, 74, 0.45);
-}
-
-.news-v5-card-header {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
 }
 
 .news-v5-date {
@@ -850,6 +826,111 @@
   width: 0;
   height: 2px;
   background-color: #E98D47;
+  transition: width 0.3s ease;
+}
+
+.news-v5-link:hover::after {
+  width: 100%;
+}
+   ────────────────────────────────────────────────────────────────────── */
+
+/* ── News V5 ── */
+.news-v5-title {
+  font-size: clamp(3rem, 6vw, 5rem);
+  color: var(--color-navy);
+  font-weight: 400;
+  margin-bottom: 2.5rem;
+  padding-left: var(--section-indent);
+}
+
+.news-v5-track {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-left: var(--section-indent);
+  padding-bottom: 0.5rem;
+  cursor: grab;
+  user-select: none;
+}
+
+.news-v5-track:active { cursor: grabbing; }
+.news-v5-track::-webkit-scrollbar { display: none; }
+
+.news-v5-card {
+  flex-shrink: 0;
+  width: 358px;
+  height: 296px;
+  background-color: #1C3A51;
+  border: 1px solid transparent;
+  border-radius: 18px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color 0.25s ease;
+}
+
+.news-v5-card:hover {
+  border-color: rgba(246, 243, 237, 0.3);
+}
+
+.news-v5-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.news-v5-date {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: #F6F3ED;
+  opacity: 0.65;
+  white-space: nowrap;
+}
+
+.news-v5-header-line {
+  flex: 1;
+  height: 1px;
+  background-color: rgba(246, 243, 237, 0.25);
+}
+
+.news-v5-icon {
+  width: 26px;
+  height: auto;
+  opacity: 0.85;
+}
+
+.news-v5-card-title {
+  font-size: 32px;
+  font-weight: 400;
+  color: #F6F3ED;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.news-v5-link {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  color: #F6F3ED;
+  text-decoration: none;
+  align-self: flex-start;
+  position: relative;
+  padding-bottom: 3px;
+}
+
+.news-v5-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #F6F3ED;
   transition: width 0.3s ease;
 }
 

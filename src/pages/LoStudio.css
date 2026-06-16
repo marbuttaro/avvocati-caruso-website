@@ -1,0 +1,86 @@
+.lo-studio-page {
+  padding-top: 96px;
+  min-height: 100vh;
+}
+
+.lo-studio-section {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.lo-studio-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 5rem;
+  align-items: center;
+  min-height: calc(100vh - 96px - 10rem);
+}
+
+/* ── Colonna sinistra ── */
+.lo-studio-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.lo-studio-title {
+  font-size: clamp(3.5rem, 5vw, 5rem);
+  font-weight: 400;
+  color: var(--color-navy);
+  line-height: 1.05;
+}
+
+.lo-studio-divider {
+  width: 260px;
+  height: 1px;
+  background-color: rgba(28, 46, 74, 0.35);
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.lo-studio-contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.lo-studio-contacts p {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  color: var(--color-navy);
+  opacity: 0.7;
+  line-height: 1.6;
+}
+
+/* ── Colonna destra — foto ── */
+.lo-studio-photo-wrap {
+  border-radius: 18px;
+  overflow: hidden;
+  height: 500px;
+}
+
+.lo-studio-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .lo-studio-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    min-height: auto;
+  }
+
+  .lo-studio-photo-wrap {
+    height: 320px;
+  }
+
+  .lo-studio-section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}

@@ -7,6 +7,7 @@ import AreeCompetenza from './pages/AreeCompetenza';
 import Team from './pages/Team';
 import DirittopenPage from './pages/DirittopenPage';
 import NewsPage from './pages/NewsPage';
+import LoStudio from './pages/LoStudio';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/aree-competenza" element={<AreeCompetenza />} />
             <Route path="/team" element={<Team />} />
             <Route path="/diritto-penale" element={<DirittopenPage />} />
+            <Route path="/lo-studio" element={<LoStudio />} />
             <Route path="/news/:id" element={<NewsPage />} />
           </Routes>
         </main>

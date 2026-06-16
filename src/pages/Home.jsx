@@ -1,5 +1,5 @@
-import React, { useRef, useState, useCallback, useLayoutEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useRef, useState, useCallback, useLayoutEffect, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import TiltedCard from '../components/TiltedCard/TiltedCard';
@@ -100,7 +100,7 @@ function NewsSlider() {
           <div className="news-v5-card-header">
             <span className="news-v5-date">{item.date}</span>
             <div className="news-v5-header-line" />
-            <img src="/assets/logotipo-dark.svg" alt="" className="news-v5-icon" />
+            <img src="/assets/logotipo.svg" alt="" className="news-v5-icon" />
           </div>
           <h3 className="news-v5-card-title serif">{item.title}</h3>
           <a href={item.slug} className="news-v5-link">Leggi l'articolo</a>
@@ -308,8 +308,19 @@ function StudioSlider() {
 }
 
 const Home = () => {
-  const heroRef       = useRef(null);
-  const studioRef     = useRef(null);
+  const heroRef   = useRef(null);
+  const studioRef = useRef(null);
+  const location  = useLocation();
+
+  useEffect(() => {
+    const sectionId = location.state?.scrollTo;
+    if (!sectionId) return;
+    const t = setTimeout(() => {
+      const el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 150);
+    return () => clearTimeout(t);
+  }, [location.state]);
 
   // Set studio sticky bottom so it stays visible exactly while hero scrolls over it
   useLayoutEffect(() => {
@@ -359,7 +370,7 @@ const Home = () => {
       </section>
 
       {/* 2. Studio — sticky (bottom set via JS), z-index 1, overlay fades as hero scrolls off */}
-      <section ref={studioRef} className="studio-v5 section-padding bg-cream">
+      <section id="studio" ref={studioRef} className="studio-v5 section-padding bg-cream">
         <motion.div className="studio-reveal-overlay" style={{ opacity: studioOverlayOpacity }} aria-hidden="true" />
         <motion.div style={{ y: studioContentY }}>
           <div className="container">
@@ -394,7 +405,7 @@ const Home = () => {
         <ProfessionistiSlider />
 
         {/* News Section */}
-        <section className="news-v5 section-padding bg-cream">
+        <section id="news" className="news-v5 section-padding bg-cream">
           <h2 className="news-v5-title serif">News</h2>
           <NewsSlider />
         </section>
