@@ -1,14 +1,36 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import './LoStudio.css';
+import './Home.css';
+
+const faqItems = [
+  {
+    q: 'È possibile impugnare un contratto già firmato?',
+    a: "Sì, in determinati casi un contratto già firmato può essere impugnato per vizi del consenso, illiceità dell'oggetto o della causa, o per mancanza dei requisiti di forma previsti dalla legge. È fondamentale agire tempestivamente, poiché i termini di prescrizione variano a seconda del tipo di vizio contestato.",
+  },
+  {
+    q: 'Quando è necessario avviare una pratica di successione?',
+    a: "La pratica successoria deve essere avviata entro dodici mesi dal decesso del de cuius per evitare sanzioni fiscali. Include la dichiarazione di successione, la valutazione dei beni ereditari e, se necessario, la rinuncia all'eredità in caso di debiti superiori all'attivo.",
+  },
+  {
+    q: 'Quali vantaggi offre una consulenza legale preventiva per le imprese?',
+    a: "La consulenza preventiva consente di individuare e gestire i rischi prima che si trasformino in controversie. Attraverso l'analisi di contratti, assetti societari, procedure aziendali e profili di compliance, è possibile ridurre costi, responsabilità e potenziali contenziosi futuri.",
+  },
+  {
+    q: 'Come tutelarsi in caso di controversia commerciale?',
+    a: "In presenza di una controversia commerciale è opportuno raccogliere tutta la documentazione contrattuale e le comunicazioni intercorse, procedere con una messa in mora formale e valutare se ricorrere alla mediazione obbligatoria o all'azione giudiziale, in base all'entità del danno e ai tempi stimati.",
+  },
+];
 
 const LoStudio = () => {
+  const [openIdx, setOpenIdx] = useState(null);
+  const toggle = (i) => setOpenIdx(openIdx === i ? null : i);
+
   return (
     <div className="lo-studio-page bg-cream">
       <section className="lo-studio-section">
         <div className="container lo-studio-grid">
 
-          {/* Colonna sinistra — titolo e contatti */}
           <motion.div
             className="lo-studio-left"
             initial={{ opacity: 0, y: 30 }}
@@ -24,7 +46,6 @@ const LoStudio = () => {
             </div>
           </motion.div>
 
-          {/* Colonna destra — foto */}
           <motion.div
             className="lo-studio-photo-wrap"
             initial={{ opacity: 0, y: 20 }}
@@ -34,6 +55,45 @@ const LoStudio = () => {
             <img src="/assets/dove-siamo.png" alt="Studio Legale Caruso" className="lo-studio-photo" />
           </motion.div>
 
+        </div>
+      </section>
+
+      <section className="faq-v5">
+        <div className="faq-v5-inner">
+          <div className="faq-v5-left">
+            <h2 className="faq-v5-title serif">Lo Studio<br />risponde</h2>
+            <p className="faq-v5-subtitle">
+              Risposte chiare alle domande più frequenti su diritto penale, civile, societario e compliance.
+            </p>
+          </div>
+          <div className="faq-v5-right">
+            {faqItems.map((item, i) => (
+              <div key={i} className="faq-item" onClick={() => toggle(i)}>
+                <div className="faq-item-header">
+                  <span className="faq-item-question serif">{item.q}</span>
+                  <img
+                    src={openIdx === i ? '/assets/minus.svg' : '/assets/plus.svg'}
+                    alt=""
+                    className="faq-item-icon"
+                  />
+                </div>
+                <AnimatePresence initial={false}>
+                  {openIdx === i && (
+                    <motion.div
+                      key="answer"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+                      style={{ overflow: 'hidden' }}
+                    >
+                      <p className="faq-item-answer">{item.a}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </div>

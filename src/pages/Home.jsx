@@ -412,14 +412,14 @@ const Home = () => {
           <NewsSlider />
         </section>
 
+        {/* Full-width photo */}
+        <img src="/assets/foto.png" alt="" className="foto-full" />
+
         {/* Lo Studio Risponde — FAQ */}
         <StudioRisponde />
 
         {/* Pattern separator */}
         <img src="/assets/pattern.svg" alt="" className="pattern-separator" aria-hidden="true" />
-
-        {/* Full-width photo */}
-        <img src="/assets/foto.png" alt="" className="foto-full" />
 
         {/* Dove Siamo */}
         <section className="dove-siamo-section bg-cream">

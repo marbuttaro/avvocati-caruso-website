@@ -698,14 +698,14 @@
 }
 
 .btn-navy-light {
-  height: 45px;
-  padding: 0 8px;
+  height: 38px;
+  padding: 0 6px;
   background-color: var(--color-steel-blue);
   color: var(--color-white);
   border: none;
   border-radius: 8px;
   font-family: var(--font-button);
-  font-size: 34px;
+  font-size: 26px;
   cursor: pointer;
   transition: transform 0.3s, background-color 0.3s;
 }
