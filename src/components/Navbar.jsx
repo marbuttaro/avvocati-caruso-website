@@ -67,12 +67,9 @@ const Navbar = () => {
             onMouseEnter={openDropdown}
             onMouseLeave={scheduleClose}
           >
-            <Link
-              to="/aree-competenza"
-              className={location.pathname === '/aree-competenza' ? 'active' : ''}
-            >
+            <span className={competenzeActive ? 'active' : ''}>
               Competenze
-            </Link>
+            </span>
 
             <AnimatePresence>
               {dropdownOpen && (
@@ -98,7 +95,7 @@ const Navbar = () => {
 
           <Link to="/team" className={location.pathname === '/team' ? 'active' : ''}>I professionisti</Link>
           <a href="/#news" onClick={(e) => scrollToSection(e, 'news')} className={location.pathname.startsWith('/news') ? 'active' : ''}>News</a>
-          <a href="#contatti" className="nav-cta-v3">Contatti</a>
+          <a href="/#contatti" onClick={(e) => scrollToSection(e, 'contatti')} className="nav-cta-v3">Contatti</a>
         </div>
 
         <button className="mobile-toggle-v3" onClick={() => setIsOpen(!isOpen)}>
@@ -116,11 +113,11 @@ const Navbar = () => {
           >
             <div className="mobile-links-v3">
               <Link to="/lo-studio">Lo studio</Link>
-              <Link to="/aree-competenza">Competenze</Link>
+              <span>Competenze</span>
               <Link to="/diritto-penale" className="mobile-sublink">— Diritto Penale</Link>
               <Link to="/team">I professionisti</Link>
               <a href="/#news" onClick={(e) => scrollToSection(e, 'news')}>News</a>
-              <a href="#contatti">Contatti</a>
+              <a href="/#contatti" onClick={(e) => scrollToSection(e, 'contatti')}>Contatti</a>
             </div>
           </motion.div>
         )}

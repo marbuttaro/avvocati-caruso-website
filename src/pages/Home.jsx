@@ -420,7 +420,7 @@ const Home = () => {
         <img src="/assets/foto.png" alt="" className="foto-full" />
 
         {/* Contacts & Footer Bridge */}
-        <section className="contact-v3 section-padding bg-navy">
+        <section id="contatti" className="contact-v3 section-padding bg-navy">
           <img src="/assets/pattern-contatti.svg" className="contact-section-pattern" aria-hidden="true" />
         <div className="container contact-container-figma">
           <div className="contact-info-figma">
