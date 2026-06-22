@@ -42,12 +42,12 @@ const faqItems = [
 const professionals = [
   {
     id: 0, prefix: 'Avv.', name: 'Alfredo Caruso',
-    img: '/assets/prof-mario.jpg',
+    img: '/assets/prof-luca.jpg',
     bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
   },
   {
     id: 1, prefix: 'Avv.', name: 'Marco Ferretti',
-    img: '/assets/prof-luca.jpg',
+    img: '/assets/prof-mario.jpg',
     bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
   },
   {

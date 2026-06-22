@@ -9,7 +9,7 @@ const professionals = [
     name: 'Alfredo Caruso',
     role: 'Avvocato Penalista',
     bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia. Ut sem ligula, fringilla eget tempor vel, tincidunt at magna. Quisque fermentum ante nec pellentesque luctus. Quisque vehicula nunc sed dui semper egestas.',
-    image: '/assets/prof-mario.jpg',
+    image: '/assets/prof-luca.jpg',
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ const professionals = [
     name: 'Marco Ferretti',
     role: 'Avvocato Civilista',
     bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia. Ut sem ligula, fringilla eget tempor vel, tincidunt at magna. Quisque fermentum ante nec pellentesque luctus.',
-    image: '/assets/prof-luca.jpg',
+    image: '/assets/prof-mario.jpg',
   },
   {
     id: 3,
