@@ -42,12 +42,12 @@ const faqItems = [
 const professionals = [
   {
     id: 0, prefix: 'Avv.', name: 'Alfredo Caruso',
-    img: '/assets/prof-alfredo.jpg',
+    img: '/assets/prof-mario.jpg',
     bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
   },
   {
     id: 1, prefix: 'Avv.', name: 'Marco Ferretti',
-    img: '/assets/prof-mario.jpg',
+    img: '/assets/prof-luca.jpg',
     bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
   },
   {
@@ -420,6 +420,24 @@ const Home = () => {
 
         {/* Full-width photo */}
         <img src="/assets/foto.png" alt="" className="foto-full" />
+
+        {/* Dove Siamo */}
+        <section className="dove-siamo-section bg-cream">
+          <div className="container dove-siamo-grid">
+            <div className="dove-siamo-left">
+              <h2 className="dove-siamo-title serif">Dove siamo</h2>
+              <div className="dove-siamo-divider" />
+              <div className="dove-siamo-contacts sans">
+                <p>Via degli Olmi, 45 Napoli (NA)</p>
+                <p>info@avvocaticaruso.it</p>
+                <p>081 9047656</p>
+              </div>
+            </div>
+            <div className="dove-siamo-photo-wrap">
+              <img src="/assets/dove-siamo.png" alt="Studio Legale Caruso" className="dove-siamo-photo" />
+            </div>
+          </div>
+        </section>
 
         {/* Contacts & Footer Bridge */}
         <section id="contatti" className="contact-v3 section-padding bg-navy">
