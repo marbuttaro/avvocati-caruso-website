@@ -42,12 +42,12 @@ const faqItems = [
 const professionals = [
   {
     id: 0, prefix: 'Avv.', name: 'Alfredo Caruso',
-    img: '/assets/prof-mario.jpg',
+    img: '/assets/prof-alfredo.jpg',
     bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
   },
   {
     id: 1, prefix: 'Avv.', name: 'Marco Ferretti',
-    img: '/assets/prof-luca.jpg',
+    img: '/assets/prof-mario.jpg',
     bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
   },
   {
@@ -102,7 +102,7 @@ function NewsSlider() {
             <div className="news-v5-header-line" />
             <img src="/assets/logotipo.svg" alt="" className="news-v5-icon" />
           </div>
-          <h3 className="news-v5-card-title serif">{item.title}</h3>
+          <a href={item.slug} className="news-v5-card-title-link"><h3 className="news-v5-card-title serif">{item.title}</h3></a>
           <a href={item.slug} className="news-v5-link">Leggi l'articolo</a>
         </div>
       ))}

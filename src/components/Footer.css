@@ -25,14 +25,14 @@
 
 /* Contacts Section */
 .footer-v3-contacts h4 {
-  font-size: 18px;
+  font-size: 26pt;
   margin-bottom: 0.5rem;
   opacity: 0.9;
 }
 
 .contact-details {
   line-height: 1.7;
-  font-size: 14px;
+  font-size: 15pt;
   opacity: 0.7;
 }
 
@@ -51,7 +51,7 @@
 }
 
 .footer-links-large a {
-  font-size: 18px;
+  font-size: 26pt;
   opacity: 0.9;
   transition: opacity 0.3s;
 }
