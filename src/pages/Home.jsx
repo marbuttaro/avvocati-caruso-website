@@ -41,7 +41,7 @@ const faqItems = [
 
 const professionals = [
   {
-    id: 0, prefix: 'Avv.', name: 'Alessandro Caruso',
+    id: 0, prefix: 'Avv.', name: 'Alfredo Caruso',
     img: '/assets/prof-mario.jpg',
     bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
   },
@@ -288,14 +288,16 @@ function StudioSlider() {
             <span className="slide-num">{svc.id}</span>
             <div style={{ position: 'relative' }}>
               <h3 className="slide-title">{svc.title}</h3>
-              <Link
-                to={svc.slug}
-                className={`btn-scopri${hoveredIdx === i ? ' visible' : ''}`}
-                tabIndex={hoveredIdx === i ? 0 : -1}
-                onMouseDown={(e) => e.stopPropagation()}
-              >
-                Scopri di più
-              </Link>
+              {svc.slug === '/diritto-penale' && (
+                <Link
+                  to={svc.slug}
+                  className={`btn-scopri${hoveredIdx === i ? ' visible' : ''}`}
+                  tabIndex={hoveredIdx === i ? 0 : -1}
+                  onMouseDown={(e) => e.stopPropagation()}
+                >
+                  Scopri di più
+                </Link>
+              )}
             </div>
           </div>
         ))}

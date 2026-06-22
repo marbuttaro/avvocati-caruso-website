@@ -24,9 +24,9 @@ const Footer = () => {
           {/* Nav Links Column */}
           <div className="footer-v3-links">
             <ul className="footer-links-large serif">
-              <li><a href="/team">Il Team</a></li>
-              <li><a href="/">Lo Studio</a></li>
-              <li><a href="/news">News</a></li>
+              <li><a href="/team">I professionisti</a></li>
+              <li><a href="/lo-studio">Lo Studio</a></li>
+              <li><a href="/#news">News</a></li>
             </ul>
           </div>
         </div>

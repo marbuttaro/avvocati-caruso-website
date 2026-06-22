@@ -59,6 +59,7 @@ const Navbar = () => {
         </Link>
 
         <div className="nav-v3-links">
+          <Link to="/" className={location.pathname === '/' ? 'active' : ''}>Home</Link>
           <Link to="/lo-studio" className={location.pathname === '/lo-studio' ? 'active' : ''}>Lo studio</Link>
 
           {/* Competenze + dropdown */}
@@ -112,6 +113,7 @@ const Navbar = () => {
             className="mobile-menu-v3"
           >
             <div className="mobile-links-v3">
+              <Link to="/">Home</Link>
               <Link to="/lo-studio">Lo studio</Link>
               <span>Competenze</span>
               <Link to="/diritto-penale" className="mobile-sublink">— Diritto Penale</Link>

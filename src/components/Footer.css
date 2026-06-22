@@ -1,5 +1,5 @@
 .footer-v3 {
-  padding: 4.5rem 0 3.2rem 0;
+  padding: 4rem 0 2.5rem 0;
   color: var(--color-white);
 }
 
@@ -18,36 +18,40 @@
 
 /* Brand Section */
 .footer-logo-complete {
-  width: 130px;
+  width: 110px;
   height: auto;
   display: block;
 }
 
 /* Contacts Section */
 .footer-v3-contacts h4 {
-  font-size: 28pt;
-  margin-bottom: 0.6rem;
+  font-size: 18px;
+  margin-bottom: 0.5rem;
   opacity: 0.9;
 }
 
 .contact-details {
   line-height: 1.7;
-  font-size: 15pt;
+  font-size: 14px;
   opacity: 0.7;
 }
 
 /* Links Section */
+.footer-v3-links {
+  padding-right: 4rem;
+}
+
 .footer-links-large {
   list-style: none;
   text-align: left;
 }
 
 .footer-links-large li {
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.3rem;
 }
 
 .footer-links-large a {
-  font-size: 28pt;
+  font-size: 18px;
   opacity: 0.9;
   transition: opacity 0.3s;
 }
@@ -76,7 +80,7 @@
 }
 
 .policy-links a {
-  font-size: 1rem;
+  font-size: 0.85rem;
   opacity: 0.5;
   transition: opacity 0.3s;
 }
@@ -90,13 +94,17 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 4rem;
+    gap: 3rem;
   }
-  
+
+  .footer-v3-links {
+    padding-right: 0;
+  }
+
   .footer-links-large {
     text-align: center;
   }
-  
+
   .footer-policy-row {
     justify-content: center;
   }
