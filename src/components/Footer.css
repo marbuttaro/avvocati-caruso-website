@@ -47,7 +47,11 @@
 }
 
 .footer-links-large li {
-  margin-bottom: 0.3rem;
+  margin-bottom: 1.2rem;
+}
+
+.footer-links-large li:last-child {
+  margin-bottom: 0;
 }
 
 .footer-links-large a {
