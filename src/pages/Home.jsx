@@ -320,105 +320,79 @@ function ContactSection() {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <section id="contatti" className="contact-v3 section-padding bg-navy">
-      <img src="/assets/pattern-contatti.svg" className="contact-section-pattern" aria-hidden="true" />
-      <div className="container contact-container-figma">
-        <div className="contact-info-figma">
-          <AnimatePresence mode="wait">
-            {activeTab === 0 ? (
-              <motion.div key="tab0-info" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-                <h2 className="serif">Hai bisogno di<br/>una consulenza<br/>legale?</h2>
-                <p className="sans">Siamo a disposizione per rispondere<br/>alle vostre esigenze legali. Compilate<br/>il modulo per richiedere un primo<br/>colloquio.</p>
-              </motion.div>
-            ) : (
-              <motion.div key="tab1-info" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-                <h2 className="serif">Incontra<br/>i nostri<br/>professionisti</h2>
-                <p className="sans">Prenota una consulenza dedicata<br/>per approfondire il tuo caso e<br/>ricevere assistenza qualificata.</p>
-              </motion.div>
-            )}
-          </AnimatePresence>
+    <section id="contatti" className="contact-section-new">
+      <div className="container">
+        <div className="contact-tab-row">
+          <button
+            className={`ct-tab serif${activeTab === 0 ? ' ct-tab-active' : ''}`}
+            onClick={() => setActiveTab(0)}
+          >Contattaci</button>
+          <button
+            className={`ct-tab serif${activeTab === 1 ? ' ct-tab-active' : ''}`}
+            onClick={() => setActiveTab(1)}
+          >Prenota un appuntamento</button>
         </div>
 
-        <div className="contact-divider-figma"></div>
+        <div className="contact-body-new">
+          <img src="/assets/pattern-contatti.svg" className="contact-section-pattern" aria-hidden="true" />
 
-        <div className="contact-form-figma">
-          <div className="contact-tabs">
-            <button className={`contact-tab serif${activeTab === 0 ? ' active' : ''}`} onClick={() => setActiveTab(0)}>Contattaci</button>
-            <button className={`contact-tab serif${activeTab === 1 ? ' active' : ''}`} onClick={() => setActiveTab(1)}>Prenota un appuntamento</button>
+          <div className="contact-body-inner">
+            <div className="contact-info-figma">
+              <AnimatePresence mode="wait">
+                {activeTab === 0 ? (
+                  <motion.div key="t0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                    <h2 className="serif">Hai bisogno di<br/>una consulenza<br/>legale?</h2>
+                    <p className="sans">Siamo a disposizione per rispondere<br/>alle vostre esigenze legali. Compilate<br/>il modulo per richiedere un primo<br/>colloquio.</p>
+                  </motion.div>
+                ) : (
+                  <motion.div key="t1" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                    <h2 className="serif">Incontra<br/>i nostri<br/>professionisti</h2>
+                    <p className="sans">Prenota una consulenza dedicata<br/>per approfondire il tuo caso e<br/>ricevere assistenza qualificata.</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <div className="contact-divider-figma"></div>
+
+            <div className="contact-form-figma">
+              <AnimatePresence mode="wait">
+                {activeTab === 0 ? (
+                  <motion.form key="fc" className="figma-form-new" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.35 }}>
+                    <div className="form-row-2">
+                      <div className="input-group"><label className="serif">Nome</label><input type="text" placeholder="Mario" /></div>
+                      <div className="input-group"><label className="serif">Cognome</label><input type="text" placeholder="Rossi" /></div>
+                    </div>
+                    <div className="form-row-1"><div className="input-group"><label className="serif">Indirizzo Mail</label><input type="email" placeholder="mariorossi@gmail.com" /></div></div>
+                    <div className="form-row-1"><div className="input-group"><label className="serif">Messaggio</label><textarea placeholder="Scrivi qui il tuo messaggio..." rows="4" /></div></div>
+                    <div className="form-submit-row"><button type="submit" className="btn-navy-light mt-3">Contatta lo studio</button></div>
+                  </motion.form>
+                ) : (
+                  <motion.form key="fb" className="figma-form-new" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.35 }}>
+                    <div className="form-row-2">
+                      <div className="input-group"><label className="serif">Nome</label><input type="text" placeholder="Mario" /></div>
+                      <div className="input-group"><label className="serif">Cognome</label><input type="text" placeholder="Rossi" /></div>
+                    </div>
+                    <div className="form-row-1"><div className="input-group"><label className="serif">Indirizzo Mail</label><input type="email" placeholder="mariorossi@gmail.com" /></div></div>
+                    <div className="form-row-2">
+                      <div className="input-group">
+                        <label className="serif">Data</label>
+                        <div className="select-wrap"><input type="date" className="custom-select" /><img src="/assets/arrow-down.svg" alt="" className="select-arrow" /></div>
+                      </div>
+                      <div className="input-group">
+                        <label className="serif">Ora</label>
+                        <div className="select-wrap">
+                          <select className="custom-select"><option value="">seleziona la fascia oraria</option>{TIME_SLOTS.map(t => <option key={t} value={t}>{t}</option>)}</select>
+                          <img src="/assets/arrow-down.svg" alt="" className="select-arrow" />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="form-submit-row"><button type="submit" className="btn-navy-light mt-3">Contatta lo studio</button></div>
+                  </motion.form>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
-
-          <AnimatePresence mode="wait">
-            {activeTab === 0 ? (
-              <motion.form key="form-contact" className="figma-form-new" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.35 }}>
-                <div className="form-row-2">
-                  <div className="input-group">
-                    <label className="serif">Nome</label>
-                    <input type="text" placeholder="Mario" />
-                  </div>
-                  <div className="input-group">
-                    <label className="serif">Cognome</label>
-                    <input type="text" placeholder="Rossi" />
-                  </div>
-                </div>
-                <div className="form-row-1">
-                  <div className="input-group">
-                    <label className="serif">Indirizzo Mail</label>
-                    <input type="email" placeholder="mariorossi@gmail.com" />
-                  </div>
-                </div>
-                <div className="form-row-1">
-                  <div className="input-group">
-                    <label className="serif">Messaggio</label>
-                    <textarea placeholder="Scrivi qui il tuo messaggio..." rows="4" />
-                  </div>
-                </div>
-                <div className="form-submit-row">
-                  <button type="submit" className="btn-navy-light mt-3">Contatta lo studio</button>
-                </div>
-              </motion.form>
-            ) : (
-              <motion.form key="form-booking" className="figma-form-new" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.35 }}>
-                <div className="form-row-2">
-                  <div className="input-group">
-                    <label className="serif">Nome</label>
-                    <input type="text" placeholder="Mario" />
-                  </div>
-                  <div className="input-group">
-                    <label className="serif">Cognome</label>
-                    <input type="text" placeholder="Rossi" />
-                  </div>
-                </div>
-                <div className="form-row-1">
-                  <div className="input-group">
-                    <label className="serif">Indirizzo Mail</label>
-                    <input type="email" placeholder="mariorossi@gmail.com" />
-                  </div>
-                </div>
-                <div className="form-row-2">
-                  <div className="input-group">
-                    <label className="serif">Data</label>
-                    <div className="select-wrap">
-                      <input type="date" className="custom-select" />
-                      <img src="/assets/arrow-down.svg" alt="" className="select-arrow" />
-                    </div>
-                  </div>
-                  <div className="input-group">
-                    <label className="serif">Ora</label>
-                    <div className="select-wrap">
-                      <select className="custom-select">
-                        <option value="">seleziona la fascia oraria</option>
-                        {TIME_SLOTS.map(t => <option key={t} value={t}>{t}</option>)}
-                      </select>
-                      <img src="/assets/arrow-down.svg" alt="" className="select-arrow" />
-                    </div>
-                  </div>
-                </div>
-                <div className="form-submit-row">
-                  <button type="submit" className="btn-navy-light mt-3">Contatta lo studio</button>
-                </div>
-              </motion.form>
-            )}
-          </AnimatePresence>
         </div>
       </div>
     </section>

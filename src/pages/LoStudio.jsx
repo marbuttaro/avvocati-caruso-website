@@ -54,9 +54,14 @@ const LoStudio = () => {
             </div>
           </div>
           <div className="lo-studio-map-wrap">
-            <div className="lo-studio-map-placeholder">
-              <span className="lo-studio-map-label sans">Google Maps</span>
-            </div>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3019.5!2d14.2681!3d40.8518!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDUxJzA2LjUiTiAxNMKwMTYnMDUuMiJF!5e0!3m2!1sit!2sit!4v1"
+              className="lo-studio-map-iframe"
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Studio Legale Caruso - Mappa"
+            />
           </div>
         </div>
       </section>
