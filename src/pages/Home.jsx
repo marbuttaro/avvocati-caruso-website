@@ -44,22 +44,27 @@ const professionals = [
   {
     id: 0, prefix: 'Avv.', name: 'Alfredo Caruso',
     img: '/assets/prof-luca.jpg',
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
+    role: 'Avvocato Penalista',
   },
   {
     id: 1, prefix: 'Avv.', name: 'Marco Ferretti',
-    img: '/assets/prof-mario.jpg',
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
+    img: '/assets/prof-alfredo.jpg',
+    role: 'Avvocato Penalista',
   },
   {
     id: 2, prefix: 'Avv.ssa', name: 'Laura Bianchi',
     img: '/assets/prof-giulia.jpg',
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
+    role: 'Avvocato Penalista',
   },
   {
     id: 3, prefix: 'Avv.ssa', name: 'Giulia Romano',
     img: '/assets/prof-elena.jpg',
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
+    role: 'Avvocato Penalista',
+  },
+  {
+    id: 4, prefix: 'Avv.', name: "Lorenzo D'Angelo",
+    img: '/assets/prof-marco.jpg',
+    role: 'Avvocato Penalista',
   },
 ];
 
@@ -111,7 +116,6 @@ function NewsSlider() {
   );
 }
 
-const SIZE_OPACITY = { sm: 0.42, md: 0.68, lg: 1 };
 function StudioRisponde() {
   const [openIdx, setOpenIdx] = useState(null);
 
@@ -159,75 +163,29 @@ function StudioRisponde() {
   );
 }
 
-const SLIDE_EASE = [0.16, 1, 0.3, 1];
-
-function ProfessionistiSlider() {
-  const [activeIdx, setActiveIdx] = useState(0);
-  const [dir, setDir] = useState(1);
-  const n = professionals.length;
-
-  const navigate = (d) => {
-    setDir(d);
-    setActiveIdx(i => (i + d + n) % n);
-  };
-
-  // Left→right: [sm=idx+2, md=idx+1, lg=idx]
-  // On next (+1): md grows→lg (layout), sm shifts→md (layout), old lg fades out, new sm enters from left
-  const visiblePhotos = [
-    { key: (activeIdx + 2) % n, prof: professionals[(activeIdx + 2) % n], size: 'sm' },
-    { key: (activeIdx + 1) % n, prof: professionals[(activeIdx + 1) % n], size: 'md' },
-    { key: activeIdx,            prof: professionals[activeIdx],            size: 'lg' },
-  ];
-
-  const active = professionals[activeIdx];
-
+function ProfessionistiGrid() {
   return (
     <section className="prof-v5">
-      <div className="prof-v5-layout">
-        <div className="prof-v5-left">
-          <h2 className="prof-v5-title serif">I professionisti</h2>
-          <div className="prof-v5-photos">
-            <AnimatePresence mode="popLayout" initial={false}>
-              {visiblePhotos.map(({ key, prof, size }) => (
-                <motion.div
-                  key={key}
-                  layout
-                  initial={{ opacity: 0, x: dir > 0 ? -40 : 40 }}
-                  animate={{ opacity: SIZE_OPACITY[size], x: 0 }}
-                  exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.28, ease: 'easeOut' } }}
-                  transition={{ duration: 0.65, ease: SLIDE_EASE }}
-                  className={`prof-v5-photo prof-v5-photo--${size}`}
-                >
-                  <img src={prof.img} alt={prof.name} draggable="false" />
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </div>
-        </div>
-
-        <div className="prof-v5-info">
-          <AnimatePresence mode="wait" initial={false}>
+      <div className="container">
+        <h2 className="prof-v5-title serif">I professionisti</h2>
+        <div className="prof-grid">
+          {professionals.map((prof, i) => (
             <motion.div
-              key={activeIdx}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -14 }}
-              transition={{ duration: 0.35, ease: 'easeOut' }}
-              className="prof-v5-info-inner"
+              key={prof.id}
+              className="prof-grid-item"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.6, ease: 'easeOut', delay: (i % 3) * 0.08 }}
             >
-              <span className="prof-v5-prefix serif">{active.prefix}</span>
-              <h3 className="prof-v5-name serif">{active.name}</h3>
-              <p className="prof-v5-bio">{active.bio}</p>
+              <div className="prof-grid-photo">
+                <img src={prof.img} alt={prof.name} />
+              </div>
+              <span className="prof-grid-prefix serif">{prof.prefix}</span>
+              <h3 className="prof-grid-name serif">{prof.name}</h3>
+              <span className="prof-grid-role">{prof.role}</span>
             </motion.div>
-          </AnimatePresence>
-          <div className="prof-v5-arrows">
-            <button onClick={() => navigate(-1)} className="prof-arrow-btn" aria-label="Precedente">
-              <img src="/assets/arrow.svg" alt="" style={{ transform: 'scaleX(-1)' }} />
-            </button>
-            <button onClick={() => navigate(1)} className="prof-arrow-btn" aria-label="Successivo">
-              <img src="/assets/arrow.svg" alt="" />
-            </button>
-          </div>
+          ))}
         </div>
       </div>
     </section>
@@ -585,7 +543,7 @@ const Home = () => {
       {/* 3. All sections after studio — z-index 2 to render above sticky studio */}
       <div className="content-over-hero">
 
-        <ProfessionistiSlider />
+        <ProfessionistiGrid />
 
         {/* News Section */}
         <section id="news" className="news-v5 section-padding bg-cream">

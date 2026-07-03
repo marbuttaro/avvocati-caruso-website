@@ -275,142 +275,80 @@
   overflow: hidden;
 }
 
-/* Full-bleed flex — no container wrapper, uses its own padding */
-.prof-v5-layout {
-  display: flex;
-  align-items: flex-end;
-  padding-left: var(--section-indent);
-  padding-right: var(--section-indent);
-  gap: 5rem;
-  min-height: 520px;
-}
-
-.prof-v5-left {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex: 0 0 auto;
-  min-width: 0;
-}
-
 .prof-v5-title {
   font-size: clamp(2.8rem, 5vw, 4.8rem);
   color: #F6F3ED;
   font-style: normal;
   font-weight: 400;
   line-height: 1.05;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
 }
 
-.prof-v5-photos {
+.prof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: clamp(1.5rem, 4vw, 4.5rem);
+  row-gap: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.prof-grid-item {
   display: flex;
-  align-items: flex-end;
-  gap: 10px;
+  flex-direction: column;
+  color: #F6F3ED;
 }
 
-.prof-v5-photo {
+.prof-grid-photo {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 16px;
   overflow: hidden;
-  flex-shrink: 0;
-  border-radius: 26px;
+  margin-bottom: 1.1rem;
 }
 
-.prof-v5-photo img {
+.prof-grid-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center top;
   display: block;
-  pointer-events: none;
 }
 
-/* Photo sizes per spec */
-.prof-v5-photo--sm { width: 250px; height: 295px; opacity: 0.42; }
-.prof-v5-photo--md { width: 250px; height: 295px; opacity: 0.68; }
-.prof-v5-photo--lg { width: 310px; height: 424px; opacity: 1; }
-
-/* Info panel — fixed width, vertically centered to lg photo height */
-.prof-v5-info {
-  width: 380px;
-  height: 424px; /* same as lg photo */
-  flex-shrink: 0;
-  color: #F6F3ED;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.prof-v5-info-inner {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.prof-v5-prefix {
+.prof-grid-prefix {
   font-family: var(--font-serif);
-  font-size: 40px;
-  font-style: normal;
-  font-weight: 400;
-  opacity: 0.9;
-  display: block;
-  margin-bottom: 0.1rem;
+  font-style: italic;
+  font-size: clamp(1rem, 1.2vw, 1.2rem);
+  opacity: 0.85;
+  margin-bottom: 0.15rem;
 }
 
-.prof-v5-name {
+.prof-grid-name {
   font-family: var(--font-serif);
-  font-size: 56px;
+  font-size: clamp(1.6rem, 2.2vw, 2.1rem);
   font-weight: 400;
   font-style: normal;
-  line-height: 1.0;
-  margin-bottom: 1.2rem;
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
 }
 
-.prof-v5-bio {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  opacity: 0.88;
-  margin-bottom: 2rem;
-  max-width: 340px;
-}
-
-.prof-v5-arrows {
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
-}
-
-.prof-arrow-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.4rem;
-  opacity: 0.7;
-  transition: opacity 0.2s;
-  display: flex;
-  align-items: center;
-}
-
-.prof-arrow-btn:hover { opacity: 1; }
-
-.prof-arrow-btn img {
-  width: 11px;
-  height: 21px;
-  display: block;
+.prof-grid-role {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.75;
 }
 
 @media (max-width: 900px) {
-  .prof-v5-layout {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0 24px;
-    min-height: auto;
-    gap: 2rem;
+  .prof-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  .prof-v5-info {
-    width: 100%;
+}
+
+@media (max-width: 560px) {
+  .prof-grid {
+    grid-template-columns: 1fr;
+    max-width: 320px;
+    margin: 0 auto;
   }
-  .prof-v5-photo--sm { width: 100px; height: 118px; }
-  .prof-v5-photo--md { width: 100px; height: 118px; }
-  .prof-v5-photo--lg { width: 130px; height: 178px; }
 }
 
 /* Studio Section (legacy fallback, still used by class selectors) */
