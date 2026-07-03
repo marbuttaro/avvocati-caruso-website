@@ -52,8 +52,8 @@ const Navbar = () => {
       <div className="container nav-v3-container">
         <Link to="/" className="brand-v3-new">
           <img
-            src={scrolled || !isHome ? '/assets/logotipo-dark.svg' : '/assets/logotipo.svg'}
-            alt="Studio Legale Caruso"
+            src={scrolled || !isHome ? '/assets/lettering-navy.svg' : '/assets/logo-lettering.svg'}
+            alt="Avvocati Caruso"
             className="logo-img"
           />
         </Link>
