@@ -41,11 +41,6 @@ html.preloader-lock .navbar-v3 {
 .logo-img {
   height: 34px;
   width: auto;
-  transition: height 0.3s ease;
-}
-
-.navbar-v3.scrolled .logo-img {
-  height: 28px;
 }
 
 .nav-v3-links {
