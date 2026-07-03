@@ -5,6 +5,7 @@ import { ArrowUpRight } from 'lucide-react';
 import TiltedCard from '../components/TiltedCard/TiltedCard';
 import ImageTrail from '../components/ImageTrail/ImageTrail';
 import SplitText from '../components/SplitText/SplitText';
+import Preloader from '../components/Preloader/Preloader';
 import { newsItems } from '../data/newsData';
 import './Home.css';
 
@@ -528,6 +529,8 @@ const Home = () => {
 
   return (
     <div className="home-v3">
+
+      <Preloader />
 
       {/* ── CodyHouse Revealing Hero ─────────────────────────────────────────
           DOM order: hero  FIRST  (z-index 2, scrolls away normally)

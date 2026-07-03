@@ -10,6 +10,12 @@
   transition: all 0.5s var(--transition-classic);
 }
 
+html.preloader-lock .navbar-v3 {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
 .navbar-v3.scrolled {
   background-color: rgba(246, 243, 237, 0.60);
   backdrop-filter: blur(15px);
