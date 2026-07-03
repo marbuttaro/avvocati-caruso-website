@@ -66,6 +66,11 @@ const professionals = [
     img: '/assets/prof-marco.jpg',
     role: 'Avvocato Penalista',
   },
+  {
+    id: 5, prefix: 'Avv.', name: 'Guido Coppola',
+    img: '/assets/prof-guido.jpg',
+    role: 'Avvocato Penalista',
+  },
 ];
 
 function NewsSlider() {
