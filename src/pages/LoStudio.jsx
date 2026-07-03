@@ -66,7 +66,6 @@ const LoStudio = () => {
         </div>
       </section>
 
-      <img src="/assets/pattern.svg" alt="" className="lo-studio-pattern-sep" aria-hidden="true" />
     </div>
   );
 };

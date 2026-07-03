@@ -22,6 +22,9 @@
   z-index: 1;
   border-radius: 28px 28px 0 0;
   box-shadow: 0 -8px 60px rgba(0, 0, 0, 0.20);
+  overflow: hidden;
+  padding-top: clamp(8rem, 12vw, 14rem);
+  padding-bottom: clamp(8rem, 12vw, 14rem);
 }
 
 /* Overlay inside studio: dark navy → transparent as hero scrolls off */
@@ -100,11 +103,31 @@
 }
 
 /* ── Studio V5 Section ── */
+.studio-v5-watermark {
+  position: absolute;
+  top: 33%;
+  left: 65%;
+  transform: translate(-50%, -50%);
+  width: 56vw;
+  max-width: 640px;
+  min-width: 280px;
+  opacity: 0.04;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+.studio-v5-content {
+  position: relative;
+  z-index: 1;
+}
+
 .studio-v5-top {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   margin-bottom: 4rem;
+  align-items: center;
 }
 
 .studio-v5-title {
@@ -112,7 +135,7 @@
   color: var(--color-navy);
   font-style: normal;
   line-height: 1;
-  margin-bottom: 2rem;
+  margin-bottom: 0;
 }
 
 .studio-v5-tagline {
@@ -138,7 +161,7 @@
 
 /* Slider */
 .studio-slider-root {
-  margin-top: 4.5rem;
+  margin-top: 7rem;
   position: relative;
   padding-left: var(--section-indent);
 }
@@ -187,7 +210,8 @@
   transition: opacity 0.3s ease;
 }
 
-.studio-slide-item:hover .slide-title {
+.studio-slide-item:hover .slide-title,
+.studio-slide-item--active .slide-title {
   opacity: 1;
 }
 
@@ -566,7 +590,7 @@
 /* Contact Form Figma Rebuild */
 /* ── Contact Section — tabbed card design ── */
 .contact-section-new {
-  padding: 4rem 0 0;
+  padding: 4rem 0 4rem;
 }
 
 .contact-tab-row {
@@ -603,7 +627,7 @@
   background-color: #152C3D;
   border-radius: 0 0 14px 14px;
   padding: 3rem 3rem 3.5rem;
-  overflow: hidden;
+  min-height: 480px;
 }
 
 .contact-body-inner {
@@ -627,7 +651,7 @@
 }
 
 .contact-info-figma {
-  flex: 0 0 35%;
+  flex: 0 0 28%;
   color: var(--color-white);
   padding-right: 2rem;
 }
@@ -685,15 +709,6 @@
   color: var(--color-white);
 }
 
-input[type="date"].custom-select::-webkit-calendar-picker-indicator {
-  opacity: 0;
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-}
-
 .select-arrow {
   position: absolute;
   right: 0;
@@ -705,9 +720,145 @@ input[type="date"].custom-select::-webkit-calendar-picker-indicator {
   filter: brightness(0) invert(1);
 }
 
-input[type="date"].custom-select {
-  color-scheme: dark;
+/* ── Calendar picker ── */
+.calendar-picker,
+.time-picker {
+  position: relative;
 }
+
+.calendar-picker .custom-select,
+.time-picker .custom-select {
+  cursor: pointer;
+  user-select: none;
+}
+
+.calendar-dropdown {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  z-index: 20;
+  background-color: #1C2E4A;
+  border-radius: 12px;
+  padding: 1rem;
+  min-width: 280px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  color: var(--color-white);
+  font-size: 16px;
+}
+
+.calendar-nav {
+  background: none;
+  border: none;
+  color: var(--color-white);
+  font-size: 22px;
+  cursor: pointer;
+  padding: 0 0.5rem;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.calendar-nav:hover { opacity: 1; }
+
+.calendar-days-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  color: var(--color-white);
+  opacity: 0.5;
+  font-size: 13px;
+  margin-bottom: 0.4rem;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.calendar-day,
+.calendar-day-empty {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 14px;
+  font-family: var(--font-sans);
+}
+
+.calendar-day {
+  background: none;
+  border: none;
+  color: var(--color-white);
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.calendar-day:hover:not(:disabled) {
+  background-color: rgba(233, 226, 210, 0.15);
+}
+
+.calendar-day-selected {
+  background-color: var(--color-steel-blue) !important;
+  color: var(--color-white);
+}
+
+.calendar-day-disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+/* ── Time picker ── */
+.time-dropdown {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  z-index: 20;
+  background-color: #1C2E4A;
+  border-radius: 12px;
+  padding: 1rem;
+  min-width: 200px;
+  max-height: 320px;
+  overflow-y: auto;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
+
+.time-slot {
+  background: none;
+  border: none;
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  padding: 0.5rem 0.6rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  text-align: center;
+}
+
+.time-slot:hover {
+  background-color: rgba(233, 226, 210, 0.15);
+}
+
+.time-slot-selected {
+  background-color: var(--color-steel-blue) !important;
+  color: var(--color-white);
+}
+
+.time-dropdown::-webkit-scrollbar { width: 6px; }
+.time-dropdown::-webkit-scrollbar-track { background: transparent; }
+.time-dropdown::-webkit-scrollbar-thumb { background-color: rgba(233, 226, 210, 0.2); border-radius: 3px; }
 
 .figma-form-new {
   display: flex;
@@ -793,7 +944,7 @@ input[type="date"].custom-select {
 
 .btn-navy-light {
   height: 38px;
-  padding: 0 6px;
+  padding: 0 20px;
   background-color: var(--color-steel-blue);
   color: var(--color-white);
   border: none;

@@ -281,11 +281,10 @@ function StudioSlider() {
         {services.map((svc, i) => (
           <div
             key={i}
-            className="studio-slide-item"
+            className={`studio-slide-item${(i === 0 && hoveredIdx === null) ? ' studio-slide-item--active' : ''}`}
             onMouseEnter={() => { if (!dragging.current) setHoveredIdx(i); }}
             onMouseLeave={() => setHoveredIdx(null)}
           >
-            <span className="slide-num">{svc.id}</span>
             <div style={{ position: 'relative' }}>
               <h3 className="slide-title">{svc.title}</h3>
               {svc.slug === '/diritto-penale' && (
@@ -303,7 +302,7 @@ function StudioSlider() {
         ))}
       </div>
       <div className="studio-progress-track">
-        <div className="studio-progress-bar" style={{ width: `${progress * 100}%` }} />
+        <div className="studio-progress-bar" style={{ width: `${Math.max(4, progress * 100)}%` }} />
       </div>
     </div>
   );
@@ -316,8 +315,100 @@ for (let h = 9; h < 18; h++) {
 }
 TIME_SLOTS.push('18:00');
 
+const MONTHS_IT = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+const DAYS_IT = ['Lu','Ma','Me','Gi','Ve','Sa','Do'];
+
+function CalendarPicker({ value, onChange }) {
+  const [open, setOpen] = useState(false);
+  const today = new Date();
+  const [viewMonth, setViewMonth] = useState(today.getMonth());
+  const [viewYear, setViewYear] = useState(today.getFullYear());
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const handler = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  const firstDay = new Date(viewYear, viewMonth, 1);
+  let startDay = firstDay.getDay() - 1;
+  if (startDay < 0) startDay = 6;
+  const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+  const cells = [];
+  for (let i = 0; i < startDay; i++) cells.push(null);
+  for (let d = 1; d <= daysInMonth; d++) cells.push(d);
+
+  const prevMonth = () => { if (viewMonth === 0) { setViewMonth(11); setViewYear(viewYear - 1); } else setViewMonth(viewMonth - 1); };
+  const nextMonth = () => { if (viewMonth === 11) { setViewMonth(0); setViewYear(viewYear + 1); } else setViewMonth(viewMonth + 1); };
+
+  const pick = (d) => {
+    const dd = String(d).padStart(2,'0');
+    const mm = String(viewMonth + 1).padStart(2,'0');
+    onChange(`${dd}/${mm}/${viewYear}`);
+    setOpen(false);
+  };
+
+  const isWeekend = (d) => { const date = new Date(viewYear, viewMonth, d); return date.getDay() === 0 || date.getDay() === 6; };
+  const isPast = (d) => { const date = new Date(viewYear, viewMonth, d); const t = new Date(); t.setHours(0,0,0,0); return date < t; };
+
+  return (
+    <div className="calendar-picker" ref={ref}>
+      <div className="select-wrap" onClick={() => setOpen(!open)}>
+        <div className="custom-select">{value || <span style={{opacity:0.4}}>scegli la data</span>}</div>
+        <img src="/assets/arrow-down.svg" alt="" className="select-arrow" />
+      </div>
+      {open && (
+        <div className="calendar-dropdown">
+          <div className="calendar-header">
+            <button type="button" onClick={prevMonth} className="calendar-nav">‹</button>
+            <span className="serif">{MONTHS_IT[viewMonth]} {viewYear}</span>
+            <button type="button" onClick={nextMonth} className="calendar-nav">›</button>
+          </div>
+          <div className="calendar-days-header">{DAYS_IT.map(d => <span key={d}>{d}</span>)}</div>
+          <div className="calendar-grid">
+            {cells.map((d, i) => d ? (
+              <button type="button" key={i}
+                className={`calendar-day${isWeekend(d) || isPast(d) ? ' calendar-day-disabled' : ''}${value === `${String(d).padStart(2,'0')}/${String(viewMonth+1).padStart(2,'0')}/${viewYear}` ? ' calendar-day-selected' : ''}`}
+                disabled={isWeekend(d) || isPast(d)} onClick={() => pick(d)}>{d}</button>
+            ) : <span key={i} className="calendar-day-empty" />)}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function TimePicker({ value, onChange }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+  useEffect(() => {
+    const handler = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+  return (
+    <div className="time-picker" ref={ref}>
+      <div className="select-wrap" onClick={() => setOpen(!open)}>
+        <div className="custom-select">{value || <span style={{opacity:0.4}}>seleziona la fascia oraria</span>}</div>
+        <img src="/assets/arrow-down.svg" alt="" className="select-arrow" />
+      </div>
+      {open && (
+        <div className="time-dropdown">
+          {TIME_SLOTS.map(t => (
+            <button type="button" key={t} className={`time-slot${value === t ? ' time-slot-selected' : ''}`}
+              onClick={() => { onChange(t); setOpen(false); }}>{t}</button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function ContactSection() {
   const [activeTab, setActiveTab] = useState(0);
+  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedTime, setSelectedTime] = useState('');
 
   return (
     <section id="contatti" className="contact-section-new">
@@ -377,17 +468,14 @@ function ContactSection() {
                     <div className="form-row-2">
                       <div className="input-group">
                         <label className="serif">Data</label>
-                        <div className="select-wrap"><input type="date" className="custom-select" /><img src="/assets/arrow-down.svg" alt="" className="select-arrow" /></div>
+                        <CalendarPicker value={selectedDate} onChange={setSelectedDate} />
                       </div>
                       <div className="input-group">
                         <label className="serif">Ora</label>
-                        <div className="select-wrap">
-                          <select className="custom-select"><option value="">seleziona la fascia oraria</option>{TIME_SLOTS.map(t => <option key={t} value={t}>{t}</option>)}</select>
-                          <img src="/assets/arrow-down.svg" alt="" className="select-arrow" />
-                        </div>
+                        <TimePicker value={selectedTime} onChange={setSelectedTime} />
                       </div>
                     </div>
-                    <div className="form-submit-row"><button type="submit" className="btn-navy-light mt-3">Contatta lo studio</button></div>
+                    <div className="form-submit-row"><button type="submit" className="btn-navy-light mt-3">Prenota</button></div>
                   </motion.form>
                 )}
               </AnimatePresence>
@@ -448,7 +536,6 @@ const Home = () => {
 
       {/* 1. Hero — first in DOM, z-index 2, scrolls off to reveal studio */}
       <section ref={heroRef} className="hero-v5">
-        <img src="/assets/logotipo-watermark.svg" alt="" className="hero-v5-watermark" aria-hidden="true" />
         <div className="hero-v5-ticker-wrap" aria-hidden="true">
           <div className="hero-v5-ticker">
             {[...tickerItems, ...tickerItems, ...tickerItems, ...tickerItems].map((item, i) => (
@@ -462,9 +549,10 @@ const Home = () => {
       </section>
 
       {/* 2. Studio — sticky (bottom set via JS), z-index 1, overlay fades as hero scrolls off */}
-      <section id="studio" ref={studioRef} className="studio-v5 section-padding bg-cream">
+      <section id="studio" ref={studioRef} className="studio-v5 bg-cream">
         <motion.div className="studio-reveal-overlay" style={{ opacity: studioOverlayOpacity }} aria-hidden="true" />
-        <motion.div style={{ y: studioContentY }}>
+        <img src="/assets/logotipo-watermark.svg" alt="" className="studio-v5-watermark" aria-hidden="true" />
+        <motion.div style={{ y: studioContentY }} className="studio-v5-content">
           <div className="container">
             <div className="studio-v5-top">
               <div className="studio-v5-left">
@@ -502,14 +590,11 @@ const Home = () => {
           <NewsSlider />
         </section>
 
-        {/* Full-width photo */}
-        <img src="/assets/foto.png" alt="" className="foto-full" />
-
-        {/* Lo Studio Risponde — FAQ */}
-        <StudioRisponde />
-
         {/* Pattern separator */}
         <img src="/assets/pattern.svg" alt="" className="pattern-separator" aria-hidden="true" />
+
+        {/* Full-width photo */}
+        <img src="/assets/foto.png" alt="" className="foto-full" />
 
         {/* Dove Siamo */}
         <section className="dove-siamo-section bg-cream">
@@ -538,3 +623,4 @@ const Home = () => {
 };
 
 export default Home;
+export { ContactSection };

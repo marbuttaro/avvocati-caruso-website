@@ -3,7 +3,9 @@ import './Footer.css';
 
 const Footer = () => {
   return (
-    <footer className="footer-v3 bg-footer">
+    <>
+      <img src="/assets/pattern.svg" alt="" className="pattern-separator" aria-hidden="true" />
+      <footer className="footer-v3 bg-footer">
       <div className="container footer-v3-inner">
         <div className="footer-v3-main">
           {/* Brand Column */}
@@ -42,6 +44,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
+    </>
   );
 };
 

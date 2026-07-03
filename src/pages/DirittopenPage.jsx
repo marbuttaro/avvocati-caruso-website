@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { ContactSection } from './Home';
 import './DirittopenPage.css';
 
 const fadeUp = {
@@ -146,57 +147,7 @@ const DirittopenPage = () => {
       </section>
 
       {/* ── Contatti ─────────────────────────────────────────── */}
-      <section className="contact-v3 bg-navy dp-contact">
-        <img src="/assets/pattern-contatti.svg" className="contact-section-pattern" aria-hidden="true" />
-        <div className="container contact-container-figma">
-          <motion.div 
-            className="contact-info-figma"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-          >
-            <h2 className="serif">Hai bisogno di<br />una consulenza<br />legale?</h2>
-            <p className="sans">Siamo a disposizione per rispondere alle vostre esigenze legali. Compilate il modulo per richiedere un primo colloquio.</p>
-          </motion.div>
-          <div className="contact-divider-figma"></div>
-          <motion.div 
-            className="contact-form-figma"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-          >
-            <form className="figma-form-new">
-              <div className="form-row-2">
-                <div className="input-group">
-                  <label className="serif">Nome</label>
-                  <input type="text" placeholder="Mario" />
-                </div>
-                <div className="input-group">
-                  <label className="serif">Cognome</label>
-                  <input type="text" placeholder="Rossi" />
-                </div>
-              </div>
-              <div className="form-row-1">
-                <div className="input-group">
-                  <label className="serif">Indirizzo Mail</label>
-                  <input type="email" placeholder="mariorossi@gmail.com" />
-                </div>
-              </div>
-              <div className="form-row-1">
-                <div className="input-group">
-                  <label className="serif">Messaggio</label>
-                  <textarea placeholder="Scrivi qui il tuo messaggio..." rows="4" />
-                </div>
-              </div>
-              <div className="form-submit-row">
-                <button type="submit" className="btn-navy-light mt-3">Contatta lo studio</button>
-              </div>
-            </form>
-          </motion.div>
-        </div>
-      </section>
+      <ContactSection />
 
     </div>
   );
