@@ -45,31 +45,38 @@ const professionals = [
     id: 0, prefix: 'Avv.', name: 'Alfredo Caruso',
     img: '/assets/prof-luca.jpg',
     role: 'Avvocato Penalista',
+    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
   },
   {
     id: 1, prefix: 'Avv.', name: 'Marco Ferretti',
     img: '/assets/prof-alfredo.jpg',
     role: 'Avvocato Penalista',
+    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
   },
   {
     id: 2, prefix: 'Avv.ssa', name: 'Laura Bianchi',
     img: '/assets/prof-giulia.jpg',
     role: 'Avvocato Penalista',
+    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
   },
   {
     id: 3, prefix: 'Avv.ssa', name: 'Giulia Romano',
     img: '/assets/prof-elena.jpg',
     role: 'Avvocato Penalista',
+    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
   },
   {
     id: 4, prefix: 'Avv.', name: "Lorenzo D'Angelo",
     img: '/assets/prof-marco.jpg',
     role: 'Avvocato Penalista',
+    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
   },
   {
     id: 5, prefix: 'Avv.', name: 'Guido Coppola',
     img: '/assets/prof-guido.jpg',
+    imgPosition: 'center 50%',
     role: 'Avvocato Penalista',
+    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
   },
 ];
 
@@ -169,10 +176,22 @@ function StudioRisponde() {
 }
 
 function ProfessionistiGrid() {
+  const [activeIdx, setActiveIdx] = useState(0);
+  const n = professionals.length;
+  const navigate = (d) => setActiveIdx(i => (i + d + n) % n);
+  const active = professionals[activeIdx];
+  const mobileVisible = [
+    { pos: 'prev', prof: professionals[(activeIdx - 1 + n) % n] },
+    { pos: 'active', prof: active },
+    { pos: 'next', prof: professionals[(activeIdx + 1) % n] },
+  ];
+
   return (
     <section className="prof-v5">
       <div className="container">
         <h2 className="prof-v5-title serif">I professionisti</h2>
+
+        {/* Desktop / tablet grid */}
         <div className="prof-grid">
           {professionals.map((prof, i) => (
             <motion.div
@@ -184,13 +203,33 @@ function ProfessionistiGrid() {
               transition={{ duration: 0.6, ease: 'easeOut', delay: (i % 3) * 0.08 }}
             >
               <div className="prof-grid-photo">
-                <img src={prof.img} alt={prof.name} />
+                <img src={prof.img} alt={prof.name} style={prof.imgPosition ? { objectPosition: prof.imgPosition } : undefined} />
               </div>
               <span className="prof-grid-prefix serif">{prof.prefix}</span>
               <h3 className="prof-grid-name serif">{prof.name}</h3>
               <span className="prof-grid-role">{prof.role}</span>
             </motion.div>
           ))}
+        </div>
+
+        {/* Mobile slider */}
+        <div className="prof-mobile">
+          <div className="prof-mobile-photos">
+            {mobileVisible.map(({ pos, prof }) => (
+              <div key={pos} className={`prof-mobile-photo prof-mobile-photo--${pos}`}>
+                <img src={prof.img} alt={prof.name} style={prof.imgPosition ? { objectPosition: prof.imgPosition } : undefined} />
+              </div>
+            ))}
+          </div>
+          <div className="prof-mobile-nav">
+            <button onClick={() => navigate(-1)} className="prof-mobile-arrow" aria-label="Precedente">‹</button>
+            <div className="prof-mobile-name">
+              <span className="prof-mobile-prefix serif">{active.prefix}</span>
+              <h3 className="prof-mobile-name-text serif">{active.name}</h3>
+            </div>
+            <button onClick={() => navigate(1)} className="prof-mobile-arrow" aria-label="Successivo">›</button>
+          </div>
+          <p className="prof-mobile-bio">{active.bio}</p>
         </div>
       </div>
     </section>
