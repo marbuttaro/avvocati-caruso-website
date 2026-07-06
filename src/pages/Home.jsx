@@ -74,7 +74,7 @@ const professionals = [
   {
     id: 5, prefix: 'Avv.', name: 'Guido Coppola',
     img: '/assets/prof-guido.jpg',
-    imgPosition: 'center 50%',
+    imgPosition: 'center 15%',
     role: 'Avvocato Penalista',
     bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
   },
