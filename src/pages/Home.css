@@ -99,7 +99,7 @@
 
 @media (max-width: 768px) {
   .hero-v5-ticker-wrap { margin-top: 12vh; }
-  .hero-v5-ticker { animation-duration: 11s; }
+  .hero-v5-ticker { animation-duration: 7s; }
   .ticker-text { font-size: clamp(5.8rem, 23vw, 6.5rem); }
   .ticker-sep  { width: 52px; }
 }
@@ -399,7 +399,6 @@
   .prof-mobile-photo--active {
     opacity: 1;
     width: 46vw;
-    border: 6px solid #F6F3ED;
   }
 
   .prof-mobile-nav {
@@ -996,6 +995,10 @@
   }
   .contact-info-figma {
     text-align: center;
+  }
+  .ct-tab {
+    font-size: 20px;
+    padding: 1.3rem 1rem;
   }
 }
 

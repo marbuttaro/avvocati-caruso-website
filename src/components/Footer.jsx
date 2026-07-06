@@ -13,7 +13,10 @@ const Footer = () => {
         <div className="footer-v3-main">
           {/* Brand Column */}
           <div className="footer-v3-brand-stack">
-            <img src="/assets/logo-completo.svg" alt="Caruso Avvocati" className="footer-logo-complete" />
+            <picture>
+              <source media="(max-width: 640px)" srcSet="/assets/logo-lettering.svg" />
+              <img src="/assets/logo-completo.svg" alt="Caruso Avvocati" className="footer-logo-complete" />
+            </picture>
           </div>
 
           {/* Contacts Column */}

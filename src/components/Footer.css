@@ -123,6 +123,27 @@
     gap: 2rem;
   }
 
+  .footer-logo-complete {
+    width: 190px;
+  }
+
+  .footer-v3-contacts h4 {
+    display: none;
+  }
+
+  .contact-details {
+    font-size: 14pt;
+  }
+
+  .contact-details p:nth-child(2),
+  .contact-details p:nth-child(3) {
+    display: inline;
+  }
+
+  .contact-details p:nth-child(3)::before {
+    content: ' | ';
+  }
+
   .footer-v3-line--mobile {
     display: block;
     width: 100%;
@@ -131,7 +152,8 @@
   }
 
   .footer-v3-line--desktop {
-    display: none;
+    display: block;
+    margin-top: 2rem;
   }
 
   .footer-links-large {
@@ -146,6 +168,10 @@
   }
 
   .footer-links-large a {
-    font-size: 15pt;
+    font-size: 19pt;
+  }
+
+  .policy-links a {
+    font-size: 0.95rem;
   }
 }
