@@ -563,7 +563,7 @@ const Home = () => {
                 <h2 className="studio-v5-title serif">Lo studio</h2>
               </div>
               <div className="studio-v5-right">
-                <img src="/assets/logotipo-watermark.svg" alt="" className="studio-v5-watermark" aria-hidden="true" />
+                <img src="/assets/pittogramma-sfondo-studio.svg" alt="" className="studio-v5-watermark" aria-hidden="true" />
                 <p className="mb-4">
                   Fondato su decenni di esperienza, lo Studio Caruso si evolve costantemente
                   per rispondere alla complessità del panorama giuridico contemporaneo.
