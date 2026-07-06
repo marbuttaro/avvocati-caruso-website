@@ -4,7 +4,10 @@ import './Footer.css';
 const Footer = () => {
   return (
     <>
-      <img src="/assets/pattern.svg" alt="" className="pattern-separator" aria-hidden="true" />
+      <picture>
+        <source media="(max-width: 640px)" srcSet="/assets/pattern-separator-mobile.svg" />
+        <img src="/assets/pattern.svg" alt="" className="pattern-separator" aria-hidden="true" />
+      </picture>
       <footer className="footer-v3 bg-footer">
       <div className="container footer-v3-inner">
         <div className="footer-v3-main">
@@ -12,7 +15,7 @@ const Footer = () => {
           <div className="footer-v3-brand-stack">
             <img src="/assets/logo-completo.svg" alt="Caruso Avvocati" className="footer-logo-complete" />
           </div>
-          
+
           {/* Contacts Column */}
           <div className="footer-v3-contacts">
             <h4 className="footer-title serif">Contatti</h4>
@@ -23,6 +26,8 @@ const Footer = () => {
             </div>
           </div>
 
+          <div className="footer-v3-line footer-v3-line--mobile"></div>
+
           {/* Nav Links Column */}
           <div className="footer-v3-links">
             <ul className="footer-links-large serif">
@@ -32,9 +37,9 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        
+
         <div className="footer-v3-bottom">
-          <div className="footer-v3-line"></div>
+          <div className="footer-v3-line footer-v3-line--desktop"></div>
           <div className="footer-policy-row">
             <div className="policy-links">
               <a href="/cookies">Cookie policy</a>
@@ -44,6 +49,10 @@ const Footer = () => {
         </div>
       </div>
     </footer>
+      <picture>
+        <source media="(max-width: 640px)" srcSet="/assets/pattern-separator-mobile.svg" />
+        <img src="/assets/pattern.svg" alt="" className="pattern-separator footer-pattern-bottom" aria-hidden="true" />
+      </picture>
     </>
   );
 };

@@ -596,7 +596,10 @@ const Home = () => {
         </section>
 
         {/* Pattern separator */}
-        <img src="/assets/pattern.svg" alt="" className="pattern-separator" aria-hidden="true" />
+        <picture>
+          <source media="(max-width: 640px)" srcSet="/assets/pattern-separator-mobile.svg" />
+          <img src="/assets/pattern.svg" alt="" className="pattern-separator" aria-hidden="true" />
+        </picture>
 
         {/* Full-width photo */}
         <img src="/assets/foto.png" alt="" className="foto-full" />

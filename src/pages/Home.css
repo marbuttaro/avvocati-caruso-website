@@ -98,8 +98,10 @@
 }
 
 @media (max-width: 768px) {
-  .ticker-text { font-size: clamp(5rem, 20vw, 5.5rem); }
-  .ticker-sep  { width: 40px; }
+  .hero-v5-ticker-wrap { margin-top: 12vh; }
+  .hero-v5-ticker { animation-duration: 11s; }
+  .ticker-text { font-size: clamp(5.8rem, 23vw, 6.5rem); }
+  .ticker-sep  { width: 52px; }
 }
 
 /* ── Studio V5 Section ── */
@@ -262,14 +264,18 @@
 }
 
 @media (max-width: 768px) {
+  .studio-v5 .container {
+    padding: 0 36px;
+  }
   .studio-v5-top {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
   .studio-v5-title { font-size: 3.5rem; }
-  .slide-title { font-size: 56px; }
-  .slide-num   { font-size: 32px; }
+  .slide-title { font-size: 64px; }
+  .slide-num   { font-size: 34px; }
   .studio-slide-item { padding-right: 40px; }
+  .studio-slider-root { padding-left: 36px; }
 }
 
 /* ── I Professionisti V5 ── */
@@ -972,6 +978,24 @@
   .contact-body-new {
     padding: 2rem 1.5rem 2.5rem;
     min-height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-tab-row,
+  .contact-body-new {
+    margin-left: -24px;
+    margin-right: -24px;
+  }
+  .ct-tab:first-child,
+  .ct-tab:last-child {
+    border-radius: 0;
+  }
+  .contact-body-new {
+    border-radius: 0;
+  }
+  .contact-info-figma {
+    text-align: center;
   }
 }
 
