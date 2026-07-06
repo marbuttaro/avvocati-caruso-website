@@ -74,7 +74,7 @@ const professionals = [
   {
     id: 5, prefix: 'Avv.', name: 'Guido Coppola',
     img: '/assets/prof-guido.jpg',
-    imgPosition: 'center 15%',
+    imgPosition: 'center 8%',
     role: 'Avvocato Penalista',
     bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
   },
@@ -556,7 +556,6 @@ const Home = () => {
       {/* 2. Studio — sticky (bottom set via JS), z-index 1, overlay fades as hero scrolls off */}
       <section id="studio" ref={studioRef} className="studio-v5 bg-cream">
         <motion.div className="studio-reveal-overlay" style={{ opacity: studioOverlayOpacity }} aria-hidden="true" />
-        <img src="/assets/logotipo-watermark.svg" alt="" className="studio-v5-watermark" aria-hidden="true" />
         <motion.div style={{ y: studioContentY }} className="studio-v5-content">
           <div className="container">
             <div className="studio-v5-top">
@@ -564,6 +563,7 @@ const Home = () => {
                 <h2 className="studio-v5-title serif">Lo studio</h2>
               </div>
               <div className="studio-v5-right">
+                <img src="/assets/logotipo-watermark.svg" alt="" className="studio-v5-watermark" aria-hidden="true" />
                 <p className="mb-4">
                   Fondato su decenni di esperienza, lo Studio Caruso si evolve costantemente
                   per rispondere alla complessità del panorama giuridico contemporaneo.
