@@ -279,6 +279,12 @@
   .slide-num   { font-size: 34px; }
   .studio-slide-item { padding-right: 40px; }
   .studio-slider-root { padding-left: 36px; }
+  .studio-progress-track { margin-right: 36px; }
+  .studio-v5-right {
+    max-width: 244px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 /* ── I Professionisti V5 ── */
@@ -1015,6 +1021,9 @@
   .contact-title-mobile {
     display: block;
     font-size: 34px;
+  }
+  .contact-divider-figma {
+    display: none;
   }
 }
 
