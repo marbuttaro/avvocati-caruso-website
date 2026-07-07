@@ -285,6 +285,11 @@
     margin-left: auto;
     margin-right: auto;
   }
+  .studio-v5-watermark {
+    width: min(85vw, 340px);
+    max-width: none;
+    min-width: 0;
+  }
 }
 
 /* ── I Professionisti V5 ── */
@@ -368,6 +373,10 @@
 }
 
 @media (max-width: 640px) {
+  .prof-v5 .container {
+    padding: 0 36px;
+  }
+
   .prof-grid {
     display: none;
   }
@@ -1025,6 +1034,9 @@
   .contact-divider-figma {
     display: none;
   }
+  .contact-section-new {
+    padding-bottom: 0;
+  }
 }
 
 .btn-navy-light {
@@ -1279,15 +1291,18 @@
 }
 
 @media (max-width: 768px) {
-  .news-v5-track { padding-left: 24px; }
+  .news-v5-title { padding-left: 36px; }
+  .news-v5-track { padding-left: 36px; }
   .news-v5-card  { width: 300px; }
 }
 
 /* ── Pattern separator ── */
 .pattern-separator {
   display: block;
-  width: 100%;
+  width: 100vw;
   height: auto;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
 }
 
 /* ── Lo Studio Risponde — FAQ ── */
@@ -1470,5 +1485,11 @@
   }
   .dove-siamo-photo-wrap {
     height: 320px;
+  }
+}
+
+@media (max-width: 640px) {
+  .dove-siamo-section .container {
+    padding: 0 36px;
   }
 }
