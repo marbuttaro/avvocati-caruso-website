@@ -435,12 +435,14 @@ function ContactSection() {
               <AnimatePresence mode="wait">
                 {activeTab === 0 ? (
                   <motion.div key="t0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-                    <h2 className="serif">Hai bisogno di<br/>una consulenza<br/>legale?</h2>
+                    <h2 className="serif contact-title-desktop">Hai bisogno di<br/>una consulenza<br/>legale?</h2>
+                    <h2 className="serif contact-title-mobile">Hai bisogno di una<br/>consulenza legale?</h2>
                     <p className="sans">Siamo a disposizione per rispondere<br/>alle vostre esigenze legali. Compilate<br/>il modulo per richiedere un primo<br/>colloquio.</p>
                   </motion.div>
                 ) : (
                   <motion.div key="t1" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-                    <h2 className="serif">Incontra<br/>i nostri<br/>professionisti</h2>
+                    <h2 className="serif contact-title-desktop">Incontra<br/>i nostri<br/>professionisti</h2>
+                    <h2 className="serif contact-title-mobile">Incontra i nostri<br/>professionisti</h2>
                     <p className="sans">Prenota una consulenza dedicata<br/>per approfondire il tuo caso e<br/>ricevere assistenza qualificata.</p>
                   </motion.div>
                 )}
@@ -598,11 +600,11 @@ const Home = () => {
         {/* Pattern separator */}
         <picture>
           <source media="(max-width: 640px)" srcSet="/assets/pattern-separator-mobile.svg" />
-          <img src="/assets/pattern.svg" alt="" className="pattern-separator" aria-hidden="true" />
+          <img src="/assets/pattern.svg" alt="" className="pattern-separator pattern-separator--desktop-photo" aria-hidden="true" />
         </picture>
 
         {/* Full-width photo */}
-        <img src="/assets/foto.png" alt="" className="foto-full" />
+        <img src="/assets/foto.png" alt="" className="foto-full foto-full--desktop" />
 
         {/* Dove Siamo */}
         <section className="dove-siamo-section bg-cream">
@@ -621,6 +623,10 @@ const Home = () => {
             </div>
           </div>
         </section>
+
+        {/* Pattern + photo lead-in, mobile only */}
+        <img src="/assets/pattern-separator-mobile.svg" alt="" className="pattern-separator pattern-separator--mobile-photo" aria-hidden="true" />
+        <img src="/assets/foto.png" alt="" className="foto-full foto-full--mobile" />
 
         {/* Contacts & Footer Bridge */}
         <ContactSection />

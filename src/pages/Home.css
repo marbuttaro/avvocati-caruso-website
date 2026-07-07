@@ -703,6 +703,10 @@
   margin-bottom: 2rem;
 }
 
+.contact-title-mobile {
+  display: none;
+}
+
 .contact-info-figma p {
   font-size: 17px;
   line-height: 1.6;
@@ -989,9 +993,11 @@
     margin-left: -24px;
     margin-right: -24px;
   }
-  .ct-tab:first-child,
+  .ct-tab:first-child {
+    border-radius: 0 18px 0 0;
+  }
   .ct-tab:last-child {
-    border-radius: 0;
+    border-radius: 18px 0 0 0;
   }
   .contact-body-new {
     border-radius: 0;
@@ -1000,8 +1006,15 @@
     text-align: center;
   }
   .ct-tab {
-    font-size: 20px;
+    font-size: 22px;
     padding: 1.3rem 1rem;
+  }
+  .contact-title-desktop {
+    display: none;
+  }
+  .contact-title-mobile {
+    display: block;
+    font-size: 34px;
   }
 }
 
@@ -1363,6 +1376,22 @@
   width: 100%;
   height: auto;
   display: block;
+}
+
+.foto-full--mobile,
+.pattern-separator--mobile-photo {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .foto-full--desktop,
+  .pattern-separator--desktop-photo {
+    display: none;
+  }
+  .foto-full--mobile,
+  .pattern-separator--mobile-photo {
+    display: block;
+  }
 }
 
 /* ── Dove Siamo section ── */
