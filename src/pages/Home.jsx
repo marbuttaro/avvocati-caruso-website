@@ -496,6 +496,16 @@ const Home = () => {
   const heroRef   = useRef(null);
   const studioRef = useRef(null);
   const location  = useLocation();
+  const [isMobileTicker, setIsMobileTicker] = useState(() =>
+    typeof window !== 'undefined' && window.innerWidth <= 768
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)');
+    const handler = (e) => setIsMobileTicker(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
 
   useEffect(() => {
     const sectionId = location.state?.scrollTo;
@@ -544,14 +554,18 @@ const Home = () => {
       {/* 1. Hero — first in DOM, z-index 2, scrolls off to reveal studio */}
       <section ref={heroRef} className="hero-v5">
         <div className="hero-v5-ticker-wrap" aria-hidden="true">
-          <div className="hero-v5-ticker">
+          <motion.div
+            className="hero-v5-ticker"
+            animate={{ x: ['0%', '-50%'] }}
+            transition={{ duration: isMobileTicker ? 7 : 18, ease: 'linear', repeat: Infinity }}
+          >
             {[...tickerItems, ...tickerItems, ...tickerItems, ...tickerItems].map((item, i) => (
               <React.Fragment key={i}>
                 <span className="ticker-text serif">{item}</span>
                 <img src="/assets/logotipo-orange.svg" alt="" className="ticker-sep" />
               </React.Fragment>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 

@@ -71,7 +71,6 @@
   display: flex;
   align-items: center;
   white-space: nowrap;
-  animation: ticker-scroll 18s linear infinite;
   will-change: transform;
   backface-visibility: hidden;
 }
@@ -95,14 +94,8 @@
   opacity: 0.9;
 }
 
-@keyframes ticker-scroll {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(-50%, 0, 0); }
-}
-
 @media (max-width: 768px) {
   .hero-v5-ticker-wrap { margin-top: 12vh; }
-  .hero-v5-ticker { animation-duration: 7s; }
   .ticker-text { font-size: clamp(5.8rem, 23vw, 6.5rem); }
   .ticker-sep  { width: 52px; }
 }
@@ -286,7 +279,7 @@
     margin-right: auto;
   }
   .studio-v5-watermark {
-    width: min(85vw, 340px);
+    width: 98vw;
     max-width: none;
     min-width: 0;
   }
