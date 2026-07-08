@@ -1289,13 +1289,35 @@
   .news-v5-card  { width: 300px; }
 }
 
-/* ── Pattern separator ── */
+/* ── Pattern separator ──
+   Native CSS background-repeat tiling instead of the SVG's internal
+   pattern transform, which could leave a visible seam at the edges. */
 .pattern-separator {
   display: block;
+  position: relative;
   width: 100vw;
-  height: auto;
+  height: 73px;
+  background-color: #10202C;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
+  overflow: hidden;
+}
+
+.pattern-separator::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/pattern-texture.png');
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  mix-blend-mode: screen;
+  opacity: 0.5;
+}
+
+@media (max-width: 640px) {
+  .pattern-separator {
+    height: 31px;
+  }
 }
 
 /* ── Lo Studio Risponde — FAQ ── */

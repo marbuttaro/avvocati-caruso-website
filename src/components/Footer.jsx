@@ -4,10 +4,7 @@ import './Footer.css';
 const Footer = () => {
   return (
     <>
-      <picture>
-        <source media="(max-width: 640px)" srcSet="/assets/pattern-separator-mobile.svg" />
-        <img src="/assets/pattern.svg" alt="" className="pattern-separator footer-pattern-top" aria-hidden="true" />
-      </picture>
+      <div className="pattern-separator footer-pattern-top" aria-hidden="true" />
       <footer className="footer-v3 bg-footer">
       <div className="container footer-v3-inner">
         <div className="footer-v3-main">
@@ -52,10 +49,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
-      <picture>
-        <source media="(max-width: 640px)" srcSet="/assets/pattern-separator-mobile.svg" />
-        <img src="/assets/pattern.svg" alt="" className="pattern-separator footer-pattern-bottom" aria-hidden="true" />
-      </picture>
+      <div className="pattern-separator footer-pattern-bottom" aria-hidden="true" />
     </>
   );
 };

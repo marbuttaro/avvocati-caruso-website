@@ -630,10 +630,7 @@ const Home = () => {
         </section>
 
         {/* Pattern separator + photo, lead-in to contact section */}
-        <picture>
-          <source media="(max-width: 640px)" srcSet="/assets/pattern-separator-mobile.svg" />
-          <img src="/assets/pattern.svg" alt="" className="pattern-separator" aria-hidden="true" />
-        </picture>
+        <div className="pattern-separator" aria-hidden="true" />
         <img src="/assets/foto.png" alt="" className="foto-full" />
 
         {/* Contacts & Footer Bridge */}
