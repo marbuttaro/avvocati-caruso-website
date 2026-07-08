@@ -45,11 +45,17 @@ const professionals = [
   },
 ];
 
-function AccordionItem({ prof }) {
+function AccordionItem({ prof, index }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="accordion-item">
+    <motion.div
+      className="accordion-item"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-80px' }}
+      transition={{ duration: 0.7, ease: 'easeOut', delay: (index % 3) * 0.08 }}
+    >
       <div className="accordion-separator" />
 
       <div className="accordion-main">
@@ -93,7 +99,7 @@ function AccordionItem({ prof }) {
         </div>
 
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -125,8 +131,8 @@ const Team = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            {professionals.map((prof) => (
-              <AccordionItem key={prof.id} prof={prof} />
+            {professionals.map((prof, index) => (
+              <AccordionItem key={prof.id} prof={prof} index={index} />
             ))}
             <div className="accordion-separator" />
           </motion.div>
