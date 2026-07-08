@@ -51,10 +51,10 @@ function AccordionItem({ prof, index }) {
   return (
     <motion.div
       className="accordion-item"
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 56 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.7, ease: 'easeOut', delay: (index % 3) * 0.08 }}
+      transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1], delay: (index % 3) * 0.12 }}
     >
       <div className="accordion-separator" />
 

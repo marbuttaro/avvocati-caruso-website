@@ -127,7 +127,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
-  margin-bottom: 7rem;
+  margin-bottom: 11rem;
   align-items: center;
 }
 
@@ -269,6 +269,7 @@
   .studio-v5-top {
     grid-template-columns: 1fr;
     gap: 2rem;
+    margin-bottom: 7rem;
   }
   .studio-v5-title { font-size: 3.5rem; }
   .slide-title { font-size: 64px; }
