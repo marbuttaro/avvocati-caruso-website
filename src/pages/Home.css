@@ -25,8 +25,8 @@
   border-radius: 28px 28px 0 0;
   box-shadow: 0 -8px 60px rgba(0, 0, 0, 0.20);
   overflow: hidden;
-  padding-top: clamp(8rem, 12vw, 14rem);
-  padding-bottom: clamp(8rem, 12vw, 14rem);
+  padding-top: clamp(10rem, 15vw, 17rem);
+  padding-bottom: clamp(10rem, 15vw, 17rem);
 }
 
 /* Overlay inside studio: dark navy → transparent as hero scrolls off */
@@ -110,8 +110,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 165%;
-  max-width: 700px;
+  width: 150%;
+  max-width: 720px;
   min-width: 320px;
   pointer-events: none;
   user-select: none;
@@ -127,7 +127,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
-  margin-bottom: 7rem;
+  margin-bottom: 5rem;
   align-items: center;
 }
 
@@ -147,7 +147,7 @@
   color: var(--color-navy);
   line-height: 1.2;
   opacity: 0.85;
-  margin-top: 9rem;
+  margin-top: 6rem;
   margin-bottom: 0;
 }
 
@@ -162,7 +162,7 @@
 
 /* Slider */
 .studio-slider-root {
-  margin-top: 7rem;
+  margin-top: 3.5rem;
   position: relative;
   padding-left: var(--section-indent);
 }

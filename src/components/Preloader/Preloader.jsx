@@ -12,6 +12,11 @@ const backdropVariants = {
   exit: { y: '-100%', transition: { duration: EXIT_DURATION, ease: [0.76, 0, 0.24, 1] } },
 };
 
+const logoVariants = {
+  visible: { y: 0, opacity: 1 },
+  exit: { y: '-40%', opacity: 0, transition: { duration: EXIT_DURATION * 0.7, ease: [0.76, 0, 0.24, 1] } },
+};
+
 const Preloader = () => {
   const [visible, setVisible] = useState(true);
   const [exiting, setExiting] = useState(false);
@@ -60,10 +65,18 @@ const Preloader = () => {
           exit="exit"
           transition={reduceMotion ? { duration: 0.3 } : undefined}
         >
-          <div className="preloader-type" role="img" aria-label="Studio Legale Caruso Avvocati">
+          <motion.div
+            className="preloader-type"
+            role="img"
+            aria-label="Studio Legale Caruso Avvocati"
+            variants={logoVariants}
+            initial="visible"
+            animate="visible"
+            exit="exit"
+          >
             <div className="preloader-type-main serif">{line1}</div>
             <div className="preloader-type-sub">{line2}</div>
-          </div>
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
