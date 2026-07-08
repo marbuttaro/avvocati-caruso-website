@@ -3,7 +3,7 @@
   color: var(--color-white);
 }
 
-.footer-pattern-top {
+.pattern-separator.footer-pattern-top {
   display: none;
 }
 
@@ -123,7 +123,7 @@
 }
 
 @media (max-width: 640px) {
-  .footer-pattern-top {
+  .pattern-separator.footer-pattern-top {
     display: block;
   }
 

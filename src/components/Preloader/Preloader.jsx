@@ -8,8 +8,8 @@ const HOLD_AFTER_TYPING = 700;
 const EXIT_DURATION = 0.9;
 
 const backdropVariants = {
-  visible: { opacity: 1 },
-  exit: { opacity: 0, transition: { duration: EXIT_DURATION, ease: 'easeInOut' } },
+  visible: { y: 0 },
+  exit: { y: '-100%', transition: { duration: EXIT_DURATION, ease: [0.76, 0, 0.24, 1] } },
 };
 
 const Preloader = () => {
