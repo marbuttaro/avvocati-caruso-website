@@ -6,7 +6,7 @@ const Footer = () => {
     <>
       <picture>
         <source media="(max-width: 640px)" srcSet="/assets/pattern-separator-mobile.svg" />
-        <img src="/assets/pattern.svg" alt="" className="pattern-separator" aria-hidden="true" />
+        <img src="/assets/pattern.svg" alt="" className="pattern-separator footer-pattern-top" aria-hidden="true" />
       </picture>
       <footer className="footer-v3 bg-footer">
       <div className="container footer-v3-inner">

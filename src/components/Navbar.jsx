@@ -119,12 +119,11 @@ const Navbar = () => {
             <div className="mobile-links-v3">
               <Link to="/">Home</Link>
               <Link to="/lo-studio">Lo studio</Link>
-              <span>Competenze</span>
-              <Link to="/diritto-penale" className="mobile-sublink">— Diritto Penale</Link>
-              <span className="mobile-sublink">— Diritto Civile</span>
-              <span className="mobile-sublink">— Diritto Commerciale</span>
-              <span className="mobile-sublink">— Diritto della navigazione</span>
-              <span className="mobile-sublink">— Compliance 321</span>
+              <Link to="/diritto-penale">Diritto Penale</Link>
+              <span>Diritto Civile</span>
+              <span>Diritto Commerciale</span>
+              <span>Diritto della navigazione</span>
+              <span>Compliance 321</span>
               <Link to="/team">I professionisti</Link>
               <a href="/#news" onClick={(e) => scrollToSection(e, 'news')}>News</a>
               <a href="/#contatti" onClick={(e) => scrollToSection(e, 'contatti')}>Contatti</a>

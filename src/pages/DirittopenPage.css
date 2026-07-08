@@ -176,6 +176,16 @@
     font-size: clamp(2.8rem, 10vw, 4rem);
   }
 
+  .dp-activities-title {
+    font-size: 28px;
+    margin-bottom: 0.8rem;
+  }
+
+  .dp-activities-list li {
+    font-size: 16px;
+    padding: 0.6rem 0;
+  }
+
   .dp-areas-grid {
     grid-template-columns: 1fr;
   }

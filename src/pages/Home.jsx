@@ -611,15 +611,6 @@ const Home = () => {
           <NewsSlider />
         </section>
 
-        {/* Pattern separator */}
-        <picture>
-          <source media="(max-width: 640px)" srcSet="/assets/pattern-separator-mobile.svg" />
-          <img src="/assets/pattern.svg" alt="" className="pattern-separator pattern-separator--desktop-photo" aria-hidden="true" />
-        </picture>
-
-        {/* Full-width photo */}
-        <img src="/assets/foto.png" alt="" className="foto-full foto-full--desktop" />
-
         {/* Dove Siamo */}
         <section className="dove-siamo-section bg-cream">
           <div className="container dove-siamo-grid">
@@ -638,9 +629,12 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Pattern + photo lead-in, mobile only */}
-        <img src="/assets/pattern-separator-mobile.svg" alt="" className="pattern-separator pattern-separator--mobile-photo" aria-hidden="true" />
-        <img src="/assets/foto.png" alt="" className="foto-full foto-full--mobile" />
+        {/* Pattern separator + photo, lead-in to contact section */}
+        <picture>
+          <source media="(max-width: 640px)" srcSet="/assets/pattern-separator-mobile.svg" />
+          <img src="/assets/pattern.svg" alt="" className="pattern-separator" aria-hidden="true" />
+        </picture>
+        <img src="/assets/foto.png" alt="" className="foto-full" />
 
         {/* Contacts & Footer Bridge */}
         <ContactSection />

@@ -638,7 +638,7 @@
 /* Contact Form Figma Rebuild */
 /* ── Contact Section — tabbed card design ── */
 .contact-section-new {
-  padding: 4rem 0 4rem;
+  padding: 0 0 4rem;
 }
 
 .contact-tab-row {
@@ -1393,22 +1393,6 @@
   width: 100%;
   height: auto;
   display: block;
-}
-
-.foto-full--mobile,
-.pattern-separator--mobile-photo {
-  display: none;
-}
-
-@media (max-width: 640px) {
-  .foto-full--desktop,
-  .pattern-separator--desktop-photo {
-    display: none;
-  }
-  .foto-full--mobile,
-  .pattern-separator--mobile-photo {
-    display: block;
-  }
 }
 
 /* ── Dove Siamo section ── */

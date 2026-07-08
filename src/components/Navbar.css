@@ -175,24 +175,17 @@ html.preloader-lock .navbar-v3 {
   gap: 2rem;
 }
 
-.mobile-links-v3 a {
+.mobile-links-v3 a,
+.mobile-links-v3 span {
   font-family: var(--font-serif);
   font-size: 1.5rem;
   font-style: normal;
   color: var(--color-navy);
 }
 
-.mobile-links-v3 .mobile-sublink {
-  font-size: 1.15rem;
-  padding-left: 1.5rem;
-  opacity: 0.7;
-}
-
-.mobile-links-v3 span.mobile-sublink {
-  font-family: var(--font-serif);
-  font-size: 1.15rem;
-  color: var(--color-navy);
+.mobile-links-v3 span {
   cursor: default;
+  opacity: 0.6;
 }
 
 @media (max-width: 992px) {
