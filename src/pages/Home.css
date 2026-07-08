@@ -9,7 +9,7 @@
   height: 100vh;
   min-height: 640px;
   z-index: 2;
-  background-color: #1C3A51;
+  background-color: #10202C;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -33,7 +33,7 @@
 .studio-reveal-overlay {
   position: absolute;
   inset: 0;
-  background-color: #1C3A51;
+  background-color: #10202C;
   pointer-events: none;
   z-index: 5;
   border-radius: 28px 28px 0 0;
@@ -740,7 +740,7 @@
 .custom-select {
   background: transparent;
   border: none;
-  border-bottom: 1px solid rgba(233, 226, 210, 0.4);
+  border-bottom: 1px solid rgba(246, 243, 237, 0.4);
   padding: 0.8rem 2rem 0.8rem 0;
   color: var(--color-white);
   font-family: var(--font-sans);
@@ -855,7 +855,7 @@
 }
 
 .calendar-day:hover:not(:disabled) {
-  background-color: rgba(233, 226, 210, 0.15);
+  background-color: rgba(246, 243, 237, 0.15);
 }
 
 .calendar-day-selected {
@@ -900,7 +900,7 @@
 }
 
 .time-slot:hover {
-  background-color: rgba(233, 226, 210, 0.15);
+  background-color: rgba(246, 243, 237, 0.15);
 }
 
 .time-slot-selected {
@@ -910,7 +910,7 @@
 
 .time-dropdown::-webkit-scrollbar { width: 6px; }
 .time-dropdown::-webkit-scrollbar-track { background: transparent; }
-.time-dropdown::-webkit-scrollbar-thumb { background-color: rgba(233, 226, 210, 0.2); border-radius: 3px; }
+.time-dropdown::-webkit-scrollbar-thumb { background-color: rgba(246, 243, 237, 0.2); border-radius: 3px; }
 
 .figma-form-new {
   display: flex;
@@ -944,7 +944,7 @@
 .figma-form-new textarea {
   background: transparent;
   border: none;
-  border-bottom: 1px solid rgba(233, 226, 210, 0.4);
+  border-bottom: 1px solid rgba(246, 243, 237, 0.4);
   padding: 0.8rem 0;
   color: var(--color-white);
   font-family: var(--font-sans);
@@ -955,7 +955,7 @@
 
 .figma-form-new input::placeholder,
 .figma-form-new textarea::placeholder {
-  color: rgba(233, 226, 210, 0.4);
+  color: rgba(246, 243, 237, 0.4);
 }
 
 .figma-form-new input:focus,
