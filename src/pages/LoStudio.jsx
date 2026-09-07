@@ -27,14 +27,40 @@ const LoStudio = () => {
             <div className="lo-studio-divider" />
             <div className="lo-studio-text sans">
               <p>
-                Fondato su decenni di esperienza, lo Studio Caruso si evolve costantemente
-                per rispondere alla complessità del panorama giuridico contemporaneo.
-                Non ci limitiamo alla consulenza: costruiamo strategie di difesa proattive.
+                Fondato nel 1988 dall'Avvocato Giuseppe Caruso, lo Studio vanta quattro decenni
+                di attività nel settore del diritto penale, con una consolidata esperienza in
+                materia di reati contro la pubblica amministrazione, reati contro la fede pubblica,
+                reati contro l'amministrazione della giustizia, reati tributari, colpa professionale,
+                reati ambientali ed urbanistici.
               </p>
               <p>
-                Il nostro approccio unisce rigore accademico e pragmatismo operativo per risolvere
-                le sfide legali più complesse, con una dedizione particolare al dettaglio e alla
-                relazione di fiducia con il cliente.
+                Nel corso degli anni, lo Studio ha ampliato il proprio ambito di intervento
+                affiancando alle competenze tradizionali una crescente attenzione al diritto
+                penale dell'economia e della finanza, nonché alla responsabilità da reato degli
+                enti ai sensi del D.Lgs. 231/2001 — settori che richiedono un approccio
+                multidisciplinare e una costante attività di aggiornamento normativo e
+                giurisprudenziale.
+              </p>
+              <p>
+                Un elemento distintivo del metodo di lavoro è l'attenzione costante all'evoluzione
+                della giurisprudenza dell'Unione Europea e alle sue ricadute pratiche
+                nell'ordinamento interno, con l'obiettivo di offrire un'assistenza legale sempre
+                allineata agli standard più elevati, anche in chiave comparata e sovranazionale.
+              </p>
+              <p>
+                Consapevoli che la domanda di servizi legali raramente si riferisce ad un'unica
+                area del diritto, operiamo in stretta sinergia con professionisti di comprovata
+                esperienza nel diritto civile, commerciale, societario, della navigazione e
+                assicurativo, garantendo un supporto integrato e coordinato su tutti i fronti
+                rilevanti per il cliente.
+              </p>
+              <p>
+                Lo Studio si avvale inoltre di una rete selezionata di consulenti esterni —
+                tecnici, periti e specialisti di settore — a garanzia di un'assistenza rigorosa
+                anche per gli aspetti scientifici delle controversie.
+              </p>
+              <p>
+                Lo Studio opera su tutto il territorio nazionale.
               </p>
             </div>
           </motion.div>

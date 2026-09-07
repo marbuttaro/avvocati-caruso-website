@@ -13,10 +13,10 @@ const tickerItems = ['Consulenza', 'Difesa in giudizio', 'Compliance'];
 
 const services = [
   { id: '01', title: 'Diritto Penale',           slug: '/diritto-penale' },
-  { id: '02', title: 'Diritto Civile',            slug: '/aree-competenza' },
-  { id: '03', title: 'Diritto Commerciale',       slug: '/aree-competenza' },
-  { id: '04', title: 'Diritto della Navigazione', slug: '/aree-competenza' },
-  { id: '05', title: 'Compliance 231',            slug: '/aree-competenza' },
+  { id: '02', title: 'Diritto Civile',            slug: '/diritto-civile' },
+  { id: '03', title: 'Diritto Commerciale',       slug: '/diritto-commerciale' },
+  { id: '04', title: 'Diritto della Navigazione', slug: '/diritto-della-navigazione' },
+  { id: '05', title: 'Compliance 231',            slug: '/compliance-231' },
 ];
 
 
@@ -42,39 +42,32 @@ const faqItems = [
 
 const professionals = [
   {
-    id: 0, prefix: 'Avv.', name: 'Alfredo Caruso',
+    id: 0, prefix: 'Avv.', name: 'Giuseppe Caruso',
     img: '/assets/prof-luca.jpg',
     role: 'Avvocato Penalista',
     bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
   },
   {
-    id: 1, prefix: 'Avv.', name: 'Marco Ferretti',
+    id: 1, prefix: 'Avv.', name: 'Alfredo Caruso',
     img: '/assets/prof-alfredo.jpg',
     role: 'Avvocato Penalista',
     bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
   },
   {
-    id: 2, prefix: 'Avv.ssa', name: 'Laura Bianchi',
+    id: 2, prefix: 'Avv.', name: 'Erika Ferone',
     img: '/assets/prof-giulia.jpg',
     role: 'Avvocato Penalista',
     bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
   },
   {
-    id: 3, prefix: 'Avv.ssa', name: 'Giulia Romano',
+    id: 3, prefix: 'Avv.', name: 'Adriano Caruso',
     img: '/assets/prof-elena.jpg',
     role: 'Avvocato Penalista',
     bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
   },
   {
-    id: 4, prefix: 'Avv.', name: "Lorenzo D'Angelo",
+    id: 4, prefix: 'Avv.', name: 'Francesco Conte',
     img: '/assets/prof-marco.jpg',
-    role: 'Avvocato Penalista',
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
-  },
-  {
-    id: 5, prefix: 'Avv.', name: 'Guido Coppola',
-    img: '/assets/prof-guido.jpg',
-    imgPosition: 'center 8%',
     role: 'Avvocato Penalista',
     bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
   },
@@ -194,21 +187,14 @@ function ProfessionistiGrid() {
         {/* Desktop / tablet grid */}
         <div className="prof-grid">
           {professionals.map((prof, i) => (
-            <motion.div
-              key={prof.id}
-              className="prof-grid-item"
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.6, ease: 'easeOut', delay: (i % 3) * 0.08 }}
-            >
+            <div key={prof.id} className="prof-grid-item">
               <div className="prof-grid-photo">
                 <img src={prof.img} alt={prof.name} style={prof.imgPosition ? { objectPosition: prof.imgPosition } : undefined} />
               </div>
               <span className="prof-grid-prefix serif">{prof.prefix}</span>
               <h3 className="prof-grid-name serif">{prof.name}</h3>
               <span className="prof-grid-role">{prof.role}</span>
-            </motion.div>
+            </div>
           ))}
         </div>
 
@@ -290,16 +276,14 @@ function StudioSlider() {
           >
             <div style={{ position: 'relative' }}>
               <h3 className="slide-title">{svc.title}</h3>
-              {svc.slug === '/diritto-penale' && (
-                <Link
-                  to={svc.slug}
-                  className={`btn-scopri${hoveredIdx === i ? ' visible' : ''}`}
-                  tabIndex={hoveredIdx === i ? 0 : -1}
-                  onMouseDown={(e) => e.stopPropagation()}
-                >
-                  Scopri di più
-                </Link>
-              )}
+              <Link
+                to={svc.slug}
+                className={`btn-scopri${hoveredIdx === i ? ' visible' : ''}`}
+                tabIndex={hoveredIdx === i ? 0 : -1}
+                onMouseDown={(e) => e.stopPropagation()}
+              >
+                Scopri di più
+              </Link>
             </div>
           </div>
         ))}
@@ -580,15 +564,11 @@ const Home = () => {
               </div>
               <div className="studio-v5-right">
                 <img src="/assets/pittogramma-sfondo-studio.svg" alt="" className="studio-v5-watermark" aria-hidden="true" />
-                <p className="mb-4">
-                  Fondato su decenni di esperienza, lo Studio Caruso si evolve costantemente
-                  per rispondere alla complessità del panorama giuridico contemporaneo.
-                  Non ci limitiamo alla consulenza: costruiamo strategie di difesa proattive.
-                </p>
                 <p>
-                  Il nostro approccio unisce rigore accademico e pragmatismo operativo per risolvere
-                  le sfide legali più complesse, con una dedizione particolare al dettaglio e alla
-                  relazione di fiducia con il cliente.
+                  Fondato nel 1988 dall'Avvocato Giuseppe Caruso, lo Studio<br />
+                  vanta <strong>quattro decenni di attività</strong> nel settore del diritto penale,<br />
+                  con una consolidata esperienza in materia di reati contro la pubblica amministrazione, reati contro la fede pubblica,<br />
+                  reati contro l'amministrazione della giustizia, reati tributari, colpa professionale, reati ambientali ed urbanistici.
                 </p>
               </div>
             </div>

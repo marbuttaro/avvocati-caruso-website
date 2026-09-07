@@ -11,9 +11,7 @@
 }
 
 html.preloader-lock .navbar-v3 {
-  opacity: 0;
   pointer-events: none;
-  transition: opacity 0.4s ease;
 }
 
 .navbar-v3.scrolled {

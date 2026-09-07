@@ -35,7 +35,11 @@ const Navbar = () => {
   const isHome = location.pathname === '/';
   const competenzeActive =
     location.pathname.startsWith('/aree-competenza') ||
-    location.pathname.startsWith('/diritto-penale');
+    location.pathname.startsWith('/diritto-penale') ||
+    location.pathname.startsWith('/diritto-civile') ||
+    location.pathname.startsWith('/diritto-commerciale') ||
+    location.pathname.startsWith('/diritto-della-navigazione') ||
+    location.pathname.startsWith('/compliance-231');
 
   const scrollToSection = (e, sectionId) => {
     e.preventDefault();
@@ -89,10 +93,30 @@ const Navbar = () => {
                   >
                     Diritto Penale
                   </Link>
-                  <span>Diritto Civile</span>
-                  <span>Diritto Commerciale</span>
-                  <span>Diritto della navigazione</span>
-                  <span>Compliance 321</span>
+                  <Link
+                    to="/diritto-civile"
+                    className={location.pathname === '/diritto-civile' ? 'active' : ''}
+                  >
+                    Diritto Civile
+                  </Link>
+                  <Link
+                    to="/diritto-commerciale"
+                    className={location.pathname === '/diritto-commerciale' ? 'active' : ''}
+                  >
+                    Diritto Commerciale
+                  </Link>
+                  <Link
+                    to="/diritto-della-navigazione"
+                    className={location.pathname === '/diritto-della-navigazione' ? 'active' : ''}
+                  >
+                    Diritto della navigazione
+                  </Link>
+                  <Link
+                    to="/compliance-231"
+                    className={location.pathname === '/compliance-231' ? 'active' : ''}
+                  >
+                    Compliance 231
+                  </Link>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -120,10 +144,10 @@ const Navbar = () => {
               <Link to="/">Home</Link>
               <Link to="/lo-studio">Lo studio</Link>
               <Link to="/diritto-penale">Diritto Penale</Link>
-              <span>Diritto Civile</span>
-              <span>Diritto Commerciale</span>
-              <span>Diritto della navigazione</span>
-              <span>Compliance 321</span>
+              <Link to="/diritto-civile">Diritto Civile</Link>
+              <Link to="/diritto-commerciale">Diritto Commerciale</Link>
+              <Link to="/diritto-della-navigazione">Diritto della navigazione</Link>
+              <Link to="/compliance-231">Compliance 231</Link>
               <Link to="/team">I professionisti</Link>
               <a href="/#news" onClick={(e) => scrollToSection(e, 'news')}>News</a>
               <a href="/#contatti" onClick={(e) => scrollToSection(e, 'contatti')}>Contatti</a>

@@ -110,7 +110,15 @@
   line-height: 1.7;
   padding-top: 3.5rem;
   padding-bottom: 0.5rem;
-  max-width: 50%;
+  max-width: 85%;
+}
+
+.accordion-bio p {
+  margin: 0 0 1.1em;
+}
+
+.accordion-bio p:last-child {
+  margin-bottom: 0;
 }
 
 /* Specializzazione — uppercase, font ridotto, in fondo prima della linea */

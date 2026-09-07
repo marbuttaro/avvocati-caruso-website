@@ -147,7 +147,7 @@
   color: var(--color-navy);
   line-height: 1.2;
   opacity: 0.85;
-  margin-top: 6rem;
+  margin-top: 24rem;
   margin-bottom: 0;
 }
 
@@ -156,6 +156,10 @@
   color: var(--color-navy);
   line-height: 1.45;
   opacity: 0.85;
+}
+
+.studio-v5-right p strong {
+  font-weight: 600;
 }
 
 .studio-v5-right .mb-4 { margin-bottom: 1rem; }
@@ -271,6 +275,9 @@
     gap: 2rem;
     margin-bottom: 7rem;
   }
+  .studio-v5-tagline {
+    margin-top: 12rem;
+  }
   .studio-v5-title { font-size: 3.5rem; }
   .slide-title { font-size: 64px; }
   .slide-num   { font-size: 34px; }
@@ -293,6 +300,7 @@
 .prof-v5 {
   background-color: #557084;
   padding: var(--section-padding) 0;
+  padding-top: calc(var(--section-padding) + 2.5rem);
   overflow: hidden;
 }
 

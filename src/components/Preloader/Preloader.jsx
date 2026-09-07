@@ -5,16 +5,17 @@ import './Preloader.css';
 const FULL_TEXT = 'CARUSO\nAVVOCATI';
 const TYPING_SPEED = 85;
 const HOLD_AFTER_TYPING = 700;
-const EXIT_DURATION = 0.9;
+const EXIT_DURATION = 1.2;
+const EXIT_EASE = [0.16, 1, 0.3, 1];
 
 const backdropVariants = {
   visible: { y: 0 },
-  exit: { y: '-100%', transition: { duration: EXIT_DURATION, ease: [0.76, 0, 0.24, 1] } },
+  exit: { y: '-100%', transition: { duration: EXIT_DURATION, ease: EXIT_EASE } },
 };
 
 const logoVariants = {
   visible: { y: 0, opacity: 1 },
-  exit: { y: '-40%', opacity: 0, transition: { duration: EXIT_DURATION * 0.7, ease: [0.76, 0, 0.24, 1] } },
+  exit: { y: '-40%', opacity: 0, transition: { duration: EXIT_DURATION * 0.7, ease: EXIT_EASE } },
 };
 
 const Preloader = () => {

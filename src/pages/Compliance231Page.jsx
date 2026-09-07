@@ -14,47 +14,51 @@ const staggerContainer = {
 };
 
 const activities = [
-  'Difesa in giudizio',
-  'Assistenza stragiudiziale',
-  'Consulenza preventiva',
-  'Gestione di controlli e accertamenti',
-  'Valutazione dei rischi penali',
+  'Analisi dei rischi-reato',
+  'Predisposizione dei Modelli di Organizzazione, Gestione e Controllo',
+  'Aggiornamento dei Modelli',
+  'Supporto all\'Organismo di Vigilanza',
+  'Formazione sulla compliance',
 ];
 
 const areas = [
   {
-    title: 'Reati contro la Pubblica Amministrazione',
-    desc: 'Assistenza nei procedimenti relativi a condotte illecite nei rapporti con la Pubblica Amministrazione.',
+    title: 'Risk assessment',
+    desc: 'Individuazione e valutazione dei rischi-reato specifici dell\'attività e del settore in cui opera l\'impresa.',
   },
   {
-    title: 'Colpa professionale',
-    desc: 'Tutela e difesa dei professionisti coinvolti in procedimenti per responsabilità penale nell\'esercizio della propria attività.',
+    title: 'Modelli di Organizzazione, Gestione e Controllo',
+    desc: 'Predisposizione e aggiornamento dei Modelli 231 in funzione della struttura e dei rischi aziendali.',
   },
   {
-    title: 'Reati urbanistici ed edilizi',
-    desc: 'Assistenza nelle controversie relative alla disciplina edilizia ed urbanistica.',
+    title: 'Organismo di Vigilanza',
+    desc: 'Supporto all\'Organismo di Vigilanza nello svolgimento delle proprie funzioni e nella verifica dell\'efficacia dei presidi adottati.',
   },
   {
-    title: 'Reati tributari',
-    desc: 'Consulenza e difesa in materia di reati tributari, finanziari e connessi alla tutela dell\'ambiente.',
+    title: 'Compliance e formazione',
+    desc: 'Definizione dei presidi di prevenzione e formazione del personale sui principi e sulle procedure di compliance.',
+  },
+  {
+    title: 'Procedimenti 231',
+    desc: 'Assistenza e difesa dell\'ente e delle persone fisiche coinvolte nei procedimenti relativi alla responsabilità amministrativa.',
   },
 ];
 
-const DirittopenPage = () => {
+const Compliance231Page = () => {
   return (
     <div className="dp-page">
 
       {/* ── Hero: titolo a piena larghezza ─────────────────── */}
       <section className="dp-title-section bg-cream">
         <div className="container">
-          <motion.h1 
+          <motion.h1
             className="dp-title serif"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
-            Difesa, consulenza<br />e tutela nei<br />procedimenti penali
+            Anticipare il rischio,<br />costruire valore
           </motion.h1>
         </div>
       </section>
@@ -62,7 +66,7 @@ const DirittopenPage = () => {
       {/* ── Hero body: foto + testo ─────────────────────────── */}
       <section className="dp-body-section bg-cream">
         <div className="container">
-          <motion.div 
+          <motion.div
             className="dp-hero-grid"
             variants={staggerContainer}
             initial="hidden"
@@ -73,19 +77,18 @@ const DirittopenPage = () => {
             <motion.div className="dp-hero-left" variants={fadeUp}>
               <img
                 src="/assets/services/close-up-businessman-signing-lease-agreement-carcreated-with-generative-ai-technology.jpg"
-                alt="Diritto Penale"
+                alt="Compliance 231"
                 className="dp-hero-img"
               />
             </motion.div>
 
             <div className="dp-hero-right">
               <motion.p className="dp-intro sans" variants={fadeUp}>
-                Da oltre trent'anni lo Studio offre assistenza e consulenza in
-                materia penale, con una consolidata esperienza nella gestione
-                dei procedimenti e nella prevenzione dei rischi di
-                responsabilità. L'attività si sviluppa tanto in ambito
-                giudiziale quanto stragiudiziale, affiancando persone fisiche
-                e giuridiche in ogni fase delle loro esigenze legali.
+                In materia di responsabilità amministrativa degli enti ai sensi
+                del D.Lgs. 231/2001, lo Studio affianca le imprese sia nella
+                fase patologica — assumendo la difesa dell'ente e delle
+                persone fisiche coinvolte nei relativi procedimenti — sia,
+                soprattutto, in una prospettiva di prevenzione.
               </motion.p>
               <motion.div className="dp-activities" variants={fadeUp}>
                 <h3 className="dp-activities-title serif">Attività principali</h3>
@@ -104,7 +107,7 @@ const DirittopenPage = () => {
       {/* ── Aree di intervento ───────────────────────────────── */}
       <section className="dp-areas-section section-padding bg-cream">
         <div className="container">
-          <motion.h2 
+          <motion.h2
             className="dp-areas-title serif"
             variants={fadeUp}
             initial="hidden"
@@ -113,7 +116,7 @@ const DirittopenPage = () => {
           >
             Aree di intervento
           </motion.h2>
-          <motion.div 
+          <motion.div
             className="dp-areas-grid"
             variants={staggerContainer}
             initial="hidden"
@@ -146,4 +149,4 @@ const DirittopenPage = () => {
   );
 };
 
-export default DirittopenPage;
+export default Compliance231Page;

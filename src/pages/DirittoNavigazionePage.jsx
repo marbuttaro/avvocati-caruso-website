@@ -14,47 +14,52 @@ const staggerContainer = {
 };
 
 const activities = [
-  'Difesa in giudizio',
-  'Assistenza stragiudiziale',
-  'Consulenza preventiva',
-  'Gestione di controlli e accertamenti',
-  'Valutazione dei rischi penali',
+  'Assistenza nel contenzioso marittimo',
+  'Consulenza stragiudiziale',
+  'Contratti di trasporto',
+  'Gestione dei sinistri',
+  'Consulenza assicurativa',
+  'Valutazione dei rischi',
 ];
 
 const areas = [
   {
-    title: 'Reati contro la Pubblica Amministrazione',
-    desc: 'Assistenza nei procedimenti relativi a condotte illecite nei rapporti con la Pubblica Amministrazione.',
+    title: 'Diritto marittimo e della navigazione',
+    desc: 'Assistenza nelle principali questioni giuridiche relative alla navigazione e alle attività del comparto marittimo.',
   },
   {
-    title: 'Colpa professionale',
-    desc: 'Tutela e difesa dei professionisti coinvolti in procedimenti per responsabilità penale nell\'esercizio della propria attività.',
+    title: 'Sinistri marittimi',
+    desc: 'Consulenza e difesa in relazione a collisioni, salvataggi e altri sinistri connessi alla navigazione.',
   },
   {
-    title: 'Reati urbanistici ed edilizi',
-    desc: 'Assistenza nelle controversie relative alla disciplina edilizia ed urbanistica.',
+    title: 'Contratti di trasporto',
+    desc: 'Redazione, negoziazione e gestione dei contratti relativi al trasporto marittimo e alle attività connesse.',
   },
   {
-    title: 'Reati tributari',
-    desc: 'Consulenza e difesa in materia di reati tributari, finanziari e connessi alla tutela dell\'ambiente.',
+    title: 'Assicurazioni marittime',
+    desc: 'Assistenza nelle questioni assicurative relative al comparto marittimo, dalla consulenza alla gestione delle controversie.',
+  },
+  {
+    title: 'Rischi del settore',
+    desc: 'Consulenza preventiva per una corretta gestione dei rapporti contrattuali e assicurativi e per la riduzione dell\'esposizione ai rischi operativi.',
   },
 ];
 
-const DirittopenPage = () => {
+const DirittoNavigazionePage = () => {
   return (
     <div className="dp-page">
 
       {/* ── Hero: titolo a piena larghezza ─────────────────── */}
       <section className="dp-title-section bg-cream">
         <div className="container">
-          <motion.h1 
+          <motion.h1
             className="dp-title serif"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
-            Difesa, consulenza<br />e tutela nei<br />procedimenti penali
+            Orientarsi nel<br />diritto del mare
           </motion.h1>
         </div>
       </section>
@@ -62,7 +67,7 @@ const DirittopenPage = () => {
       {/* ── Hero body: foto + testo ─────────────────────────── */}
       <section className="dp-body-section bg-cream">
         <div className="container">
-          <motion.div 
+          <motion.div
             className="dp-hero-grid"
             variants={staggerContainer}
             initial="hidden"
@@ -73,19 +78,19 @@ const DirittopenPage = () => {
             <motion.div className="dp-hero-left" variants={fadeUp}>
               <img
                 src="/assets/services/close-up-businessman-signing-lease-agreement-carcreated-with-generative-ai-technology.jpg"
-                alt="Diritto Penale"
+                alt="Diritto della Navigazione"
                 className="dp-hero-img"
               />
             </motion.div>
 
             <div className="dp-hero-right">
               <motion.p className="dp-intro sans" variants={fadeUp}>
-                Da oltre trent'anni lo Studio offre assistenza e consulenza in
-                materia penale, con una consolidata esperienza nella gestione
-                dei procedimenti e nella prevenzione dei rischi di
-                responsabilità. L'attività si sviluppa tanto in ambito
-                giudiziale quanto stragiudiziale, affiancando persone fisiche
-                e giuridiche in ogni fase delle loro esigenze legali.
+                Lo Studio, tramite un professionista of-counsel, fornisce
+                assistenza specialistica in materia di diritto della
+                navigazione e diritto marittimo, occupandosi di fattispecie
+                quali collisioni, salvataggi e sinistri marittimi in genere,
+                oltre che di diritto assicurativo con specifico riferimento
+                al ramo marittimo.
               </motion.p>
               <motion.div className="dp-activities" variants={fadeUp}>
                 <h3 className="dp-activities-title serif">Attività principali</h3>
@@ -104,7 +109,7 @@ const DirittopenPage = () => {
       {/* ── Aree di intervento ───────────────────────────────── */}
       <section className="dp-areas-section section-padding bg-cream">
         <div className="container">
-          <motion.h2 
+          <motion.h2
             className="dp-areas-title serif"
             variants={fadeUp}
             initial="hidden"
@@ -113,7 +118,7 @@ const DirittopenPage = () => {
           >
             Aree di intervento
           </motion.h2>
-          <motion.div 
+          <motion.div
             className="dp-areas-grid"
             variants={staggerContainer}
             initial="hidden"
@@ -146,4 +151,4 @@ const DirittopenPage = () => {
   );
 };
 
-export default DirittopenPage;
+export default DirittoNavigazionePage;

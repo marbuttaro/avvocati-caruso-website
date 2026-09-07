@@ -14,47 +14,47 @@ const staggerContainer = {
 };
 
 const activities = [
-  'Difesa in giudizio',
-  'Assistenza stragiudiziale',
+  'Valutazione dei rischi legali',
+  'Assistenza nel contenzioso',
+  'Negoziazione e consulenza',
+  'Assistenza nelle controversie',
   'Consulenza preventiva',
-  'Gestione di controlli e accertamenti',
-  'Valutazione dei rischi penali',
 ];
 
 const areas = [
   {
-    title: 'Reati contro la Pubblica Amministrazione',
-    desc: 'Assistenza nei procedimenti relativi a condotte illecite nei rapporti con la Pubblica Amministrazione.',
+    title: 'Contrattualistica',
+    desc: 'Assistenza nella redazione, revisione e negoziazione dei contratti e nella definizione dei rapporti tra le parti.',
   },
   {
-    title: 'Colpa professionale',
-    desc: 'Tutela e difesa dei professionisti coinvolti in procedimenti per responsabilità penale nell\'esercizio della propria attività.',
+    title: 'Contenzioso civile',
+    desc: 'Difesa e rappresentanza nelle controversie di natura contrattuale ed extracontrattuale, in ogni fase del giudizio.',
   },
   {
-    title: 'Reati urbanistici ed edilizi',
-    desc: 'Assistenza nelle controversie relative alla disciplina edilizia ed urbanistica.',
+    title: 'Responsabilità civile',
+    desc: 'Consulenza e assistenza nelle controversie relative a danni e responsabilità derivanti dalla violazione di obblighi giuridici.',
   },
   {
-    title: 'Reati tributari',
-    desc: 'Consulenza e difesa in materia di reati tributari, finanziari e connessi alla tutela dell\'ambiente.',
+    title: 'Consulenza preventiva',
+    desc: 'Analisi dei rischi legali connessi a operazioni e rapporti contrattuali, per supportare il cliente nell\'assunzione di decisioni consapevoli.',
   },
 ];
 
-const DirittopenPage = () => {
+const DirittoCivilePage = () => {
   return (
     <div className="dp-page">
 
       {/* ── Hero: titolo a piena larghezza ─────────────────── */}
       <section className="dp-title-section bg-cream">
         <div className="container">
-          <motion.h1 
+          <motion.h1
             className="dp-title serif"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
-            Difesa, consulenza<br />e tutela nei<br />procedimenti penali
+            Tutela e soluzioni,<br />oltre il contenzioso
           </motion.h1>
         </div>
       </section>
@@ -62,7 +62,7 @@ const DirittopenPage = () => {
       {/* ── Hero body: foto + testo ─────────────────────────── */}
       <section className="dp-body-section bg-cream">
         <div className="container">
-          <motion.div 
+          <motion.div
             className="dp-hero-grid"
             variants={staggerContainer}
             initial="hidden"
@@ -73,19 +73,21 @@ const DirittopenPage = () => {
             <motion.div className="dp-hero-left" variants={fadeUp}>
               <img
                 src="/assets/services/close-up-businessman-signing-lease-agreement-carcreated-with-generative-ai-technology.jpg"
-                alt="Diritto Penale"
+                alt="Diritto Civile"
                 className="dp-hero-img"
               />
             </motion.div>
 
             <div className="dp-hero-right">
               <motion.p className="dp-intro sans" variants={fadeUp}>
-                Da oltre trent'anni lo Studio offre assistenza e consulenza in
-                materia penale, con una consolidata esperienza nella gestione
-                dei procedimenti e nella prevenzione dei rischi di
-                responsabilità. L'attività si sviluppa tanto in ambito
-                giudiziale quanto stragiudiziale, affiancando persone fisiche
-                e giuridiche in ogni fase delle loro esigenze legali.
+                Lo Studio assiste persone fisiche e imprese nella gestione del
+                contenzioso civile, sia contrattuale che extracontrattuale,
+                curando la difesa dell'assistito in ogni fase del giudizio.
+                Parallelamente, offre un'attività di consulenza e assistenza
+                stragiudiziale nella redazione e nella negoziazione della
+                contrattualistica, con l'obiettivo di prevenire l'insorgere
+                di controversie attraverso una definizione chiara e ponderata
+                dei rapporti giuridici tra le parti.
               </motion.p>
               <motion.div className="dp-activities" variants={fadeUp}>
                 <h3 className="dp-activities-title serif">Attività principali</h3>
@@ -104,7 +106,7 @@ const DirittopenPage = () => {
       {/* ── Aree di intervento ───────────────────────────────── */}
       <section className="dp-areas-section section-padding bg-cream">
         <div className="container">
-          <motion.h2 
+          <motion.h2
             className="dp-areas-title serif"
             variants={fadeUp}
             initial="hidden"
@@ -113,7 +115,7 @@ const DirittopenPage = () => {
           >
             Aree di intervento
           </motion.h2>
-          <motion.div 
+          <motion.div
             className="dp-areas-grid"
             variants={staggerContainer}
             initial="hidden"
@@ -146,4 +148,4 @@ const DirittopenPage = () => {
   );
 };
 
-export default DirittopenPage;
+export default DirittoCivilePage;
