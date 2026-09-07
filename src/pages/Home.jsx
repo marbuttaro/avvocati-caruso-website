@@ -44,32 +44,32 @@ const professionals = [
   {
     id: 0, prefix: 'Avv.', name: 'Giuseppe Caruso',
     img: '/assets/prof-luca.jpg',
-    role: 'Avvocato Penalista',
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
+    role: 'Fondatore',
+    bio: 'Fondatore dello Studio, ne guida l\'attività dal 1988 con quattro decenni di esperienza nella difesa penale di persone fisiche e giuridiche.',
   },
   {
     id: 1, prefix: 'Avv.', name: 'Alfredo Caruso',
     img: '/assets/prof-alfredo.jpg',
-    role: 'Avvocato Penalista',
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
+    role: 'Diritto Penale – Compliance 231 – MOG 231',
+    bio: 'Assiste persone fisiche e giuridiche in materia di reati tributari, finanziari, contro la pubblica amministrazione e ambientali.',
   },
   {
     id: 2, prefix: 'Avv.', name: 'Erika Ferone',
     img: '/assets/prof-giulia.jpg',
-    role: 'Avvocato Penalista',
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
+    role: 'Diritto Penale – Diritto di Impresa – Compliance',
+    bio: 'Si occupa di reati contro la persona e reati tributari, con un focus particolare sul diritto di impresa.',
   },
   {
     id: 3, prefix: 'Avv.', name: 'Adriano Caruso',
     img: '/assets/prof-elena.jpg',
-    role: 'Avvocato Penalista',
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
+    role: 'Of Counsel – Diritto Civile',
+    bio: 'Of Counsel per diritto civile, diritto del lavoro, diritto di famiglia e responsabilità professionale.',
   },
   {
     id: 4, prefix: 'Avv.', name: 'Francesco Conte',
     img: '/assets/prof-marco.jpg',
-    role: 'Avvocato Penalista',
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis fermentum odio, sit amet sollicitudin ipsum fringilla a. Nullam varius justo et gravida lacinia.',
+    role: 'Of Counsel – Diritto Commerciale',
+    bio: 'Of Counsel per diritto commerciale, amministrativo, assicurativo, dei trasporti e marittimo.',
   },
 ];
 
@@ -168,54 +168,76 @@ function StudioRisponde() {
   );
 }
 
-function ProfessionistiGrid() {
+const SLIDE_EASE = [0.16, 1, 0.3, 1];
+const SIZE_OPACITY = { sm: 0.42, md: 0.68, lg: 1 };
+
+function ProfessionistiSlider() {
   const [activeIdx, setActiveIdx] = useState(0);
+  const [dir, setDir] = useState(1);
   const n = professionals.length;
-  const navigate = (d) => setActiveIdx(i => (i + d + n) % n);
-  const active = professionals[activeIdx];
-  const mobileVisible = [
-    { pos: 'prev', prof: professionals[(activeIdx - 1 + n) % n] },
-    { pos: 'active', prof: active },
-    { pos: 'next', prof: professionals[(activeIdx + 1) % n] },
+
+  const navigate = (d) => {
+    setDir(d);
+    setActiveIdx(i => (i + d + n) % n);
+  };
+
+  // Left→right: [sm=idx+2, md=idx+1, lg=idx]
+  // On next (+1): md grows→lg (layout), sm shifts→md (layout), old lg fades out, new sm enters from left
+  const visiblePhotos = [
+    { key: (activeIdx + 2) % n, prof: professionals[(activeIdx + 2) % n], size: 'sm' },
+    { key: (activeIdx + 1) % n, prof: professionals[(activeIdx + 1) % n], size: 'md' },
+    { key: activeIdx,            prof: professionals[activeIdx],            size: 'lg' },
   ];
+
+  const active = professionals[activeIdx];
 
   return (
     <section className="prof-v5">
-      <div className="container">
-        <h2 className="prof-v5-title serif">I professionisti</h2>
-
-        {/* Desktop / tablet grid */}
-        <div className="prof-grid">
-          {professionals.map((prof, i) => (
-            <div key={prof.id} className="prof-grid-item">
-              <div className="prof-grid-photo">
-                <img src={prof.img} alt={prof.name} style={prof.imgPosition ? { objectPosition: prof.imgPosition } : undefined} />
-              </div>
-              <span className="prof-grid-prefix serif">{prof.prefix}</span>
-              <h3 className="prof-grid-name serif">{prof.name}</h3>
-              <span className="prof-grid-role">{prof.role}</span>
-            </div>
-          ))}
+      <div className="prof-v5-layout">
+        <div className="prof-v5-left">
+          <h2 className="prof-v5-title serif">I professionisti</h2>
+          <div className="prof-v5-photos">
+            <AnimatePresence mode="popLayout" initial={false}>
+              {visiblePhotos.map(({ key, prof, size }) => (
+                <motion.div
+                  key={key}
+                  layout
+                  initial={{ opacity: 0, x: dir > 0 ? -40 : 40 }}
+                  animate={{ opacity: SIZE_OPACITY[size], x: 0 }}
+                  exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.28, ease: 'easeOut' } }}
+                  transition={{ duration: 0.65, ease: SLIDE_EASE }}
+                  className={`prof-v5-photo prof-v5-photo--${size}`}
+                >
+                  <img src={prof.img} alt={prof.name} draggable="false" />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
         </div>
 
-        {/* Mobile slider */}
-        <div className="prof-mobile">
-          <div className="prof-mobile-photos">
-            {mobileVisible.map(({ pos, prof }) => (
-              <div key={pos} className={`prof-mobile-photo prof-mobile-photo--${pos}`}>
-                <img src={prof.img} alt={prof.name} style={prof.imgPosition ? { objectPosition: prof.imgPosition } : undefined} />
-              </div>
-            ))}
+        <div className="prof-v5-info">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={activeIdx}
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -14 }}
+              transition={{ duration: 0.35, ease: 'easeOut' }}
+              className="prof-v5-info-inner"
+            >
+              <span className="prof-v5-prefix serif">{active.prefix}</span>
+              <h3 className="prof-v5-name serif">{active.name}</h3>
+              <p className="prof-v5-bio">{active.bio}</p>
+            </motion.div>
+          </AnimatePresence>
+          <div className="prof-v5-arrows">
+            <button onClick={() => navigate(-1)} className="prof-arrow-btn" aria-label="Precedente">
+              <img src="/assets/arrow.svg" alt="" style={{ transform: 'scaleX(-1)' }} />
+            </button>
+            <button onClick={() => navigate(1)} className="prof-arrow-btn" aria-label="Successivo">
+              <img src="/assets/arrow.svg" alt="" />
+            </button>
           </div>
-          <div className="prof-mobile-nav">
-            <button onClick={() => navigate(-1)} className="prof-mobile-arrow" aria-label="Precedente">‹</button>
-            <div className="prof-mobile-name">
-              <span className="prof-mobile-prefix serif">{active.prefix}</span>
-              <h3 className="prof-mobile-name-text serif">{active.name}</h3>
-            </div>
-            <button onClick={() => navigate(1)} className="prof-mobile-arrow" aria-label="Successivo">›</button>
-          </div>
-          <p className="prof-mobile-bio">{active.bio}</p>
         </div>
       </div>
     </section>
@@ -583,7 +605,7 @@ const Home = () => {
       {/* 3. All sections after studio — z-index 2 to render above sticky studio */}
       <div className="content-over-hero">
 
-        <ProfessionistiGrid />
+        <ProfessionistiSlider />
 
         {/* News Section */}
         <section id="news" className="news-v5 section-padding bg-cream">

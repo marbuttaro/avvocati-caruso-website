@@ -300,8 +300,25 @@
 .prof-v5 {
   background-color: #557084;
   padding: var(--section-padding) 0;
-  padding-top: calc(var(--section-padding) + 2.5rem);
   overflow: hidden;
+}
+
+/* Full-bleed flex — no container wrapper, uses its own padding */
+.prof-v5-layout {
+  display: flex;
+  align-items: flex-end;
+  padding-left: var(--section-indent);
+  padding-right: var(--section-indent);
+  gap: 5rem;
+  min-height: 520px;
+}
+
+.prof-v5-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 0 0 auto;
+  min-width: 0;
 }
 
 .prof-v5-title {
@@ -310,167 +327,118 @@
   font-style: normal;
   font-weight: 400;
   line-height: 1.05;
-  margin-bottom: clamp(2.5rem, 5vw, 4rem);
 }
 
-.prof-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: clamp(1.5rem, 4vw, 4.5rem);
-  row-gap: clamp(2.5rem, 5vw, 3.5rem);
-}
-
-.prof-grid-item {
+.prof-v5-photos {
   display: flex;
-  flex-direction: column;
-  color: #F6F3ED;
+  align-items: flex-end;
+  gap: 10px;
 }
 
-.prof-grid-photo {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  border-radius: 16px;
+.prof-v5-photo {
   overflow: hidden;
-  margin-bottom: 1.1rem;
+  flex-shrink: 0;
+  border-radius: 26px;
 }
 
-.prof-grid-photo img {
+.prof-v5-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center top;
   display: block;
+  pointer-events: none;
 }
 
-.prof-grid-prefix {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: clamp(1rem, 1.2vw, 1.2rem);
-  opacity: 0.85;
-  margin-bottom: 0.15rem;
+/* Photo sizes per spec */
+.prof-v5-photo--sm { width: 250px; height: 295px; opacity: 0.42; }
+.prof-v5-photo--md { width: 250px; height: 295px; opacity: 0.68; }
+.prof-v5-photo--lg { width: 310px; height: 424px; opacity: 1; }
+
+/* Info panel — fixed width, vertically centered to lg photo height */
+.prof-v5-info {
+  width: 380px;
+  height: 424px; /* same as lg photo */
+  flex-shrink: 0;
+  color: #F6F3ED;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.prof-grid-name {
+.prof-v5-info-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.prof-v5-prefix {
   font-family: var(--font-serif);
-  font-size: clamp(1.6rem, 2.2vw, 2.1rem);
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 400;
+  opacity: 0.9;
+  display: block;
+  margin-bottom: 0.1rem;
+}
+
+.prof-v5-name {
+  font-family: var(--font-serif);
+  font-size: 56px;
   font-weight: 400;
   font-style: normal;
-  line-height: 1.15;
-  margin-bottom: 0.5rem;
+  line-height: 1.0;
+  margin-bottom: 1.2rem;
 }
 
-.prof-grid-role {
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  opacity: 0.75;
+.prof-v5-bio {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  opacity: 0.88;
+  margin-bottom: 2rem;
+  max-width: 340px;
+}
+
+.prof-v5-arrows {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.prof-arrow-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.4rem;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.prof-arrow-btn:hover { opacity: 1; }
+
+.prof-arrow-btn img {
+  width: 11px;
+  height: 21px;
+  display: block;
 }
 
 @media (max-width: 900px) {
-  .prof-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .prof-v5-layout {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 24px;
+    min-height: auto;
+    gap: 2rem;
   }
-}
-
-/* Mobile slider — hidden above 640px, grid hidden below it */
-.prof-mobile {
-  display: none;
-}
-
-@media (max-width: 640px) {
-  .prof-v5 .container {
-    padding: 0 36px;
-  }
-
-  .prof-grid {
-    display: none;
-  }
-
-  .prof-mobile {
-    display: block;
-  }
-
-  .prof-mobile-photos {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    margin-left: -50vw;
-  }
-
-  .prof-mobile-photo {
-    flex-shrink: 0;
-    aspect-ratio: 250 / 295;
-    border-radius: 16px;
-    overflow: hidden;
-    opacity: 0.45;
-    width: 34vw;
-    transition: opacity 0.35s ease, width 0.35s ease;
-  }
-
-  .prof-mobile-photo img {
+  .prof-v5-info {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    display: block;
   }
-
-  .prof-mobile-photo--active {
-    opacity: 1;
-    width: 46vw;
-  }
-
-  .prof-mobile-nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-top: 2rem;
-  }
-
-  .prof-mobile-arrow {
-    background: none;
-    border: none;
-    color: #F6F3ED;
-    font-size: 2rem;
-    line-height: 1;
-    cursor: pointer;
-    padding: 0.5rem;
-    opacity: 0.8;
-  }
-
-  .prof-mobile-name {
-    text-align: center;
-    color: #F6F3ED;
-  }
-
-  .prof-mobile-prefix {
-    display: block;
-    font-style: italic;
-    font-size: 1.1rem;
-    opacity: 0.85;
-    margin-bottom: 0.1rem;
-  }
-
-  .prof-mobile-name-text {
-    font-size: 2.2rem;
-    font-weight: 400;
-    line-height: 1.1;
-  }
-
-  .prof-mobile-bio {
-    color: #F6F3ED;
-    text-align: center;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    opacity: 0.85;
-    max-width: 320px;
-    margin: 1.5rem auto 0;
-  }
+  .prof-v5-photo--sm { width: 100px; height: 118px; }
+  .prof-v5-photo--md { width: 100px; height: 118px; }
+  .prof-v5-photo--lg { width: 130px; height: 178px; }
 }
 
 /* Studio Section (legacy fallback, still used by class selectors) */
