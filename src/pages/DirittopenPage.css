@@ -89,10 +89,13 @@
 }
 
 .dp-areas-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 358px);
-  gap: 1.25rem;
+  --dp-areas-cols: 3;
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  gap: 1.25rem;
+  max-width: calc(358px * var(--dp-areas-cols) + 1.25rem * (var(--dp-areas-cols) - 1));
+  margin: 0 auto;
 }
 
 .dp-area-card {
@@ -102,6 +105,7 @@
   padding: 1.4rem 2rem 1.6rem 1.4rem;
   display: flex;
   flex-direction: column;
+  flex: 0 0 358px;
   width: 358px;
   height: 364px;
 }
@@ -151,7 +155,7 @@
 /* ── Responsive ───────────────────────────────────────── */
 @media (max-width: 1160px) {
   .dp-areas-grid {
-    grid-template-columns: repeat(2, 358px);
+    --dp-areas-cols: 2;
   }
 }
 
@@ -162,11 +166,12 @@
   }
 
   .dp-areas-grid {
-    grid-template-columns: repeat(2, 1fr);
+    max-width: 100%;
   }
 
   .dp-area-card {
-    width: 100%;
+    flex: 0 0 calc(50% - 0.625rem);
+    width: auto;
     height: 364px;
   }
 }
@@ -187,10 +192,11 @@
   }
 
   .dp-areas-grid {
-    grid-template-columns: 1fr;
+    max-width: 100%;
   }
 
   .dp-area-card {
+    flex: 1 1 100%;
     width: 100%;
     height: auto;
     min-height: 320px;

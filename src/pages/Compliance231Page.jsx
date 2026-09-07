@@ -118,6 +118,7 @@ const Compliance231Page = () => {
           </motion.h2>
           <motion.div
             className="dp-areas-grid"
+            style={{ '--dp-areas-cols': areas.length === 4 ? 2 : Math.min(areas.length, 3) }}
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
