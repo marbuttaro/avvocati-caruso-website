@@ -25,6 +25,7 @@ const areas = [
   {
     title: 'Reati contro la\nPubblica Amministrazione',
     desc: 'Assistenza nei procedimenti relativi a condotte illecite nei rapporti con la Pubblica Amministrazione.',
+    wide: true,
   },
   {
     title: 'Colpa professionale',
@@ -132,7 +133,7 @@ const DirittopenPage = () => {
                     aria-hidden="true"
                   />
                 </div>
-                <h3 className="dp-area-card-title serif">{area.title}</h3>
+                <h3 className={`dp-area-card-title serif${area.wide ? ' dp-area-card-title--wide' : ''}`}>{area.title}</h3>
                 <p className="dp-area-desc sans">{area.desc}</p>
               </motion.div>
             ))}

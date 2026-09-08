@@ -29,6 +29,7 @@ const areas = [
   {
     title: 'Modelli di Organizzazione,\nGestione e Controllo',
     desc: 'Predisposizione e aggiornamento dei Modelli 231 in funzione della struttura e dei rischi aziendali.',
+    wide: true,
   },
   {
     title: 'Organismo di Vigilanza',
@@ -135,7 +136,7 @@ const Compliance231Page = () => {
                     aria-hidden="true"
                   />
                 </div>
-                <h3 className="dp-area-card-title serif">{area.title}</h3>
+                <h3 className={`dp-area-card-title serif${area.wide ? ' dp-area-card-title--wide' : ''}`}>{area.title}</h3>
                 <p className="dp-area-desc sans">{area.desc}</p>
               </motion.div>
             ))}

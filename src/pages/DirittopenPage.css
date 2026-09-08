@@ -222,5 +222,13 @@
 
   .dp-area-card-title {
     font-size: 25px;
+    max-width: 160px;
+  }
+
+  /* Titles that already carry a deliberate manual line-break (see the
+     data arrays) opt out of the general width constraint above, so they
+     don't wrap a second time on top of the chosen break point. */
+  .dp-area-card-title--wide {
+    max-width: none;
   }
 }
