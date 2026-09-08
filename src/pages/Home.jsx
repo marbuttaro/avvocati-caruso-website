@@ -191,6 +191,21 @@ function ProfessionistiSlider() {
     setActiveIdx(i => (i + d + n) % n);
   };
 
+  const touchStartX = useRef(null);
+  const SWIPE_THRESHOLD = 40;
+
+  const onTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const onTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartX.current;
+    touchStartX.current = null;
+    if (deltaX > SWIPE_THRESHOLD) navigate(-1);
+    else if (deltaX < -SWIPE_THRESHOLD) navigate(1);
+  };
+
   // Desktop — filmstrip left→right: [sm=idx+2, md=idx+1, lg=idx]
   // On next (+1): md grows→lg (layout), sm shifts→md (layout), old lg fades out, new sm enters from left
   // Mobile — centered peek carousel: [prev=idx-1, active=idx, next=idx+1]
@@ -210,7 +225,7 @@ function ProfessionistiSlider() {
 
   return (
     <section className="prof-v5">
-      <div className="prof-v5-layout">
+      <div className="prof-v5-layout" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
         <div className="prof-v5-left">
           <h2 className="prof-v5-title serif">I professionisti</h2>
           <div className="prof-v5-photos">
