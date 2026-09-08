@@ -18,8 +18,13 @@ const logoVariants = {
   exit: { y: '-40%', opacity: 0, transition: { duration: EXIT_DURATION * 0.7, ease: EXIT_EASE } },
 };
 
+// Module-level flag: resets on a real page load/refresh (the JS bundle
+// re-executes from scratch), but stays true across client-side route
+// changes within the same session, so the intro only plays once per visit.
+let hasPlayedThisSession = false;
+
 const Preloader = () => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(() => !hasPlayedThisSession);
   const [exiting, setExiting] = useState(false);
   const [typedCount, setTypedCount] = useState(0);
   const reduceMotion = useReducedMotion();
@@ -47,6 +52,7 @@ const Preloader = () => {
 
   const handleExitComplete = () => {
     document.documentElement.classList.remove('preloader-lock');
+    hasPlayedThisSession = true;
     setVisible(false);
   };
 
