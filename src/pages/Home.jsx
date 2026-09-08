@@ -7,6 +7,7 @@ import ImageTrail from '../components/ImageTrail/ImageTrail';
 import SplitText from '../components/SplitText/SplitText';
 import Preloader from '../components/Preloader/Preloader';
 import { newsItems } from '../data/newsData';
+import { smoothScrollTo } from '../utils/smoothScroll';
 import './Home.css';
 
 const tickerItems = ['Consulenza', 'Difesa in giudizio', 'Compliance'];
@@ -474,7 +475,7 @@ function ContactSection() {
         </div>
 
         <div className="contact-body-new">
-          <img src="/assets/pattern-contatti.svg" className="contact-section-pattern" aria-hidden="true" />
+          <div className="contact-section-pattern" aria-hidden="true" />
 
           <div className="contact-body-inner">
             <div className="contact-info-figma">
@@ -557,8 +558,7 @@ const Home = () => {
     const sectionId = location.state?.scrollTo;
     if (!sectionId) return;
     const t = setTimeout(() => {
-      const el = document.getElementById(sectionId);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      smoothScrollTo(sectionId);
     }, 150);
     return () => clearTimeout(t);
   }, [location.state]);

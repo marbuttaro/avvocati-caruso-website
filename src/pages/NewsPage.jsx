@@ -17,6 +17,10 @@ const NewsPage = () => {
 
   if (!article) return <Navigate to="/" replace />;
 
+  const currentIndex = newsItems.findIndex(item => item.id === currentId);
+  const prevArticle = newsItems[(currentIndex - 1 + newsItems.length) % newsItems.length];
+  const nextArticle = newsItems[(currentIndex + 1) % newsItems.length];
+
   const paragraphs = article.content.split('\n\n').filter(p => p.trim() !== '');
   const split = Math.ceil(paragraphs.length / 2);
   const topParagraphs = paragraphs.slice(0, split);
@@ -35,6 +39,11 @@ const NewsPage = () => {
               initial="hidden"
               animate="visible"
             >
+              <div className="single-news-article-nav">
+                <Link to={prevArticle.slug} className="single-news-article-nav-link serif">Indietro</Link>
+                <Link to={nextArticle.slug} className="single-news-article-nav-link serif">Prossimo</Link>
+              </div>
+
               <h1 className="single-news-title serif">{article.title}</h1>
               <span className="single-news-date">{article.date}</span>
 

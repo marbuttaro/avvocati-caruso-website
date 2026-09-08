@@ -40,6 +40,25 @@
   margin-bottom: 2rem;
 }
 
+.single-news-article-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.single-news-article-nav-link {
+  font-family: var(--font-serif);
+  font-size: 16pt;
+  color: var(--color-navy);
+  opacity: 0.65;
+  transition: opacity 0.25s ease;
+}
+
+.single-news-article-nav-link:hover {
+  opacity: 1;
+}
+
 .single-news-title {
   font-size: 64px;
   font-weight: 400;

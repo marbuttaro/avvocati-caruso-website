@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { smoothScrollTo } from '../utils/smoothScroll';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -44,7 +45,7 @@ const Navbar = () => {
   const scrollToSection = (e, sectionId) => {
     e.preventDefault();
     if (isHome) {
-      document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+      smoothScrollTo(sectionId);
     } else {
       navigate('/', { state: { scrollTo: sectionId } });
     }
