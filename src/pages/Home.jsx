@@ -174,20 +174,37 @@ const SIZE_OPACITY = { sm: 0.42, md: 0.68, lg: 1 };
 function ProfessionistiSlider() {
   const [activeIdx, setActiveIdx] = useState(0);
   const [dir, setDir] = useState(1);
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' && window.innerWidth <= 900
+  );
   const n = professionals.length;
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 900px)');
+    const handler = (e) => setIsMobile(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
 
   const navigate = (d) => {
     setDir(d);
     setActiveIdx(i => (i + d + n) % n);
   };
 
-  // Left→right: [sm=idx+2, md=idx+1, lg=idx]
+  // Desktop — filmstrip left→right: [sm=idx+2, md=idx+1, lg=idx]
   // On next (+1): md grows→lg (layout), sm shifts→md (layout), old lg fades out, new sm enters from left
-  const visiblePhotos = [
-    { key: (activeIdx + 2) % n, prof: professionals[(activeIdx + 2) % n], size: 'sm' },
-    { key: (activeIdx + 1) % n, prof: professionals[(activeIdx + 1) % n], size: 'md' },
-    { key: activeIdx,            prof: professionals[activeIdx],            size: 'lg' },
-  ];
+  // Mobile — centered peek carousel: [prev=idx-1, active=idx, next=idx+1]
+  const visiblePhotos = isMobile
+    ? [
+        { key: (activeIdx - 1 + n) % n, prof: professionals[(activeIdx - 1 + n) % n], size: 'sm' },
+        { key: activeIdx,                prof: professionals[activeIdx],                size: 'lg' },
+        { key: (activeIdx + 1) % n,      prof: professionals[(activeIdx + 1) % n],      size: 'sm' },
+      ]
+    : [
+        { key: (activeIdx + 2) % n, prof: professionals[(activeIdx + 2) % n], size: 'sm' },
+        { key: (activeIdx + 1) % n, prof: professionals[(activeIdx + 1) % n], size: 'md' },
+        { key: activeIdx,            prof: professionals[activeIdx],            size: 'lg' },
+      ];
 
   const active = professionals[activeIdx];
 
@@ -226,7 +243,15 @@ function ProfessionistiSlider() {
               className="prof-v5-info-inner"
             >
               <span className="prof-v5-prefix serif">{active.prefix}</span>
-              <h3 className="prof-v5-name serif">{active.name}</h3>
+              <div className="prof-v5-name-row">
+                <button onClick={() => navigate(-1)} className="prof-arrow-btn prof-arrow-btn--inline" aria-label="Precedente">
+                  <img src="/assets/arrow.svg" alt="" style={{ transform: 'scaleX(-1)' }} />
+                </button>
+                <h3 className="prof-v5-name serif">{active.name}</h3>
+                <button onClick={() => navigate(1)} className="prof-arrow-btn prof-arrow-btn--inline" aria-label="Successivo">
+                  <img src="/assets/arrow.svg" alt="" />
+                </button>
+              </div>
               <p className="prof-v5-bio">{active.bio}</p>
             </motion.div>
           </AnimatePresence>
