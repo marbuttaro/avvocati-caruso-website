@@ -181,18 +181,31 @@
     padding: 0 34px;
   }
 
+  /* Keep the contact form's edge-to-edge tab/card bleed in sync with the
+     34px container padding above (Home.css's own bleed assumes the
+     site-wide 24px mobile margin, which no longer matches on this page). */
+  .dp-page .contact-tab-row,
+  .dp-page .contact-body-new {
+    margin-left: -34px;
+    margin-right: -34px;
+  }
+
   .dp-title {
     font-size: clamp(2.8rem, 10vw, 4rem);
   }
 
   .dp-activities-title {
-    font-size: 28px;
+    font-size: 32px;
     margin-bottom: 0.8rem;
   }
 
   .dp-activities-list li {
     font-size: 16px;
     padding: 0.6rem 0;
+  }
+
+  .dp-areas-title {
+    font-size: 36px;
   }
 
   .dp-areas-grid {
@@ -203,6 +216,11 @@
     flex: 1 1 100%;
     width: 100%;
     height: auto;
-    min-height: 320px;
+    min-height: 270px;
+    padding: 1.1rem 1.5rem 1.3rem 1.1rem;
+  }
+
+  .dp-area-card-title {
+    font-size: 25px;
   }
 }

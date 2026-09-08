@@ -194,3 +194,9 @@ html.preloader-lock .navbar-v3 {
     display: block;
   }
 }
+
+@media (max-width: 768px) {
+  .navbar-v3 .container {
+    padding: 0 34px;
+  }
+}

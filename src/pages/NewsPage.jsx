@@ -30,6 +30,15 @@ const NewsPage = () => {
     <div className="single-news-page bg-cream">
       <section className="single-news-section">
         <div className="container">
+          <div className="single-news-article-nav">
+            <Link to={prevArticle.slug} className="single-news-article-nav-link serif">
+              <span className="single-news-article-nav-arrow">&lt;</span> Indietro
+            </Link>
+            <Link to={nextArticle.slug} className="single-news-article-nav-link serif">
+              Prossimo <span className="single-news-article-nav-arrow">&gt;</span>
+            </Link>
+          </div>
+
           <div className="news-article-layout">
 
             {/* COLONNA SINISTRA — articolo */}
@@ -39,11 +48,6 @@ const NewsPage = () => {
               initial="hidden"
               animate="visible"
             >
-              <div className="single-news-article-nav">
-                <Link to={prevArticle.slug} className="single-news-article-nav-link serif">Indietro</Link>
-                <Link to={nextArticle.slug} className="single-news-article-nav-link serif">Prossimo</Link>
-              </div>
-
               <h1 className="single-news-title serif">{article.title}</h1>
               <span className="single-news-date">{article.date}</span>
 
