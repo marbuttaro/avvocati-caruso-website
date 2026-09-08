@@ -3,6 +3,31 @@
   color: var(--color-white);
 }
 
+/* Base pattern-separator styling, kept in sync with the one in Home.css so
+   the footer's top/bottom pattern bands render correctly on every page
+   (most pages don't import Home.css). */
+.pattern-separator {
+  display: block;
+  position: relative;
+  width: 100vw;
+  height: 73px;
+  background-color: #10202C;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  overflow: hidden;
+}
+
+.pattern-separator::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/pattern-texture.png');
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  mix-blend-mode: screen;
+  opacity: 0.5;
+}
+
 .pattern-separator.footer-pattern-top {
   display: none;
 }
@@ -123,6 +148,10 @@
 }
 
 @media (max-width: 640px) {
+  .pattern-separator {
+    height: 48px;
+  }
+
   .pattern-separator.footer-pattern-top {
     display: block;
   }
@@ -140,7 +169,7 @@
   }
 
   .contact-details {
-    font-size: 14pt;
+    font-size: 12pt;
   }
 
   .contact-details p:nth-child(2),
@@ -157,12 +186,14 @@
     width: 100%;
     height: 1px;
     background-color: rgba(255, 255, 255, 0.15);
+    margin-top: 1.5rem;
     margin-bottom: -12px;
   }
 
   .footer-v3-line--desktop {
     display: block;
     margin-top: -12px;
+    margin-bottom: 1.5rem;
   }
 
   .footer-v3-links {

@@ -182,6 +182,10 @@
 }
 
 @media (max-width: 768px) {
+  .team-page .container {
+    padding: 0 34px;
+  }
+
   .team-section {
     padding-top: 3rem;
     padding-bottom: 4rem;

@@ -110,14 +110,26 @@
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
+  .lo-studio-page .container {
+    padding: 0 34px;
+  }
+
   .lo-studio-grid {
     grid-template-columns: 1fr;
     gap: 3rem;
     min-height: auto;
   }
 
+  .lo-studio-title {
+    font-size: clamp(2.6rem, 9vw, 3.5rem);
+  }
+
   .lo-studio-photo-wrap {
-    height: 320px;
+    height: 280px;
+  }
+
+  .lo-studio-map-wrap {
+    height: 340px;
   }
 
   .lo-studio-section {

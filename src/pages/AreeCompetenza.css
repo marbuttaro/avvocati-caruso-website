@@ -86,11 +86,15 @@
 }
 
 @media (max-width: 768px) {
+  .aree-v3-page .container {
+    padding: 0 34px;
+  }
+
   .aree-content-v3-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .aree-num-col {
     display: none;
   }

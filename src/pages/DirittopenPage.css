@@ -177,6 +177,10 @@
 }
 
 @media (max-width: 600px) {
+  .dp-page .container {
+    padding: 0 34px;
+  }
+
   .dp-title {
     font-size: clamp(2.8rem, 10vw, 4rem);
   }

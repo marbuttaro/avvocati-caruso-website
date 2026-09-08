@@ -213,9 +213,22 @@
     margin-top: 0;
     position: static;
   }
+
+  .sidebar-news-list {
+    align-items: center;
+  }
+
+  .sidebar-news-card {
+    width: 100%;
+    max-width: 300px;
+  }
 }
 
 @media (max-width: 768px) {
+  .single-news-page .container {
+    padding: 0 34px;
+  }
+
   .single-news-section {
     padding-top: 2rem;
     padding-bottom: 4rem;

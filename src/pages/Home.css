@@ -1074,7 +1074,7 @@
   .ct-tab {
     font-size: 26px;
     line-height: 1.15;
-    padding: 0.8rem 1rem;
+    padding: 0.55rem 1rem;
   }
   .contact-title-desktop {
     display: none;
@@ -1082,6 +1082,7 @@
   .contact-title-mobile {
     display: block;
     font-size: 34px;
+    margin-top: 2.5rem;
   }
   .contact-divider-figma {
     display: none;
@@ -1376,7 +1377,7 @@
 
 @media (max-width: 640px) {
   .pattern-separator {
-    height: 31px;
+    height: 48px;
   }
 }
 
