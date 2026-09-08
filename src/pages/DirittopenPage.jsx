@@ -23,7 +23,7 @@ const activities = [
 
 const areas = [
   {
-    title: 'Reati contro la Pubblica Amministrazione',
+    title: 'Reati contro la\nPubblica Amministrazione',
     desc: 'Assistenza nei procedimenti relativi a condotte illecite nei rapporti con la Pubblica Amministrazione.',
   },
   {
@@ -31,7 +31,7 @@ const areas = [
     desc: 'Tutela e difesa dei professionisti coinvolti in procedimenti per responsabilità penale nell\'esercizio della propria attività.',
   },
   {
-    title: 'Reati urbanistici ed edilizi',
+    title: 'Reati urbanistici\ned edilizi',
     desc: 'Assistenza nelle controversie relative alla disciplina edilizia ed urbanistica.',
   },
   {

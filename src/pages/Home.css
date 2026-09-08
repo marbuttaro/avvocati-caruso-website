@@ -452,7 +452,7 @@
     width: 100%;
   }
   .prof-v5-title {
-    font-size: clamp(2.2rem, 9vw, 3rem);
+    font-size: clamp(2.5rem, 9vw, 3.2rem);
     margin-bottom: 2rem;
   }
   .prof-v5-photos {
@@ -1035,7 +1035,7 @@
     flex-direction: column;
   }
   .contact-section-pattern {
-    background-size: 550px auto;
+    background-size: 660px auto;
   }
   .contact-info-figma {
     padding-right: 0;

@@ -27,7 +27,7 @@ const areas = [
     desc: 'Individuazione e valutazione dei rischi-reato specifici dell\'attività e del settore in cui opera l\'impresa.',
   },
   {
-    title: 'Modelli di Organizzazione, Gestione e Controllo',
+    title: 'Modelli di Organizzazione,\nGestione e Controllo',
     desc: 'Predisposizione e aggiornamento dei Modelli 231 in funzione della struttura e dei rischi aziendali.',
   },
   {
