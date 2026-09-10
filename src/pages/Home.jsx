@@ -660,9 +660,9 @@ const Home = () => {
               <h2 className="dove-siamo-title serif">Dove siamo</h2>
               <div className="dove-siamo-divider" />
               <div className="dove-siamo-contacts sans">
-                <p>Via degli Olmi, 45 Napoli (NA)</p>
-                <p>info@avvocaticaruso.it</p>
-                <p>081 9047656</p>
+                <p>Via Vincenzo Cosenza 31 – 80078 Pozzuoli (NA)</p>
+                <p>info@carusoavvocati.it</p>
+                <p>081 3032399</p>
               </div>
             </div>
             <div className="dove-siamo-photo-wrap">

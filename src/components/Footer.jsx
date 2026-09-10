@@ -20,9 +20,9 @@ const Footer = () => {
           <div className="footer-v3-contacts">
             <h4 className="footer-title serif">Contatti</h4>
             <div className="contact-details sans">
-              <p>Via degli Olmi, 45 Napoli (NA)</p>
-              <p>info@avvocaticaruso.it</p>
-              <p>081 9047656</p>
+              <p>Via Vincenzo Cosenza 31 – 80078 Pozzuoli (NA)</p>
+              <p>info@carusoavvocati.it</p>
+              <p>081 3032399</p>
             </div>
           </div>
 

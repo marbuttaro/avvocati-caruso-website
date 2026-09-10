@@ -74,14 +74,14 @@ const LoStudio = () => {
             <h2 className="lo-studio-title serif">Dove siamo</h2>
             <div className="lo-studio-divider" />
             <div className="lo-studio-contacts sans">
-              <p>Via degli Olmi, 45 Napoli (NA)</p>
-              <p>info@avvocaticaruso.it</p>
-              <p>081 9047656</p>
+              <p>Via Vincenzo Cosenza 31 – 80078 Pozzuoli (NA)</p>
+              <p>info@carusoavvocati.it</p>
+              <p>081 3032399</p>
             </div>
           </div>
           <div className="lo-studio-map-wrap">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3019.5!2d14.2681!3d40.8518!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDUxJzA2LjUiTiAxNMKwMTYnMDUuMiJF!5e0!3m2!1sit!2sit!4v1"
+              src="https://www.google.com/maps?q=Via+Vincenzo+Cosenza+31,+80078+Pozzuoli+NA&output=embed"
               className="lo-studio-map-iframe"
               allowFullScreen=""
               loading="lazy"
