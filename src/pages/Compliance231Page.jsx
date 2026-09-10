@@ -14,11 +14,10 @@ const staggerContainer = {
 };
 
 const activities = [
-  'Analisi dei rischi-reato',
-  'Predisposizione dei Modelli di Organizzazione, Gestione e Controllo',
-  'Aggiornamento dei Modelli',
-  'Supporto all\'Organismo di Vigilanza',
-  'Formazione sulla compliance',
+  'Difesa dell\'ente in giudizio',
+  'Predisposizione e aggiornamento del MOG',
+  'Supporto all\'ODV',
+  'Formazione 231 per dipendenti',
 ];
 
 const areas = [

@@ -18,8 +18,6 @@ const activities = [
   'Consulenza stragiudiziale',
   'Contratti di trasporto',
   'Gestione dei sinistri',
-  'Consulenza assicurativa',
-  'Valutazione dei rischi',
 ];
 
 const areas = [
@@ -38,10 +36,6 @@ const areas = [
   {
     title: 'Assicurazioni marittime',
     desc: 'Assistenza nelle questioni assicurative relative al comparto marittimo, dalla consulenza alla gestione delle controversie.',
-  },
-  {
-    title: 'Rischi del settore',
-    desc: 'Consulenza preventiva per una corretta gestione dei rapporti contrattuali e assicurativi e per la riduzione dell\'esposizione ai rischi operativi.',
   },
 ];
 

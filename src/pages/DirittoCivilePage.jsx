@@ -14,11 +14,9 @@ const staggerContainer = {
 };
 
 const activities = [
-  'Valutazione dei rischi legali',
   'Assistenza nel contenzioso',
-  'Negoziazione e consulenza',
-  'Assistenza nelle controversie',
-  'Consulenza preventiva',
+  'Negoziazione e redazione contrattualistica',
+  'Valutazione dei rischi legali',
 ];
 
 const areas = [
@@ -33,10 +31,6 @@ const areas = [
   {
     title: 'Responsabilità civile',
     desc: 'Consulenza e assistenza nelle controversie relative a danni e responsabilità derivanti dalla violazione di obblighi giuridici.',
-  },
-  {
-    title: 'Consulenza preventiva',
-    desc: 'Analisi dei rischi legali connessi a operazioni e rapporti contrattuali, per supportare il cliente nell\'assunzione di decisioni consapevoli.',
   },
 ];
 

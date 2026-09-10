@@ -17,9 +17,7 @@ const activities = [
   'Contrattualistica commerciale',
   'Negoziazione di accordi',
   'Assistenza nel contenzioso',
-  'Consulenza preventiva',
-  'Supporto alle operazioni internazionali',
-  'Compliance commerciale',
+  'Operazioni societarie',
 ];
 
 const areas = [
@@ -34,10 +32,6 @@ const areas = [
   {
     title: 'Rapporti tra imprese',
     desc: 'Consulenza nella strutturazione e nella gestione dei rapporti commerciali, con attenzione alla prevenzione dei rischi legali.',
-  },
-  {
-    title: 'Operazioni internazionali',
-    desc: 'Assistenza nelle operazioni e nei rapporti contrattuali con controparti estere, attraverso competenze specifiche in ambito internazionale.',
   },
 ];
 

@@ -16,8 +16,6 @@ const staggerContainer = {
 const activities = [
   'Difesa in giudizio',
   'Assistenza stragiudiziale',
-  'Consulenza preventiva',
-  'Gestione di controlli e accertamenti',
   'Valutazione dei rischi penali',
 ];
 
@@ -32,12 +30,12 @@ const areas = [
     desc: 'Tutela e difesa dei professionisti coinvolti in procedimenti per responsabilità penale nell\'esercizio della propria attività.',
   },
   {
-    title: 'Reati urbanistici\ned edilizi',
-    desc: 'Assistenza nelle controversie relative alla disciplina edilizia ed urbanistica.',
+    title: 'Reati urbanistici, edilizi\ned ambientali',
+    desc: 'Assistenza nelle controversie relative alla disciplina edilizia, urbanistica e ambientale.',
   },
   {
-    title: 'Reati tributari',
-    desc: 'Consulenza e difesa in materia di reati tributari, finanziari e connessi alla tutela dell\'ambiente.',
+    title: 'Reati tributari\ne finanziari',
+    desc: 'Consulenza e difesa in materia di reati tributari e finanziari.',
   },
 ];
 
@@ -55,7 +53,7 @@ const DirittopenPage = () => {
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
-            Difesa, consulenza<br />e tutela nei<br />procedimenti penali
+            Consulenza e difesa<br />nei procedimenti<br />penali
           </motion.h1>
         </div>
       </section>
