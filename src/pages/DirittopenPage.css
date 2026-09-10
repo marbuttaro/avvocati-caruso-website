@@ -152,6 +152,26 @@
   padding: 3.5rem 0;
 }
 
+/* ── Desktop-only adjustments ─────────────────────────── */
+@media (min-width: 961px) {
+  /* Nudge the "Attività principali" block down slightly under the intro text */
+  .dp-activities {
+    margin-top: 14px;
+  }
+
+  /* When there are exactly 3 aree di intervento, shrink the cards so all
+     three fit on a single row instead of wrapping to a second line. */
+  .dp-areas-grid:has(> .dp-area-card:first-child:nth-last-child(3)) {
+    max-width: calc(300px * 3 + 1.25rem * 2);
+  }
+
+  .dp-areas-grid:has(> .dp-area-card:first-child:nth-last-child(3)) .dp-area-card {
+    flex-basis: 300px;
+    width: 300px;
+    height: 340px;
+  }
+}
+
 /* ── Responsive ───────────────────────────────────────── */
 @media (max-width: 1160px) {
   .dp-areas-grid {
