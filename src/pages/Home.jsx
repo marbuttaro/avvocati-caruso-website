@@ -44,31 +44,31 @@ const faqItems = [
 const professionals = [
   {
     id: 0, prefix: 'Avv.', name: 'Giuseppe Caruso',
-    img: '/assets/prof-luca.jpg',
+    img: '/assets/prof-giuseppe-caruso.jpg',
     role: 'Fondatore',
     bio: 'Fondatore dello Studio, ne guida l\'attività dal 1988 con quattro decenni di esperienza nella difesa penale di persone fisiche e giuridiche.',
   },
   {
     id: 1, prefix: 'Avv.', name: 'Alfredo Caruso',
-    img: '/assets/prof-alfredo.jpg',
+    img: '/assets/prof-alfredo-caruso.jpg',
     role: 'Diritto Penale – Compliance 231 – MOG 231',
     bio: 'Assiste persone fisiche e giuridiche in materia di reati tributari, finanziari, contro la pubblica amministrazione e ambientali.',
   },
   {
     id: 2, prefix: 'Avv.', name: 'Erika Ferone',
-    img: '/assets/prof-giulia.jpg',
+    img: '/assets/prof-erika-ferone.jpg',
     role: 'Diritto Penale – Diritto di Impresa – Compliance',
     bio: 'Si occupa di reati contro la persona e reati tributari, con un focus particolare sul diritto di impresa.',
   },
   {
     id: 3, prefix: 'Avv.', name: 'Adriano Caruso',
-    img: '/assets/prof-elena.jpg',
+    img: '/assets/prof-adriano-caruso.jpg',
     role: 'Of Counsel – Diritto Civile',
     bio: 'Of Counsel per diritto civile, diritto del lavoro, diritto di famiglia e responsabilità professionale.',
   },
   {
     id: 4, prefix: 'Avv.', name: 'Francesco Conte',
-    img: '/assets/prof-marco.jpg',
+    img: '/assets/prof-francesco-conte.jpg',
     role: 'Of Counsel – Diritto Commerciale',
     bio: 'Of Counsel per diritto commerciale, amministrativo, assicurativo, dei trasporti e marittimo.',
   },
