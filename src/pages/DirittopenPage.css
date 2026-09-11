@@ -211,7 +211,12 @@
   }
 
   .dp-title {
-    font-size: clamp(2.8rem, 10vw, 4rem);
+    font-size: clamp(3rem, 10vw, 4.3rem);
+  }
+
+  .dp-hero-img {
+    max-width: 82%;
+    margin: 0 auto;
   }
 
   .dp-activities-title {
