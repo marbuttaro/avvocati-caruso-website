@@ -29,6 +29,8 @@ html.preloader-lock .navbar-v3 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  z-index: 2;
 }
 
 .brand-v3-new {
@@ -156,25 +158,23 @@ html.preloader-lock .navbar-v3 {
   color: #183144;
 }
 
-@media (max-width: 992px) {
-  .navbar-v3.menu-open {
-    background-color: var(--color-cream);
-    transition: background-color 0s, backdrop-filter 0s;
-  }
-}
-
 .mobile-menu-v3 {
-  position: absolute;
-  top: 100%;
+  position: fixed;
+  top: 0;
   left: 0;
   width: 100%;
-  height: calc(100vh - 100%);
-  height: calc(100dvh - 100%);
+  height: 100vh;
+  height: 100dvh;
+  z-index: 1;
   background-color: var(--color-cream);
-  padding: 1.25rem 0;
+  padding: calc(96px + 1.25rem) 0 1.25rem;
   border-bottom: 1px solid rgba(28, 46, 74, 0.1);
   box-shadow: 0 10px 30px rgba(0,0,0,0.05);
   overflow-y: auto;
+}
+
+.navbar-v3.scrolled .mobile-menu-v3 {
+  padding-top: calc(68px + 1.25rem);
 }
 
 .mobile-links-v3 {
