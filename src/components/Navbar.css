@@ -160,10 +160,13 @@ html.preloader-lock .navbar-v3 {
   top: 100%;
   left: 0;
   width: 100%;
+  height: calc(100vh - 100%);
+  height: calc(100dvh - 100%);
   background-color: var(--color-cream);
   padding: 1.25rem 0;
   border-bottom: 1px solid rgba(28, 46, 74, 0.1);
   box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  overflow-y: auto;
 }
 
 .mobile-links-v3 {
