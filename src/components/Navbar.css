@@ -159,6 +159,7 @@ html.preloader-lock .navbar-v3 {
 @media (max-width: 992px) {
   .navbar-v3.menu-open {
     background-color: var(--color-cream);
+    transition: background-color 0s, backdrop-filter 0s;
   }
 }
 
