@@ -545,16 +545,6 @@ const Home = () => {
   const heroRef   = useRef(null);
   const studioRef = useRef(null);
   const location  = useLocation();
-  const [isMobileTicker, setIsMobileTicker] = useState(() =>
-    typeof window !== 'undefined' && window.innerWidth <= 768
-  );
-
-  useEffect(() => {
-    const mq = window.matchMedia('(max-width: 768px)');
-    const handler = (e) => setIsMobileTicker(e.matches);
-    mq.addEventListener('change', handler);
-    return () => mq.removeEventListener('change', handler);
-  }, []);
 
   useEffect(() => {
     const sectionId = location.state?.scrollTo;
@@ -605,8 +595,10 @@ const Home = () => {
           <motion.div
             className="hero-v5-ticker"
             animate={{ x: ['0%', '-50%'] }}
-            transition={{ duration: isMobileTicker ? 7 : 18, ease: 'linear', repeat: Infinity }}
+            // Keep the full sequence readable now that the travel spans its content width.
+            transition={{ duration: 96, ease: 'linear', repeat: Infinity }}
           >
+            {/* Each identical half contains two sequences to also fill wide screens. */}
             {[...tickerItems, ...tickerItems, ...tickerItems, ...tickerItems].map((item, i) => (
               <React.Fragment key={i}>
                 <span className="ticker-text serif">{item}</span>

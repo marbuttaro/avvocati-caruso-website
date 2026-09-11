@@ -69,6 +69,8 @@
 
 .hero-v5-ticker {
   display: flex;
+  /* -50% must cover one repeated half of the content, not half the viewport. */
+  width: max-content;
   align-items: center;
   white-space: nowrap;
   will-change: transform;
