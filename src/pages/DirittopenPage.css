@@ -217,6 +217,8 @@
   .dp-hero-img {
     max-width: 82%;
     margin: 0 auto;
+    max-height: 560px;
+    aspect-ratio: 2 / 3;
   }
 
   .dp-activities-title {
