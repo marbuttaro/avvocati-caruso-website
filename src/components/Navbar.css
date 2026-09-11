@@ -161,7 +161,7 @@ html.preloader-lock .navbar-v3 {
   left: 0;
   width: 100%;
   background-color: var(--color-cream);
-  padding: 2rem 0;
+  padding: 1.25rem 0;
   border-bottom: 1px solid rgba(28, 46, 74, 0.1);
   box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
@@ -170,13 +170,13 @@ html.preloader-lock .navbar-v3 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 1.1rem;
 }
 
 .mobile-links-v3 a,
 .mobile-links-v3 span {
   font-family: var(--font-serif);
-  font-size: 1.5rem;
+  font-size: 1.375rem;
   font-style: normal;
   color: var(--color-navy);
 }
