@@ -53,11 +53,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`navbar-v3 ${scrolled ? 'scrolled' : ''} ${!isHome && !scrolled ? 'page-style' : ''}`}>
+    <nav className={`navbar-v3 ${scrolled ? 'scrolled' : ''} ${!isHome && !scrolled ? 'page-style' : ''} ${isOpen ? 'menu-open' : ''}`}>
       <div className="container nav-v3-container">
         <Link to="/" className="brand-v3-new">
           <img
-            src={scrolled || !isHome ? '/assets/lettering-navy.svg' : '/assets/logo-lettering.svg'}
+            src={scrolled || !isHome || isOpen ? '/assets/lettering-navy.svg' : '/assets/logo-lettering.svg'}
             alt="Avvocati Caruso"
             className="logo-img"
           />

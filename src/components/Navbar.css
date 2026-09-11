@@ -151,8 +151,15 @@ html.preloader-lock .navbar-v3 {
 }
 
 .navbar-v3.scrolled .mobile-toggle-v3,
-.navbar-v3.page-style .mobile-toggle-v3 {
+.navbar-v3.page-style .mobile-toggle-v3,
+.navbar-v3.menu-open .mobile-toggle-v3 {
   color: #183144;
+}
+
+@media (max-width: 992px) {
+  .navbar-v3.menu-open {
+    background-color: var(--color-cream);
+  }
 }
 
 .mobile-menu-v3 {
