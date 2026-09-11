@@ -67,7 +67,7 @@ const DirittoCommercialePage = () => {
 
             <motion.div className="dp-hero-left" variants={fadeUp}>
               <img
-                src="/assets/services/close-up-businessman-signing-lease-agreement-carcreated-with-generative-ai-technology.jpg"
+                src="/assets/services/commerciale.png"
                 alt="Diritto Commerciale"
                 className="dp-hero-img"
               />

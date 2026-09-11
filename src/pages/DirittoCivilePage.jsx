@@ -66,7 +66,7 @@ const DirittoCivilePage = () => {
 
             <motion.div className="dp-hero-left" variants={fadeUp}>
               <img
-                src="/assets/services/close-up-businessman-signing-lease-agreement-carcreated-with-generative-ai-technology.jpg"
+                src="/assets/services/civile.png"
                 alt="Diritto Civile"
                 className="dp-hero-img"
               />
