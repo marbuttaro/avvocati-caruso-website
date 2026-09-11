@@ -23,15 +23,15 @@
 
 .dp-hero-grid {
   display: grid;
-  grid-template-columns: 44% 1fr;
+  grid-template-columns: 38% 1fr;
   gap: clamp(2.5rem, 5vw, 5rem);
   align-items: start;
 }
 
 .dp-hero-img {
   width: 100%;
-  max-height: 560px;
-  aspect-ratio: 2 / 3;
+  max-height: 620px;
+  aspect-ratio: 3 / 5;
   object-fit: cover;
   object-position: center top;
   border-radius: 20px;
