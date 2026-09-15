@@ -81,13 +81,13 @@
   margin: 0;
 }
 
-/* Icona + / × — subito sotto il nome */
+/* Icona + / × — sotto le competenze */
 .accordion-toggle {
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
-  margin-top: 1rem;
+  margin-top: 2rem;
   display: flex;
   align-items: center;
   transition: opacity 0.2s ease;
@@ -130,7 +130,7 @@
   margin-bottom: 0;
 }
 
-/* Specializzazione — uppercase, font ridotto, in fondo prima della linea */
+/* Specializzazione — uppercase, font ridotto, subito sotto il nome */
 .accordion-role {
   font-family: 'Alegreya Sans', sans-serif;
   font-size: 20px;
@@ -138,7 +138,7 @@
   color: var(--color-navy);
   opacity: 0.55;
   line-height: 1.2;
-  margin-top: 3rem;
+  margin-top: 1rem;
   letter-spacing: 0.04em;
 }
 

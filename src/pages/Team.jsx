@@ -89,7 +89,10 @@ function AccordionItem({ prof, index }) {
           <span className="accordion-prefix serif">{prof.prefix}</span>
           <h2 className="accordion-name serif">{prof.name}</h2>
 
-          {/* Icona sotto il nome */}
+          {/* Specializzazione — subito sotto il nome */}
+          <span className="accordion-role">{prof.role.toUpperCase()}</span>
+
+          {/* Icona + label */}
           <button
             className="accordion-toggle"
             aria-label={open ? 'Chiudi' : 'Apri'}
@@ -117,9 +120,6 @@ function AccordionItem({ prof, index }) {
               </motion.div>
             )}
           </AnimatePresence>
-
-          {/* Specializzazione — sempre visibile, subito sopra la linea */}
-          <span className="accordion-role">{prof.role.toUpperCase()}</span>
         </div>
 
         {/* Colonna destra: foto sempre visibile */}
