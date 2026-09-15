@@ -14,7 +14,7 @@ Avv. Adriano Caruso`
   },
   {
     id: 2,
-    date: '15/09/2026',
+    date: '22/09/2026',
     category: 'Diritto penale',
     court: 'Tribunale di Napoli, Sezione Penale',
     title: 'Vendita di tabacchi lavorati nazionali senza autorizzazione',

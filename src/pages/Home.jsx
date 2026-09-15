@@ -492,7 +492,7 @@ function ContactSection() {
                   <motion.div key="t1" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
                     <h2 className="serif contact-title-desktop">Incontra<br/>i nostri<br/>professionisti</h2>
                     <h2 className="serif contact-title-mobile">Incontra i nostri<br/>professionisti</h2>
-                    <p className="sans">Prenota una consulenza dedicata<br/>per approfondire il tuo caso e<br/>ricevere assistenza qualificata.</p>
+                    <p className="sans">Invia la tua richiesta di appuntamento selezionando la data e l'orario che preferisci. Sarai ricontattato per verificare la disponibilità e confermare l'appuntamento.</p>
                   </motion.div>
                 )}
               </AnimatePresence>

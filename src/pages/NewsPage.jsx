@@ -13,7 +13,12 @@ const NewsPage = () => {
   const { id } = useParams();
   const currentId = parseInt(id);
   const article = newsItems.find(item => item.id === currentId);
-  const otherNews = newsItems.filter(item => item.id !== currentId).slice(0, 3);
+  const seenTitles = new Set(article ? [article.title] : []);
+  const otherNews = newsItems.filter(item => {
+    if (item.id === currentId || seenTitles.has(item.title)) return false;
+    seenTitles.add(item.title);
+    return true;
+  }).slice(0, 3);
 
   if (!article) return <Navigate to="/" replace />;
 
@@ -21,7 +26,11 @@ const NewsPage = () => {
   const prevArticle = newsItems[(currentIndex - 1 + newsItems.length) % newsItems.length];
   const nextArticle = newsItems[(currentIndex + 1) % newsItems.length];
 
-  const paragraphs = article.content.split('\n\n').filter(p => p.trim() !== '');
+  const rawParagraphs = article.content.split('\n\n').filter(p => p.trim() !== '');
+  const isAuthorLine = (p) => /^Avv\./.test(p.trim());
+  const hasAuthorLine = rawParagraphs.length > 0 && isAuthorLine(rawParagraphs[rawParagraphs.length - 1]);
+  const authorLine = hasAuthorLine ? rawParagraphs[rawParagraphs.length - 1] : null;
+  const paragraphs = hasAuthorLine ? rawParagraphs.slice(0, -1) : rawParagraphs;
   const split = Math.ceil(paragraphs.length / 2);
   const topParagraphs = paragraphs.slice(0, split);
   const bottomParagraphs = paragraphs.slice(split);
@@ -49,10 +58,10 @@ const NewsPage = () => {
               animate="visible"
             >
               <h1 className="single-news-title serif">{article.pageTitle || article.title}</h1>
-              <span className="single-news-date">{article.date}</span>
               {article.subtitle && (
                 <p className="single-news-subtitle serif">{article.subtitle}</p>
               )}
+              <span className="single-news-date">{article.date}</span>
 
               <div className="single-news-content sans">
                 {topParagraphs.map((p, i) => <p key={i}>{p}</p>)}
@@ -70,6 +79,10 @@ const NewsPage = () => {
                 <div className="single-news-content sans">
                   {bottomParagraphs.map((p, i) => <p key={i}>{p}</p>)}
                 </div>
+              )}
+
+              {authorLine && (
+                <p className="single-news-author sans">{authorLine}</p>
               )}
             </motion.article>
 

@@ -47,7 +47,7 @@
 
 .dp-intro {
   font-size: 16px;
-  line-height: 1.75;
+  line-height: 1.3;
   color: var(--color-navy);
   opacity: 0.75;
 }
@@ -141,7 +141,7 @@
 
 .dp-area-desc {
   font-size: 14px;
-  line-height: 1.65;
+  line-height: 1.3;
   color: var(--color-navy);
   opacity: 0.6;
   margin-top: 1.2rem;
