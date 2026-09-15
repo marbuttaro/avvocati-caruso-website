@@ -48,8 +48,11 @@ const NewsPage = () => {
               initial="hidden"
               animate="visible"
             >
-              <h1 className="single-news-title serif">{article.title}</h1>
+              <h1 className="single-news-title serif">{article.pageTitle || article.title}</h1>
               <span className="single-news-date">{article.date}</span>
+              {article.subtitle && (
+                <p className="single-news-subtitle serif">{article.subtitle}</p>
+              )}
 
               <div className="single-news-content sans">
                 {topParagraphs.map((p, i) => <p key={i}>{p}</p>)}

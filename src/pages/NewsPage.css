@@ -75,6 +75,16 @@
   margin-bottom: 0.4rem;
 }
 
+.single-news-subtitle {
+  font-size: 1.25rem;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-navy);
+  opacity: 0.75;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
 .single-news-content {
   margin-bottom: 2rem;
 }
