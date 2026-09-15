@@ -94,8 +94,8 @@ function AccordionItem({ prof, index }) {
             className="accordion-toggle"
             aria-label={open ? 'Chiudi' : 'Apri'}
           >
-            {!open && <span className="accordion-toggle-label">Approfondisci</span>}
             <img src={open ? '/assets/close-team.svg' : '/assets/plus-team.svg'} alt="" />
+            {!open && <span className="accordion-toggle-label">Approfondisci</span>}
           </button>
 
           {/* Bio animata */}
