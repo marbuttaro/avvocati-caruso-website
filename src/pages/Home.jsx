@@ -291,9 +291,6 @@ function StudioSlider() {
   const trackRef = useRef(null);
   const [progress, setProgress] = useState(0);
   const [hoveredIdx, setHoveredIdx] = useState(null);
-  const dragging = useRef(false);
-  const startX = useRef(0);
-  const startScroll = useRef(0);
 
   const onScroll = useCallback(() => {
     const el = trackRef.current;
@@ -302,50 +299,26 @@ function StudioSlider() {
     setProgress(max > 0 ? el.scrollLeft / max : 0);
   }, []);
 
-  const onMouseDown = (e) => {
-    dragging.current = true;
-    startX.current = e.pageX;
-    startScroll.current = trackRef.current.scrollLeft;
-    trackRef.current.style.cursor = 'grabbing';
-    setHoveredIdx(null);
-  };
-
-  const onMouseMove = (e) => {
-    if (!dragging.current) return;
-    const walk = (e.pageX - startX.current) * 1.5;
-    trackRef.current.scrollLeft = startScroll.current - walk;
-  };
-
-  const stopDrag = () => {
-    dragging.current = false;
-    if (trackRef.current) trackRef.current.style.cursor = 'grab';
-  };
-
   return (
     <div className="studio-slider-root">
       <div
         ref={trackRef}
         className="studio-slider-track"
-        onMouseDown={onMouseDown}
-        onMouseMove={onMouseMove}
-        onMouseUp={stopDrag}
-        onMouseLeave={stopDrag}
         onScroll={onScroll}
       >
         {services.map((svc, i) => (
           <div
             key={i}
             className={`studio-slide-item${(i === 0 && hoveredIdx === null) ? ' studio-slide-item--active' : ''}`}
-            onMouseEnter={() => { if (!dragging.current) setHoveredIdx(i); }}
+            onMouseEnter={() => setHoveredIdx(i)}
             onMouseLeave={() => setHoveredIdx(null)}
           >
             <div style={{ position: 'relative' }}>
-              <h3 className="slide-title">{svc.title}</h3>
+              <Link to={svc.slug} className="slide-title">{svc.title}</Link>
               <Link
                 to={svc.slug}
                 className={`btn-scopri${hoveredIdx === i ? ' visible' : ''}`}
                 tabIndex={hoveredIdx === i ? 0 : -1}
-                onMouseDown={(e) => e.stopPropagation()}
               >
                 Scopri di più
               </Link>
@@ -486,7 +459,7 @@ function ContactSection() {
                   <motion.div key="t0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
                     <h2 className="serif contact-title-desktop">Hai bisogno di<br/>una consulenza<br/>legale?</h2>
                     <h2 className="serif contact-title-mobile">Hai bisogno di una<br/>consulenza legale?</h2>
-                    <p className="sans">Siamo a disposizione per rispondere<br/>alle vostre esigenze legali. Compilate<br/>il modulo per richiedere un primo<br/>colloquio.</p>
+                    <p className="sans">Siamo a disposizione per rispondere<br/>alle vostre esigenze legali.<br/>Compilate il form per richiedere informazioni.</p>
                   </motion.div>
                 ) : (
                   <motion.div key="t1" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
@@ -546,13 +519,53 @@ const Home = () => {
   const studioRef = useRef(null);
   const location  = useLocation();
 
+  // Arrivando da un'altra pagina la home è appena montata: immagini, hero e
+  // slider stanno ancora caricando e l'altezza del documento cresce mentre
+  // si assesta. Aspettiamo che la posizione della sezione target smetta di
+  // muoversi (layout stabile) prima di avviare lo scroll, invece di un
+  // timeout fisso troppo breve che atterrerebbe nel punto sbagliato.
   useEffect(() => {
     const sectionId = location.state?.scrollTo;
-    if (!sectionId) return;
-    const t = setTimeout(() => {
-      smoothScrollTo(sectionId);
-    }, 150);
-    return () => clearTimeout(t);
+    if (!sectionId) return undefined;
+
+    let cancelled = false;
+    let rafId;
+    let lastTop = null;
+    let stableFrames = 0;
+
+    const checkStable = () => {
+      if (cancelled) return;
+      const el = document.getElementById(sectionId);
+      if (!el) {
+        rafId = requestAnimationFrame(checkStable);
+        return;
+      }
+      const top = el.getBoundingClientRect().top;
+      stableFrames = lastTop !== null && Math.abs(top - lastTop) < 1 ? stableFrames + 1 : 0;
+      lastTop = top;
+      if (stableFrames >= 3) {
+        cancelled = true;
+        clearTimeout(safety);
+        smoothScrollTo(sectionId, 650);
+        return;
+      }
+      rafId = requestAnimationFrame(checkStable);
+    };
+
+    rafId = requestAnimationFrame(checkStable);
+
+    // Rete a sicurezza: se il layout non si stabilizza mai, scrolla comunque.
+    const safety = setTimeout(() => {
+      cancelled = true;
+      if (rafId) cancelAnimationFrame(rafId);
+      smoothScrollTo(sectionId, 650);
+    }, 900);
+
+    return () => {
+      cancelled = true;
+      if (rafId) cancelAnimationFrame(rafId);
+      clearTimeout(safety);
+    };
   }, [location.state]);
 
   // Set studio sticky bottom so it stays visible exactly while hero scrolls over it
@@ -660,7 +673,14 @@ const Home = () => {
               </div>
             </div>
             <div className="dove-siamo-photo-wrap">
-              <img src="/assets/dove-siamo.png" alt="Studio Legale Caruso" className="dove-siamo-photo" />
+              <iframe
+                src="https://www.google.com/maps?q=40.8233438,14.1204631&z=16&output=embed"
+                className="dove-siamo-map-iframe"
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Studio Legale Caruso - Mappa"
+              />
             </div>
           </div>
         </section>

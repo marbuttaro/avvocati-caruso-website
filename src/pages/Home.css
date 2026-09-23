@@ -179,8 +179,7 @@
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  cursor: grab;
-  user-select: none;
+  -webkit-overflow-scrolling: touch;
   padding-bottom: 1.5rem;
 }
 
@@ -206,6 +205,7 @@
 }
 
 .slide-title {
+  display: block;
   font-family: var(--font-serif);
   font-size: 98px;
   font-style: normal;
@@ -214,6 +214,8 @@
   line-height: 1;
   white-space: nowrap;
   opacity: 0.35;
+  text-decoration: none;
+  cursor: pointer;
   transition: opacity 0.3s ease;
 }
 
@@ -1571,6 +1573,13 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
+  display: block;
+}
+
+.dove-siamo-map-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
   display: block;
 }
 

@@ -34,6 +34,7 @@ const Navbar = () => {
 
   const navigate = useNavigate();
   const isHome = location.pathname === '/';
+  const isContatti = location.pathname === '/contatti';
   const competenzeActive =
     location.pathname.startsWith('/aree-competenza') ||
     location.pathname.startsWith('/diritto-penale') ||
@@ -53,7 +54,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`navbar-v3 ${scrolled ? 'scrolled' : ''} ${!isHome && !scrolled ? 'page-style' : ''} ${isOpen ? 'menu-open' : ''}`}>
+    <nav className={`navbar-v3 ${scrolled ? 'scrolled' : ''} ${!isHome && !scrolled ? 'page-style' : ''} ${isOpen ? 'menu-open' : ''} ${isContatti ? 'contatti-navbar' : ''}`}>
       <div className="container nav-v3-container">
         <Link to="/" className="brand-v3-new">
           <img
@@ -151,7 +152,7 @@ const Navbar = () => {
               <Link to="/compliance-231">Compliance 231</Link>
               <Link to="/team">I professionisti</Link>
               <a href="/#news" onClick={(e) => scrollToSection(e, 'news')}>News</a>
-              <a href="/#contatti" onClick={(e) => scrollToSection(e, 'contatti')}>Contatti</a>
+              <Link to="/contatti">Contatti</Link>
             </div>
           </motion.div>
         )}

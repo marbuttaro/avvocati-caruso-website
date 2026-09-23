@@ -13,6 +13,7 @@ import DirittoCommercialePage from './pages/DirittoCommercialePage';
 import DirittoNavigazionePage from './pages/DirittoNavigazionePage';
 import NewsPage from './pages/NewsPage';
 import LoStudio from './pages/LoStudio';
+import Contatti from './pages/Contatti';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="/diritto-commerciale" element={<DirittoCommercialePage />} />
             <Route path="/diritto-della-navigazione" element={<DirittoNavigazionePage />} />
             <Route path="/lo-studio" element={<LoStudio />} />
+            <Route path="/contatti" element={<Contatti />} />
             <Route path="/news/:id" element={<NewsPage />} />
           </Routes>
         </main>

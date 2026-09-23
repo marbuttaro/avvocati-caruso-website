@@ -81,7 +81,7 @@ const LoStudio = () => {
           </div>
           <div className="lo-studio-map-wrap">
             <iframe
-              src="https://www.google.com/maps?q=Via+Vincenzo+Cosenza+31,+80078+Pozzuoli+NA&output=embed"
+              src="https://www.google.com/maps?q=40.8233438,14.1204631&z=16&output=embed"
               className="lo-studio-map-iframe"
               allowFullScreen=""
               loading="lazy"

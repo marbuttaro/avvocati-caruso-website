@@ -204,6 +204,12 @@ html.preloader-lock .navbar-v3 {
   .mobile-toggle-v3 {
     display: block;
   }
+
+  /* Pagina /contatti: barra più bassa, sempre color crema (mai trasparente). */
+  .navbar-v3.contatti-navbar {
+    height: 68px;
+    background-color: var(--color-cream);
+  }
 }
 
 @media (max-width: 768px) {
