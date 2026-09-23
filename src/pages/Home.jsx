@@ -621,10 +621,10 @@ const Home = () => {
               <div className="studio-v5-right">
                 <img src="/assets/pittogramma-sfondo-studio.svg" alt="" className="studio-v5-watermark" aria-hidden="true" />
                 <p>
-                  Fondato nel 1988 dall'Avvocato Giuseppe Caruso, lo Studio<br />
-                  vanta <strong>quattro decenni di attività</strong> nel settore del diritto penale,<br />
-                  con una consolidata esperienza in materia di reati contro la pubblica amministrazione, reati contro la fede pubblica,<br />
-                  reati contro l'amministrazione della giustizia, reati tributari, colpa professionale, reati ambientali ed urbanistici.
+                  Lo Studio, fondato nel 1988 dall'Avvocato Giuseppe Caruso, vanta <strong>quattro decenni di esperienza</strong> nel diritto penale,
+                  con particolare focus sul diritto penale dell'economia. Nel tempo, l'ingresso di professionisti of-counsel ha ampliato l'attività
+                  anche al diritto civile, commerciale e della navigazione. Lo Studio inoltre assiste le imprese nella redazione ed aggiornamento
+                  dei modelli di organizzazione e gestione ai sensi del D.Lgs. 231/2001.
                 </p>
               </div>
             </div>
