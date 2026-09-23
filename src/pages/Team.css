@@ -130,6 +130,25 @@
   margin-bottom: 0;
 }
 
+.accordion-email {
+  display: block;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 20px;
+  color: var(--color-navy);
+  opacity: 1;
+  margin-top: 1.1em;
+}
+
+.accordion-email a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.accordion-email a:hover {
+  text-decoration: underline;
+}
+
 /* Specializzazione — uppercase, font ridotto, subito sotto il nome */
 .accordion-role {
   font-family: 'Alegreya Sans', sans-serif;

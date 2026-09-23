@@ -14,6 +14,7 @@ const professionals = [
       "Nel corso della propria carriera ha assunto incarichi difensivi di particolare rilievo, tra i quali la difesa di esponenti politici nell'ambito dei procedimenti di Tangentopoli, di appartenenti alle forze dell'ordine coinvolti in vicende di criminalità organizzata, e di funzionari pubblici di vertice in procedimenti per reati contro la pubblica amministrazione e contro la fede pubblica nonché di imprenditori per reati tributari.",
       'Presso il suo studio si sono formati numerosi professionisti che oggi operano con successo nell’ambito del diritto penale.',
     ],
+    email: 'g.caruso@carusoavvocati.it',
     image: '/assets/prof-giuseppe-caruso.jpg',
   },
   {
@@ -26,6 +27,7 @@ const professionals = [
       'Sin dal conseguimento della laurea si è dedicato all\'approfondimento della disciplina della responsabilità amministrativa degli enti ai sensi del D.Lgs. 231/2001 e, più in generale, del diritto penale dell\'economia, conseguendo nel 2018 un Master di II livello in Diritto Penale dell\'Economia presso l\'Università Cattolica del Sacro Cuore di Milano con una tesi in Diritto Penale Finanziario dal titolo "Risvolti penalistici del trading ad alta frequenza (HFT) nella configurazione del reato di insider trading". Ha svolto la pratica forense presso un primario studio legale milanese specializzato in diritto penale ambientale, maturando così una solida formazione tecnica in un settore di crescente rilevanza applicativa.',
       'Dal 2020 collabora con lo Studio Caruso. Abilitato all’esercizio della professione forense dal 2022, fornisce consulenza e assistenza legale in giudizio a persone fisiche e giuridiche in materia di reati tributari, finanziari, contro la pubblica amministrazione e ambientali. Dal 2024 è membro supplente del Collegio di Garanzia di + Europa nonché componente dell\'Osservatorio Doppio Binario e Giusto Processo dell\'Unione delle Camere Penali Italiane, coordinato dagli Avv. Cesare Placanica e Maria Teresa Zampogna; nell\'ambito di tale attività ha approfondito in particolare la tematica dei sequestri di dispositivi informatici, materia sulla quale ha tenuto relazioni in occasione di convegni e incontri di approfondimento.',
     ],
+    email: 'al.caruso@carusoavvocati.it',
     image: '/assets/prof-alfredo-caruso.jpg',
   },
   {
@@ -39,6 +41,7 @@ const professionals = [
       'Dal 2018 ha svolto la pratica forense presso lo studio degli Avv. Ettore Stravino-Avv. Carlo De Pascale in Napoli, e dal 2023 al 2025 ha svolto anche attività di supporto legale presso un\'azienda operante nel settore aerospaziale, occupandosi di contrattualistica e gestione amministrativa, maturando così un\'esperienza professionale articolata tra la dimensione forense e quella dell\'in-house legal. Ha conseguito l’abilitazione all\'esercizio della professione forense nel mese di novembre 2021.',
       'Dal 2025 collabora con lo Studio Caruso, con un focus particolare su reati contro la persona e reati tributari e sul diritto di impresa.',
     ],
+    email: 'e.ferone@carusoavvocati.it',
     image: '/assets/prof-erika-ferone.jpg',
   },
   {
@@ -51,6 +54,7 @@ const professionals = [
       'In qualità di Of-counsel, integra l’offerta professionale fornendo alla clientela dello Studio consulenza stragiudiziale ed assistenza giudiziale nei settori del recupero crediti, risarcimento del danno, responsabilità professionale, responsabilità medica, responsabilità extracontrattuale, diritto del lavoro, contrattualistica, diritti reali, diritto di famiglia, procedure concorsuali e codice del consumo.',
       'Negli anni ha maturato una solida esperienza nella difesa di Società di capitali in procedimenti civili.',
     ],
+    email: 'ad.caruso@carusoavvocati.it',
     image: '/assets/prof-adriano-caruso.jpg',
   },
   {
@@ -65,6 +69,7 @@ const professionals = [
       'Gestisce il contenzioso contrattuale ed extracontrattuale e fornisce consulenza specialistica in materia di diritto assicurativo, con un focus specifico sul ramo marittimo, occupandosi di fattispecie quali collisioni, salvataggi e sinistri marittimi in generale.',
       'In qualità di Of Counsel dello Studio Caruso, integra l\'offerta assistenziale dello stesso portando una competenza trasversale fondamentale per le imprese clienti.',
     ],
+    email: 'f.conte@carusoavvocati.it',
     image: '/assets/prof-francesco-conte.jpg',
   },
 ];
@@ -116,6 +121,11 @@ function AccordionItem({ prof, index }) {
                   {prof.bio.map((paragraph, i) => (
                     <p key={i}>{paragraph}</p>
                   ))}
+                  {prof.email && (
+                    <p className="accordion-email">
+                      Contatti: <a href={`mailto:${prof.email}`}>{prof.email}</a>
+                    </p>
+                  )}
                 </div>
               </motion.div>
             )}
