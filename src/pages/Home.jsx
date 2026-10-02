@@ -511,7 +511,7 @@ function ContactSection() {
                   <motion.div key="t0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
                     <h2 className="serif contact-title-desktop">Hai bisogno di<br/>una consulenza<br/>legale?</h2>
                     <h2 className="serif contact-title-mobile">Hai bisogno di una<br/>consulenza legale?</h2>
-                    <p className="sans">Raccontaci di quale assistenza legale<br/>hai bisogno. Lo studio ti risponderà<br/>all’indirizzo email indicato.</p>
+                    <p className="sans">Raccontaci di quale assistenza legale hai bisogno. Lo studio ti risponderà all’indirizzo email indicato.</p>
                   </motion.div>
                 ) : (
                   <motion.div key="t1" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
