@@ -434,6 +434,58 @@ function ContactSection() {
   const [activeTab, setActiveTab] = useState(0);
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
+  const [submission, setSubmission] = useState({ state: 'idle', message: '' });
+  const pending = useRef(false);
+  const lastRequest = useRef(null);
+
+  const switchTab = (tab) => {
+    if (pending.current) return;
+    setActiveTab(tab);
+    setSubmission({ state: 'idle', message: '' });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (pending.current) return;
+    const form = event.currentTarget;
+    const type = form.dataset.type;
+    if (type === 'appointment' && (!selectedDate || !selectedTime)) {
+      setSubmission({ state: 'error', message: 'Scegli la data e l’orario che preferisci per l’appuntamento.' });
+      return;
+    }
+    const payload = {
+      ...Object.fromEntries(new FormData(form)), type,
+      ...(type === 'appointment' ? { date: selectedDate, time: selectedTime } : {}),
+    };
+    const fingerprint = JSON.stringify(payload);
+    if (lastRequest.current?.fingerprint !== fingerprint) {
+      lastRequest.current = { fingerprint, id: crypto.randomUUID() };
+    }
+    pending.current = true;
+    setSubmission({ state: 'sending', message: 'Invio della richiesta in corso…' });
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...payload, requestId: lastRequest.current.id }),
+        signal: AbortSignal.timeout(20_000),
+      });
+      const result = await response.json();
+      if (!response.ok || result.ok !== true) {
+        throw new Error(result.error || 'La richiesta non è stata confermata. Riprova tra poco oppure chiama lo studio al numero 081 3032399.');
+      }
+      form.reset();
+      lastRequest.current = null;
+      if (type === 'appointment') { setSelectedDate(''); setSelectedTime(''); }
+      setSubmission({ state: 'success', message: type === 'appointment'
+        ? 'Richiesta inviata allo studio. L’appuntamento sarà fissato dopo la conferma di data e orario via email.'
+        : 'Richiesta inviata allo studio. Riceverai la risposta all’indirizzo email indicato.' });
+    } catch (error) {
+      setSubmission({ state: 'error', message: error.name === 'Error' ? error.message
+        : 'La richiesta non è stata confermata. Riprova tra poco oppure chiama lo studio al numero 081 3032399.' });
+    } finally {
+      pending.current = false;
+    }
+  };
 
   return (
     <section id="contatti" className="contact-section-new">
@@ -441,12 +493,12 @@ function ContactSection() {
         <div className="contact-tab-row">
           <button
             className={`ct-tab serif${activeTab === 0 ? ' ct-tab-active' : ''}`}
-            onClick={() => setActiveTab(0)}
+            onClick={() => switchTab(0)} disabled={submission.state === 'sending'}
           >Contattaci</button>
           <button
             className={`ct-tab serif${activeTab === 1 ? ' ct-tab-active' : ''}`}
-            onClick={() => setActiveTab(1)}
-          >Prenota un appuntamento</button>
+            onClick={() => switchTab(1)} disabled={submission.state === 'sending'}
+          >Richiedi un appuntamento</button>
         </div>
 
         <div className="contact-body-new">
@@ -459,13 +511,13 @@ function ContactSection() {
                   <motion.div key="t0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
                     <h2 className="serif contact-title-desktop">Hai bisogno di<br/>una consulenza<br/>legale?</h2>
                     <h2 className="serif contact-title-mobile">Hai bisogno di una<br/>consulenza legale?</h2>
-                    <p className="sans">Siamo a disposizione per rispondere<br/>alle vostre esigenze legali.<br/>Compilate il form per richiedere informazioni.</p>
+                    <p className="sans">Raccontaci di quale assistenza legale<br/>hai bisogno. Lo studio ti risponderà<br/>all’indirizzo email indicato.</p>
                   </motion.div>
                 ) : (
                   <motion.div key="t1" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
                     <h2 className="serif contact-title-desktop">Incontra<br/>i nostri<br/>professionisti</h2>
                     <h2 className="serif contact-title-mobile">Incontra i nostri<br/>professionisti</h2>
-                    <p className="sans">Invia la tua richiesta di appuntamento selezionando la data e l'orario che preferisci. Sarai ricontattato per verificare la disponibilità e confermare l'appuntamento.</p>
+                    <p className="sans">Proponi una data e un orario<br/>per il primo colloquio. Lo studio<br/>confermerà la disponibilità via email.</p>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -476,22 +528,23 @@ function ContactSection() {
             <div className="contact-form-figma">
               <AnimatePresence mode="wait">
                 {activeTab === 0 ? (
-                  <motion.form key="fc" className="figma-form-new" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.35 }}>
+                  <motion.form key="fc" data-type="contact" onSubmit={handleSubmit} aria-busy={submission.state === 'sending'} className="figma-form-new" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.35 }}>
                     <div className="form-row-2">
-                      <div className="input-group"><label className="serif">Nome</label><input type="text" placeholder="Mario" /></div>
-                      <div className="input-group"><label className="serif">Cognome</label><input type="text" placeholder="Rossi" /></div>
+                      <div className="input-group"><label htmlFor="contact-first-name" className="serif">Nome</label><input id="contact-first-name" name="firstName" autoComplete="given-name" type="text" placeholder="Mario" required maxLength={100} /></div>
+                      <div className="input-group"><label htmlFor="contact-last-name" className="serif">Cognome</label><input id="contact-last-name" name="lastName" autoComplete="family-name" type="text" placeholder="Rossi" required maxLength={100} /></div>
                     </div>
-                    <div className="form-row-1"><div className="input-group"><label className="serif">Indirizzo Mail</label><input type="email" placeholder="mariorossi@gmail.com" /></div></div>
-                    <div className="form-row-1"><div className="input-group"><label className="serif">Messaggio</label><textarea placeholder="Scrivi qui il tuo messaggio..." rows="4" /></div></div>
-                    <div className="form-submit-row"><button type="submit" className="btn-navy-light mt-3">Contatta lo studio</button></div>
+                    <div className="form-row-1"><div className="input-group"><label htmlFor="contact-email" className="serif">Email</label><input id="contact-email" name="email" autoComplete="email" type="email" placeholder="mariorossi@gmail.com" required maxLength={254} /></div></div>
+                    <div className="form-row-1"><div className="input-group"><label htmlFor="contact-message" className="serif">Messaggio</label><textarea id="contact-message" name="message" rows="4" required maxLength={5000} /></div></div>
+                    <div className="contact-honeypot" aria-hidden="true"><label htmlFor="contact-website">Sito web</label><input id="contact-website" name="website" type="text" tabIndex={-1} autoComplete="off" /></div>
+                    <div className="form-submit-row"><button type="submit" disabled={submission.state === 'sending'} className="btn-navy-light mt-3">{submission.state === 'sending' ? 'Invio in corso…' : 'Invia la richiesta'}</button></div>
                   </motion.form>
                 ) : (
-                  <motion.form key="fb" className="figma-form-new" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.35 }}>
+                  <motion.form key="fb" data-type="appointment" onSubmit={handleSubmit} aria-busy={submission.state === 'sending'} className="figma-form-new" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.35 }}>
                     <div className="form-row-2">
-                      <div className="input-group"><label className="serif">Nome</label><input type="text" placeholder="Mario" /></div>
-                      <div className="input-group"><label className="serif">Cognome</label><input type="text" placeholder="Rossi" /></div>
+                      <div className="input-group"><label htmlFor="appointment-first-name" className="serif">Nome</label><input id="appointment-first-name" name="firstName" autoComplete="given-name" type="text" placeholder="Mario" required maxLength={100} /></div>
+                      <div className="input-group"><label htmlFor="appointment-last-name" className="serif">Cognome</label><input id="appointment-last-name" name="lastName" autoComplete="family-name" type="text" placeholder="Rossi" required maxLength={100} /></div>
                     </div>
-                    <div className="form-row-1"><div className="input-group"><label className="serif">Indirizzo Mail</label><input type="email" placeholder="mariorossi@gmail.com" /></div></div>
+                    <div className="form-row-1"><div className="input-group"><label htmlFor="appointment-email" className="serif">Email</label><input id="appointment-email" name="email" autoComplete="email" type="email" placeholder="mariorossi@gmail.com" required maxLength={254} /></div></div>
                     <div className="form-row-2">
                       <div className="input-group">
                         <label className="serif">Data</label>
@@ -502,10 +555,12 @@ function ContactSection() {
                         <TimePicker value={selectedTime} onChange={setSelectedTime} />
                       </div>
                     </div>
-                    <div className="form-submit-row"><button type="submit" className="btn-navy-light mt-3">Prenota</button></div>
+                    <div className="contact-honeypot" aria-hidden="true"><label htmlFor="appointment-website">Sito web</label><input id="appointment-website" name="website" type="text" tabIndex={-1} autoComplete="off" /></div>
+                    <div className="form-submit-row"><button type="submit" disabled={submission.state === 'sending'} className="btn-navy-light mt-3">{submission.state === 'sending' ? 'Invio in corso…' : 'Richiedi l’appuntamento'}</button></div>
                   </motion.form>
                 )}
               </AnimatePresence>
+              <p className={`contact-feedback contact-feedback--${submission.state}`} role="status" aria-live="polite" aria-atomic="true">{submission.message}</p>
             </div>
           </div>
         </div>

@@ -982,6 +982,27 @@
   gap: 2rem;
 }
 
+.contact-honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.contact-feedback {
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  margin-top: 1rem;
+}
+
+.contact-feedback:empty { display: none; }
+.contact-feedback--error { color: #ffd4c4; }
+.figma-form-new button:disabled,
+.ct-tab:disabled { cursor: wait; opacity: 0.65; }
+
 .form-row-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;

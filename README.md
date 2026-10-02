@@ -1,16 +1,34 @@
-# React + Vite
+# Caruso Avvocati
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sito React/Vite pubblicato su Vercel, progetto `sito-web`.
 
-Currently, two official plugins are available:
+## Richieste via email
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+I moduli contatti e appuntamenti inviano richieste a `POST /api/contact`.
+Il server usa Resend per inviare alla casella configurata in `CONTACT_TO_EMAIL`;
+il campo `Reply-To` contiene l'indirizzo del visitatore. Gli appuntamenti sono
+richieste da confermare, senza prenotazione automatica di un calendario.
 
-## React Compiler
+Per lavorare in locale, copia `.env.example` in `.env` **solo se `.env` non esiste**,
+inserisci la chiave Resend e avvia `npm run dev`. Vite esegue anche l'endpoint locale.
+Riavvia il server dopo ogni modifica al `.env`.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- `RESEND_API_KEY`: chiave con permesso di invio sul dominio verificato.
+- `RESEND_FROM_EMAIL`: `Caruso Avvocati <sito@carusoavvocati.it>`.
+- `CONTACT_TO_EMAIL`: `info@carusoavvocati.it`.
 
-## Expanding the ESLint configuration
+In Vercel configura le stesse variabili negli ambienti Production e Preview.
+La chiave deve restare lato server: non usare il prefisso `VITE_`.
+`.env` e `.env.*` sono esclusi da Git; `.env.example` contiene solo esempi senza segreti.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+La posta in entrata resta nella casella Ergonet esistente. Non abilitare Resend
+Receiving e non sostituire gli MX del dominio principale per questa integrazione.
+Lo stato positivo del modulo indica l'accettazione da parte di Resend; la consegna
+finale può essere controllata nei log Resend. Nessuna email automatica viene
+inviata al visitatore.
+
+Verifiche: `npm test`, `npm run build`. Per provare l'invio senza scrivere allo
+studio, avvia temporaneamente il server con `CONTACT_TO_EMAIL=delivered@resend.dev`.
+Le richieste hanno validazione server, limite di dimensione, controllo dell'origine,
+honeypot e idempotenza sui tentativi ripetuti. Questi controlli non sostituiscono
+un rate limit condiviso o le regole anti-abuso del firewall Vercel.
