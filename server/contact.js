@@ -96,15 +96,39 @@ export function createContactHandler({ env = process.env, send = fetch, now = ()
           : ['Messaggio:', message]),
       ].join('\n'),
     };
-    const digest = createHash('sha256').update(JSON.stringify(payload)).digest('hex');
+    // Keep the acknowledgement free of user-supplied names or message text.
+    // Replies go to the studio's existing inbox, not the sending-only address.
+    const confirmation = {
+      from, to: [email], reply_to: to,
+      subject: type === 'appointment'
+        ? 'Abbiamo ricevuto la tua richiesta di appuntamento | Caruso Avvocati'
+        : 'Abbiamo ricevuto il tuo messaggio | Caruso Avvocati',
+      text: [
+        'Grazie per aver contattato Caruso Avvocati.', '',
+        ...(type === 'appointment'
+          ? [
+            `Abbiamo ricevuto la tua richiesta di appuntamento per il ${date} alle ${time}.`,
+            'Ti ricontatteremo appena possibile per verificare la disponibilità e confermare data e orario. L’appuntamento resta in attesa di conferma.',
+          ]
+          : [
+            'Abbiamo ricevuto il tuo messaggio.',
+            'Ti ricontatteremo appena possibile per dare seguito alla tua richiesta.',
+          ]),
+        '', 'Puoi rispondere a questa email per aggiungere informazioni.',
+        '', 'Caruso Avvocati', 'Via Vincenzo Cosenza 31 – 80078 Pozzuoli (NA)', 'Tel. 081 3032399',
+      ].join('\n'),
+    };
+    // One batch and one idempotency key cover both messages, including retries.
+    const batch = [payload, confirmation];
+    const digest = createHash('sha256').update(JSON.stringify(batch)).digest('hex');
     try {
-      const result = await send('https://api.resend.com/emails', {
+      const result = await send('https://api.resend.com/emails/batch', {
         method: 'POST',
         headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json', 'Idempotency-Key': `contact/${field('requestId')}/${digest}` },
-        body: JSON.stringify(payload), signal: AbortSignal.timeout(15_000),
+        body: JSON.stringify(batch), signal: AbortSignal.timeout(15_000),
       });
       const data = await result.json();
-      if (!result.ok || !data.id) {
+      if (!result.ok || !Array.isArray(data.data) || data.data.length !== batch.length || data.data.some(email => !email?.id)) {
         // Do not log email content, addresses, or credentials.
         console.error('Contact email provider rejected request:', result.status);
         return reply(res, result.status === 429 ? 429 : 502, { error: FAILURE });

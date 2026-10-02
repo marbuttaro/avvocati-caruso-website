@@ -477,8 +477,8 @@ function ContactSection() {
       lastRequest.current = null;
       if (type === 'appointment') { setSelectedDate(''); setSelectedTime(''); }
       setSubmission({ state: 'success', message: type === 'appointment'
-        ? 'Richiesta inviata allo studio. L’appuntamento sarà fissato dopo la conferma di data e orario via email.'
-        : 'Richiesta inviata allo studio. Riceverai la risposta all’indirizzo email indicato.' });
+        ? 'Richiesta inviata. Riceverai un’email di riepilogo; lo studio ti ricontatterà per confermare data e orario dell’appuntamento.'
+        : 'Messaggio inviato. Riceverai un’email di conferma della ricezione; lo studio ti ricontatterà appena possibile.' });
     } catch (error) {
       setSubmission({ state: 'error', message: error.name === 'Error' ? error.message
         : 'La richiesta non è stata confermata. Riprova tra poco oppure chiama lo studio al numero 081 3032399.' });

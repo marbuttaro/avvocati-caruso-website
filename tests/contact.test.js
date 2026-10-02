@@ -11,7 +11,7 @@ async function request(body = valid, options = {}) {
   const sent = [];
   const send = options.send || (async (url, init) => {
     sent.push({ url, ...init, body: JSON.parse(init.body) });
-    return new Response(JSON.stringify({ id: 'email-id' }), { status: 200 });
+    return new Response(JSON.stringify({ data: [{ id: 'studio-email-id' }, { id: 'confirmation-email-id' }] }), { status: 200 });
   });
   const handler = createContactHandler({ env: options.env || env, send, now });
   const req = Readable.from([options.raw ?? JSON.stringify(body)]);
@@ -30,10 +30,27 @@ test('sends to the configured inbox and replies to the visitor; ignores client r
   const result = await request({ ...valid, to: 'attacker@example.com', from: 'spoof@example.com' });
   assert.equal(result.status, 200);
   assert.equal(result.body.ok, true);
-  assert.deepEqual(result.sent[0].body.to, ['studio@example.com']);
-  assert.equal(result.sent[0].body.from, env.RESEND_FROM_EMAIL);
-  assert.equal(result.sent[0].body.reply_to, valid.email);
-  assert.match(result.sent[0].body.text, /Vorrei un primo colloquio/);
+  assert.deepEqual(result.sent[0].body[0].to, ['studio@example.com']);
+  assert.equal(result.sent[0].body[0].from, env.RESEND_FROM_EMAIL);
+  assert.equal(result.sent[0].body[0].reply_to, valid.email);
+  assert.match(result.sent[0].body[0].text, /Vorrei un primo colloquio/);
+  assert.equal(result.sent.length, 1);
+  assert.equal(result.sent[0].url, 'https://api.resend.com/emails/batch');
+  assert.equal(result.sent[0].body.length, 2);
+  const confirmation = result.sent[0].body[1];
+  assert.deepEqual(confirmation.to, [valid.email]);
+  assert.equal(confirmation.from, env.RESEND_FROM_EMAIL);
+  assert.equal(confirmation.reply_to, env.CONTACT_TO_EMAIL);
+  assert.match(confirmation.text, /Abbiamo ricevuto il tuo messaggio/);
+  assert.match(confirmation.text, /Ti ricontatteremo appena possibile/);
+  assert.doesNotMatch(confirmation.text, /appuntamento|Vorrei un primo colloquio/);
+});
+
+test('confirmation cannot reflect user-supplied message or name links', async () => {
+  const result = await request({ ...valid, firstName: 'https://untrusted.example', message: 'https://untrusted.example' });
+  assert.equal(result.status, 200);
+  assert.doesNotMatch(result.sent[0].body[1].text, /untrusted/);
+  assert.doesNotMatch(result.sent[0].body[1].subject, /untrusted/);
 });
 
 test('retries use the same idempotency key; changed content uses a different key', async () => {
@@ -78,8 +95,20 @@ test('appointment validates actual dates, Rome time, weekdays and offered slots'
   }
   const result = await request({ ...valid, type: 'appointment', date: '05/10/2026', time: '09:30' });
   assert.equal(result.status, 200);
-  assert.match(result.sent[0].body.text, /05\/10\/2026/);
-  assert.match(result.sent[0].body.text, /da confermare/);
+  assert.match(result.sent[0].body[0].text, /05\/10\/2026/);
+  assert.match(result.sent[0].body[0].text, /da confermare/);
+  const confirmation = result.sent[0].body[1];
+  assert.match(confirmation.subject, /richiesta di appuntamento/);
+  assert.match(confirmation.text, /05\/10\/2026 alle 09:30/);
+  assert.match(confirmation.text, /appuntamento resta in attesa di conferma/);
+});
+
+test('requires provider acceptance of both emails before returning success', async () => {
+  for (const data of [{}, { data: [] }, { data: [{ id: 'studio-only' }] }, { data: [{ id: 'studio' }, {}] }]) {
+    const result = await request(valid, { send: async () => new Response(JSON.stringify(data), { status: 200 }) });
+    assert.equal(result.status, 502);
+    assert.equal(result.body.ok, undefined);
+  }
 });
 
 test('missing configuration and provider failures never return success or leak provider errors', async () => {
