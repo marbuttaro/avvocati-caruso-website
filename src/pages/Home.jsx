@@ -109,7 +109,7 @@ function NewsSlider() {
           <div className="news-v5-card-header">
             <span className="news-v5-date">{item.date}</span>
             <div className="news-v5-header-line" />
-            <SiteImage src="/assets/logotipo-orange.svg" alt="" className="news-v5-icon" />
+            <SiteImage src="/assets/logotipo-orange.svg" alt="" className="news-v5-icon" width={26} height={26} />
           </div>
           <span className="news-v5-category">{item.category}</span>
           <a href={item.slug} className="news-v5-card-title-link"><h3 className="news-v5-card-title serif">{item.title}</h3></a>

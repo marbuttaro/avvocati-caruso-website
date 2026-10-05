@@ -113,7 +113,10 @@ le immagini sotto la prima schermata sono caricate progressivamente. Gli origina
 sono conservati per consentire rigenerazioni future.
 
 I font sono serviti dallo stesso dominio in WOFF2, con `font-display: swap` e
-preload dei due caratteri principali. La home ha un'identità testuale leggibile,
+preload dei due caratteri principali. Il subset conserva caratteri latini,
+accenti italiani, punteggiatura e simboli; la larghezza non utilizzata del font
+variabile viene fissata al valore normale. I cinque WOFF2 passano da 299.092 a
+138.776 byte, conservando i pesi variabili. La home ha un'identità testuale leggibile,
 senza il preloader a copertura dello schermo. I moduli hanno un'alternativa email
 e telefono per chi naviga senza JavaScript. Menu, biografie, link telefonici,
 percorso di navigazione e salto al contenuto sono utilizzabili con tecnologie
@@ -164,7 +167,8 @@ una prova di posizionamento. I risultati in produzione vanno misurati a parte.
    `newsData.js`: sitemap e HTML vengono rigenerati dalla build.
 6. Per nuove foto aggiornare l'elenco in `scripts/optimize-assets.mjs`, eseguire
    `npm run optimize:assets` e verificare le varianti generate. I WOFF2 sono
-   derivati dai TTF con fontTools; Alegreya Sans conserva la licenza OFL.
+   rigenerabili con `python3 scripts/optimize-fonts.py` dopo aver installato
+   `fonttools[woff]`; Alegreya Sans conserva la licenza OFL.
 7. Conservare i redirect permanenti quando una pagina cambia indirizzo; evitare
    copie di articoli o pagine locali senza contenuti distinti e verificati.
 8. Far verificare ai professionisti gli aggiornamenti sostanziali degli articoli
