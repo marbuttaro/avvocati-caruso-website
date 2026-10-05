@@ -143,11 +143,36 @@ npm run check:seo
 - Workflow GitHub `Build and SEO checks` per push su main e pull request.
 - Controllo che `.env` e chiavi non siano presenti nei file Git o nel bundle.
 
-Lighthouse mobile locale, con limitazione simulata di rete/CPU: **SEO 100/100,
-accessibilità 100/100, best practices 100/100**. Performance 76/100, CLS 0 e
-TBT 50 ms sul server locale senza compressione o cache CDN. Queste misure sono
-diagnostiche di laboratorio: non sono dati Core Web Vitals di utenti reali né
-una prova di posizionamento. I risultati in produzione vanno misurati a parte.
+Lighthouse mobile sul dominio pubblico, il 5 ottobre 2026 alle 17:24 CEST,
+con limitazione simulata di rete/CPU, dopo l'ottimizzazione finale dei font:
+
+| Misura | Risultato |
+|---|---:|
+| SEO | 100/100 |
+| Accessibilità | 100/100 |
+| Best practices | 100/100 |
+| Performance | 67/100 |
+| First Contentful Paint | 3,6 s |
+| Largest Contentful Paint | 6,2 s |
+| Total Blocking Time | 70 ms |
+| Cumulative Layout Shift | 0 |
+
+Resta margine sulle prestazioni iniziali: il punteggio Performance non è 100.
+L'audit segnala CSS che blocca il rendering, JavaScript non utilizzato durante
+il primo caricamento e ritardo di visualizzazione dell'elemento LCP. Un ulteriore
+intervento può concentrarsi su caricamento del codice e animazioni della prima
+schermata. La riduzione dei font è stata verificata nei download reali, ma non
+ha modificato il punteggio aggregato di questa misura. Il precedente controllo
+locale era 76/100: ambienti diversi non sono un confronto prima/dopo affidabile.
+Questi risultati sono diagnostiche di laboratorio, non dati Core Web Vitals di
+utenti reali né una prova di posizionamento. Un punteggio automatico di
+accessibilità non sostituisce una verifica completa con tecnologie assistive.
+
+Verifica HTTP in produzione completata su tutte le 13 pagine, sitemap e robots;
+confermati redirect HTTPS/www/slash finale, redirect del duplicato, risposte 404,
+endpoint contatti disponibile, `noindex` sul dominio tecnico Vercel e `.env`
+non accessibile. Build e 15 test superati anche nella pipeline GitHub per i
+commit `42d55ba` e `bce3e45`.
 
 ## Manutenzione e attività esterne
 
