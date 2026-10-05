@@ -1,8 +1,10 @@
 import React from 'react';
-import { useParams, Navigate, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { newsItems } from '../data/newsData';
 import './NewsPage.css';
+import NotFound from './NotFound';
+import { articleDate, personSlug } from '../seo/site.js';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -11,8 +13,8 @@ const fadeUp = {
 
 const NewsPage = () => {
   const { id } = useParams();
-  const currentId = parseInt(id);
-  const article = newsItems.find(item => item.id === currentId);
+  const currentId = /^\d+$/.test(id) ? Number(id) : NaN;
+  const article = newsItems.find(item => item.slug === `/news/${id}`);
   const seenTitles = new Set(article ? [article.title] : []);
   const otherNews = newsItems.filter(item => {
     if (item.id === currentId || seenTitles.has(item.title)) return false;
@@ -20,7 +22,7 @@ const NewsPage = () => {
     return true;
   }).slice(0, 3);
 
-  if (!article) return <Navigate to="/" replace />;
+  if (!article) return <NotFound />;
 
   const currentIndex = newsItems.findIndex(item => item.id === currentId);
   const prevArticle = newsItems[(currentIndex - 1 + newsItems.length) % newsItems.length];
@@ -54,14 +56,14 @@ const NewsPage = () => {
             <motion.article
               className="news-article-main"
               variants={fadeUp}
-              initial="hidden"
+              initial={false}
               animate="visible"
             >
               <h1 className="single-news-title serif">{article.pageTitle || article.title}</h1>
               {article.subtitle && (
                 <p className="single-news-subtitle serif">{article.subtitle}</p>
               )}
-              <span className="single-news-date">{article.date}</span>
+              <time className="single-news-date" dateTime={articleDate(article.date)}>{article.date}</time>
 
               <div className="single-news-content sans">
                 {topParagraphs.map((p, i) => <p key={i}>{p}</p>)}
@@ -74,14 +76,14 @@ const NewsPage = () => {
               )}
 
               {authorLine && (
-                <p className="single-news-author sans">{authorLine}</p>
+                <p className="single-news-author sans"><Link to={`/team#${personSlug(authorLine.replace(/^Avv\.\s*/, ''))}`}>{authorLine}</Link></p>
               )}
             </motion.article>
 
             {/* COLONNA DESTRA — altre news */}
             <motion.aside
               className="news-article-sidebar"
-              initial={{ opacity: 0, y: 30 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
             >

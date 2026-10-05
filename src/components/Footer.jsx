@@ -11,18 +11,18 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="footer-v3-brand-stack">
             <picture>
-              <source media="(max-width: 640px)" srcSet="/assets/logo-lettering.svg" />
-              <img src="/assets/logo-completo.svg" alt="Caruso Avvocati" className="footer-logo-complete" />
+              <source width="179" height="71" media="(max-width: 640px)" srcSet="/assets/logo-lettering.svg" />
+              <img src="/assets/logo-completo.svg" alt="Caruso Avvocati" className="footer-logo-complete" width={177} height={121} />
             </picture>
           </div>
 
           {/* Contacts Column */}
           <div className="footer-v3-contacts">
-            <h4 className="footer-title serif">Contatti</h4>
+            <h2 className="footer-title serif">Contatti</h2>
             <div className="contact-details sans">
               <p>Via Vincenzo Cosenza 31 – 80078 Pozzuoli (NA)</p>
-              <p>info@carusoavvocati.it</p>
-              <p>081 3032399</p>
+              <p><a href="mailto:info@carusoavvocati.it">info@carusoavvocati.it</a></p>
+              <p><a href="tel:+390813032399">081 3032399</a></p>
             </div>
           </div>
 
@@ -33,7 +33,9 @@ const Footer = () => {
             <ul className="footer-links-large serif">
               <li><a href="/team">I professionisti</a></li>
               <li><a href="/lo-studio">Lo Studio</a></li>
-              <li><a href="/#news">News</a></li>
+              <li><a href="/news">News</a></li>
+              <li><a href="/aree-competenza">Aree di competenza</a></li>
+              <li><a href="/contatti">Contatti</a></li>
             </ul>
           </div>
         </div>
@@ -42,8 +44,8 @@ const Footer = () => {
           <div className="footer-v3-line footer-v3-line--desktop"></div>
           <div className="footer-policy-row">
             <div className="policy-links">
-              <a href="/cookies">Cookie policy</a>
-              <a href="/privacy">Privacy policy</a>
+              {import.meta.env.VITE_IUBENDA_COOKIE_URL && <a href={import.meta.env.VITE_IUBENDA_COOKIE_URL}>Cookie policy</a>}
+              {import.meta.env.VITE_IUBENDA_PRIVACY_URL && <a href={import.meta.env.VITE_IUBENDA_PRIVACY_URL}>Privacy policy</a>}
             </div>
           </div>
         </div>

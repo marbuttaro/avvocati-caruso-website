@@ -1,3 +1,4 @@
+import SiteImage from '../components/SiteImage';
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ContactSection } from './Home';
@@ -45,11 +46,11 @@ const DirittoCommercialePage = () => {
           <motion.h1
             className="dp-title serif"
             variants={fadeUp}
-            initial="hidden"
+            initial={false}
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
-            Affiancare l'impresa<br />nelle scelte e nelle<br />sfide del mercato
+            Diritto commerciale:<br />assistenza alle imprese
           </motion.h1>
         </div>
       </section>
@@ -60,16 +61,16 @@ const DirittoCommercialePage = () => {
           <motion.div
             className="dp-hero-grid"
             variants={staggerContainer}
-            initial="hidden"
+            initial={false}
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
 
             <motion.div className="dp-hero-left" variants={fadeUp}>
-              <img
+              <SiteImage
                 src="/assets/services/commerciale.png"
                 alt="Diritto Commerciale"
-                className="dp-hero-img"
+                className="dp-hero-img" priority sizes="(max-width: 768px) 90vw, 40vw"
               />
             </motion.div>
 
@@ -83,7 +84,7 @@ const DirittoCommercialePage = () => {
                 contratti di settore.
               </motion.p>
               <motion.div className="dp-activities" variants={fadeUp}>
-                <h3 className="dp-activities-title serif">Attività principali</h3>
+                <h2 className="dp-activities-title serif">Attività principali</h2>
                 <ul className="dp-activities-list sans">
                   {activities.map((a, i) => (
                     <li key={i}>{a}</li>
@@ -102,7 +103,7 @@ const DirittoCommercialePage = () => {
           <motion.h2
             className="dp-areas-title serif"
             variants={fadeUp}
-            initial="hidden"
+            initial={false}
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
@@ -112,7 +113,7 @@ const DirittoCommercialePage = () => {
             className="dp-areas-grid"
             style={{ '--dp-areas-cols': areas.length === 4 ? 2 : Math.min(areas.length, 3) }}
             variants={staggerContainer}
-            initial="hidden"
+            initial={false}
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
@@ -120,7 +121,7 @@ const DirittoCommercialePage = () => {
               <motion.div key={i} className="dp-area-card" variants={fadeUp}>
                 <div className="dp-area-header">
                   <div className="dp-area-divider" />
-                  <img
+                  <SiteImage
                     src="/assets/logotipo-orange.svg"
                     alt=""
                     className="dp-area-icon"

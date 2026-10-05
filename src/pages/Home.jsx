@@ -1,11 +1,8 @@
+import SiteImage from '../components/SiteImage';
 import React, { useRef, useState, useCallback, useLayoutEffect, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
-import TiltedCard from '../components/TiltedCard/TiltedCard';
-import ImageTrail from '../components/ImageTrail/ImageTrail';
-import SplitText from '../components/SplitText/SplitText';
-import Preloader from '../components/Preloader/Preloader';
 import { newsItems } from '../data/newsData';
 import { smoothScrollTo } from '../utils/smoothScroll';
 import './Home.css';
@@ -112,7 +109,7 @@ function NewsSlider() {
           <div className="news-v5-card-header">
             <span className="news-v5-date">{item.date}</span>
             <div className="news-v5-header-line" />
-            <img src="/assets/logotipo-orange.svg" alt="" className="news-v5-icon" />
+            <SiteImage src="/assets/logotipo-orange.svg" alt="" className="news-v5-icon" />
           </div>
           <span className="news-v5-category">{item.category}</span>
           <a href={item.slug} className="news-v5-card-title-link"><h3 className="news-v5-card-title serif">{item.title}</h3></a>
@@ -143,7 +140,7 @@ function StudioRisponde() {
             <div key={i} className="faq-item" onClick={() => toggle(i)}>
               <div className="faq-item-header">
                 <span className="faq-item-question serif">{item.q}</span>
-                <img
+                <SiteImage
                   src={openIdx === i ? '/assets/minus.svg' : '/assets/plus.svg'}
                   alt=""
                   className="faq-item-icon"
@@ -237,13 +234,13 @@ function ProfessionistiSlider() {
                 <motion.div
                   key={key}
                   layout
-                  initial={{ opacity: 0, x: dir > 0 ? -40 : 40 }}
+                  initial={false}
                   animate={{ opacity: SIZE_OPACITY[size], x: 0 }}
                   exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.28, ease: 'easeOut' } }}
                   transition={{ duration: 0.65, ease: SLIDE_EASE }}
                   className={`prof-v5-photo prof-v5-photo--${size}`}
                 >
-                  <img src={prof.img} alt={prof.name} draggable="false" />
+                  <SiteImage src={prof.img} alt={prof.name} sizes="(max-width: 640px) 200px, 350px" draggable="false" />
                 </motion.div>
               ))}
             </AnimatePresence>
@@ -254,7 +251,7 @@ function ProfessionistiSlider() {
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={activeIdx}
-              initial={{ opacity: 0, y: 14 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -14 }}
               transition={{ duration: 0.35, ease: 'easeOut' }}
@@ -263,11 +260,11 @@ function ProfessionistiSlider() {
               <span className="prof-v5-prefix serif">{active.prefix}</span>
               <div className="prof-v5-name-row">
                 <button onClick={() => navigate(-1)} className="prof-arrow-btn prof-arrow-btn--inline" aria-label="Precedente">
-                  <img src="/assets/arrow.svg" alt="" style={{ transform: 'scaleX(-1)' }} />
+                  <SiteImage src="/assets/arrow.svg" alt="" style={{ transform: 'scaleX(-1)' }} />
                 </button>
                 <h3 className="prof-v5-name serif">{active.name}</h3>
                 <button onClick={() => navigate(1)} className="prof-arrow-btn prof-arrow-btn--inline" aria-label="Successivo">
-                  <img src="/assets/arrow.svg" alt="" />
+                  <SiteImage src="/assets/arrow.svg" alt="" />
                 </button>
               </div>
               <p className="prof-v5-bio">{active.bio}</p>
@@ -275,10 +272,10 @@ function ProfessionistiSlider() {
           </AnimatePresence>
           <div className="prof-v5-arrows">
             <button onClick={() => navigate(-1)} className="prof-arrow-btn" aria-label="Precedente">
-              <img src="/assets/arrow.svg" alt="" style={{ transform: 'scaleX(-1)' }} />
+              <SiteImage src="/assets/arrow.svg" alt="" style={{ transform: 'scaleX(-1)' }} />
             </button>
             <button onClick={() => navigate(1)} className="prof-arrow-btn" aria-label="Successivo">
-              <img src="/assets/arrow.svg" alt="" />
+              <SiteImage src="/assets/arrow.svg" alt="" />
             </button>
           </div>
         </div>
@@ -381,7 +378,7 @@ function CalendarPicker({ value, onChange }) {
     <div className="calendar-picker" ref={ref}>
       <div className="select-wrap" onClick={() => setOpen(!open)}>
         <div className="custom-select">{value || <span style={{opacity:0.4}}>scegli la data</span>}</div>
-        <img src="/assets/arrow-down.svg" alt="" className="select-arrow" />
+        <SiteImage src="/assets/arrow-down.svg" alt="" className="select-arrow" />
       </div>
       {open && (
         <div className="calendar-dropdown">
@@ -416,7 +413,7 @@ function TimePicker({ value, onChange }) {
     <div className="time-picker" ref={ref}>
       <div className="select-wrap" onClick={() => setOpen(!open)}>
         <div className="custom-select">{value || <span style={{opacity:0.4}}>seleziona la fascia oraria</span>}</div>
-        <img src="/assets/arrow-down.svg" alt="" className="select-arrow" />
+        <SiteImage src="/assets/arrow-down.svg" alt="" className="select-arrow" />
       </div>
       {open && (
         <div className="time-dropdown">
@@ -508,13 +505,13 @@ function ContactSection() {
             <div className="contact-info-figma">
               <AnimatePresence mode="wait">
                 {activeTab === 0 ? (
-                  <motion.div key="t0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                  <motion.div key="t0" initial={false} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
                     <h2 className="serif contact-title-desktop">Hai bisogno di<br/>una consulenza<br/>legale?</h2>
                     <h2 className="serif contact-title-mobile">Hai bisogno di una<br/>consulenza legale?</h2>
                     <p className="sans">Raccontaci di quale assistenza legale hai bisogno. Lo studio ti risponderà all’indirizzo email indicato.</p>
                   </motion.div>
                 ) : (
-                  <motion.div key="t1" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                  <motion.div key="t1" initial={false} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
                     <h2 className="serif contact-title-desktop">Incontra<br/>i nostri<br/>professionisti</h2>
                     <h2 className="serif contact-title-mobile">Incontra i nostri<br/>professionisti</h2>
                     <p className="sans">Proponi una data e un orario<br/>per il primo colloquio. Lo studio<br/>confermerà la disponibilità via email.</p>
@@ -526,9 +523,10 @@ function ContactSection() {
             <div className="contact-divider-figma"></div>
 
             <div className="contact-form-figma">
+              <noscript><p>Per inviare una richiesta, scrivi a <a href="mailto:info@carusoavvocati.it">info@carusoavvocati.it</a> oppure chiama <a href="tel:+390813032399">081 3032399</a>.</p></noscript>
               <AnimatePresence mode="wait">
                 {activeTab === 0 ? (
-                  <motion.form key="fc" data-type="contact" onSubmit={handleSubmit} aria-busy={submission.state === 'sending'} className="figma-form-new" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.35 }}>
+                  <motion.form key="fc" data-type="contact" onSubmit={handleSubmit} aria-busy={submission.state === 'sending'} className="figma-form-new" initial={false} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.35 }}>
                     <div className="form-row-2">
                       <div className="input-group"><label htmlFor="contact-first-name" className="serif">Nome</label><input id="contact-first-name" name="firstName" autoComplete="given-name" type="text" placeholder="Mario" required maxLength={100} /></div>
                       <div className="input-group"><label htmlFor="contact-last-name" className="serif">Cognome</label><input id="contact-last-name" name="lastName" autoComplete="family-name" type="text" placeholder="Rossi" required maxLength={100} /></div>
@@ -539,7 +537,7 @@ function ContactSection() {
                     <div className="form-submit-row"><button type="submit" disabled={submission.state === 'sending'} className="btn-navy-light mt-3">{submission.state === 'sending' ? 'Invio in corso…' : 'Invia la richiesta'}</button></div>
                   </motion.form>
                 ) : (
-                  <motion.form key="fb" data-type="appointment" onSubmit={handleSubmit} aria-busy={submission.state === 'sending'} className="figma-form-new" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.35 }}>
+                  <motion.form key="fb" data-type="appointment" onSubmit={handleSubmit} aria-busy={submission.state === 'sending'} className="figma-form-new" initial={false} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.35 }}>
                     <div className="form-row-2">
                       <div className="input-group"><label htmlFor="appointment-first-name" className="serif">Nome</label><input id="appointment-first-name" name="firstName" autoComplete="given-name" type="text" placeholder="Mario" required maxLength={100} /></div>
                       <div className="input-group"><label htmlFor="appointment-last-name" className="serif">Cognome</label><input id="appointment-last-name" name="lastName" autoComplete="family-name" type="text" placeholder="Rossi" required maxLength={100} /></div>
@@ -650,7 +648,7 @@ const Home = () => {
   return (
     <div className="home-v3">
 
-      <Preloader />
+
 
       {/* ── CodyHouse Revealing Hero ─────────────────────────────────────────
           DOM order: hero  FIRST  (z-index 2, scrolls away normally)
@@ -659,6 +657,7 @@ const Home = () => {
 
       {/* 1. Hero — first in DOM, z-index 2, scrolls off to reveal studio */}
       <section ref={heroRef} className="hero-v5">
+        <div className="hero-site-heading container"><h1 className="serif">Caruso Avvocati</h1><p>Studio legale a Pozzuoli · Dal 1988</p></div>
         <div className="hero-v5-ticker-wrap" aria-hidden="true">
           <motion.div
             className="hero-v5-ticker"
@@ -670,7 +669,7 @@ const Home = () => {
             {[...tickerItems, ...tickerItems, ...tickerItems, ...tickerItems].map((item, i) => (
               <React.Fragment key={i}>
                 <span className="ticker-text serif">{item}</span>
-                <img src="/assets/logotipo-orange.svg" alt="" className="ticker-sep" />
+                <SiteImage src="/assets/logotipo-orange.svg" alt="" className="ticker-sep" width={52} height={52} />
               </React.Fragment>
             ))}
           </motion.div>
@@ -687,7 +686,7 @@ const Home = () => {
                 <h2 className="studio-v5-title serif">Lo studio</h2>
               </div>
               <div className="studio-v5-right">
-                <img src="/assets/pittogramma-sfondo-studio.svg" alt="" className="studio-v5-watermark" aria-hidden="true" />
+                <SiteImage src="/assets/pittogramma-sfondo-studio.svg" alt="" className="studio-v5-watermark" priority aria-hidden="true" />
                 <p>
                   Lo Studio, fondato nel 1988 dall'Avvocato Giuseppe Caruso, vanta <strong>quattro decenni di esperienza</strong> nel diritto penale,
                   con particolare focus sul diritto penale dell'economia. Nel tempo, l'ingresso di professionisti of-counsel ha ampliato l'attività
@@ -711,7 +710,7 @@ const Home = () => {
 
         {/* News Section */}
         <section id="news" className="news-v5 section-padding bg-cream">
-          <h2 className="news-v5-title serif">News</h2>
+          <h2 className="news-v5-title serif"><Link to="/news">News</Link></h2>
           <NewsSlider />
         </section>
 
@@ -723,8 +722,8 @@ const Home = () => {
               <div className="dove-siamo-divider" />
               <div className="dove-siamo-contacts sans">
                 <p>Via Vincenzo Cosenza 31 – 80078 Pozzuoli (NA)</p>
-                <p>info@carusoavvocati.it</p>
-                <p>081 3032399</p>
+                <p><a href="mailto:info@carusoavvocati.it">info@carusoavvocati.it</a></p>
+                <p><a href="tel:+390813032399">081 3032399</a></p>
               </div>
             </div>
             <div className="dove-siamo-photo-wrap">
@@ -742,7 +741,7 @@ const Home = () => {
 
         {/* Pattern separator + photo, lead-in to contact section */}
         <div className="pattern-separator" aria-hidden="true" />
-        <img src="/assets/foto.png" alt="" className="foto-full" />
+        <SiteImage src="/assets/foto.png" alt="" className="foto-full" />
 
         {/* Contacts & Footer Bridge */}
         <ContactSection />

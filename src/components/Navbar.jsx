@@ -59,8 +59,8 @@ const Navbar = () => {
         <Link to="/" className="brand-v3-new">
           <img
             src={scrolled || !isHome || isOpen ? '/assets/lettering-navy.svg' : '/assets/logo-lettering.svg'}
-            alt="Avvocati Caruso"
-            className="logo-img"
+            alt="Caruso Avvocati"
+            className="logo-img" width={179} height={71}
           />
         </Link>
 
@@ -129,7 +129,7 @@ const Navbar = () => {
           <a href="/#contatti" onClick={(e) => scrollToSection(e, 'contatti')} className="nav-cta-v3">Contatti</a>
         </div>
 
-        <button className="mobile-toggle-v3" onClick={() => setIsOpen(!isOpen)}>
+        <button className="mobile-toggle-v3" aria-label={isOpen ? 'Chiudi il menu' : 'Apri il menu'} aria-expanded={isOpen} onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>

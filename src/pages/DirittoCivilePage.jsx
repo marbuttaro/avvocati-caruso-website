@@ -1,3 +1,4 @@
+import SiteImage from '../components/SiteImage';
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ContactSection } from './Home';
@@ -44,11 +45,11 @@ const DirittoCivilePage = () => {
           <motion.h1
             className="dp-title serif"
             variants={fadeUp}
-            initial="hidden"
+            initial={false}
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
-            Tutela e soluzioni,<br />oltre il contenzioso
+            Diritto civile:<br />tutela e consulenza
           </motion.h1>
         </div>
       </section>
@@ -59,16 +60,16 @@ const DirittoCivilePage = () => {
           <motion.div
             className="dp-hero-grid"
             variants={staggerContainer}
-            initial="hidden"
+            initial={false}
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
 
             <motion.div className="dp-hero-left" variants={fadeUp}>
-              <img
+              <SiteImage
                 src="/assets/services/civile.png"
                 alt="Diritto Civile"
-                className="dp-hero-img"
+                className="dp-hero-img" priority sizes="(max-width: 768px) 90vw, 40vw"
               />
             </motion.div>
 
@@ -84,7 +85,7 @@ const DirittoCivilePage = () => {
                 dei rapporti giuridici tra le parti.
               </motion.p>
               <motion.div className="dp-activities" variants={fadeUp}>
-                <h3 className="dp-activities-title serif">Attività principali</h3>
+                <h2 className="dp-activities-title serif">Attività principali</h2>
                 <ul className="dp-activities-list sans">
                   {activities.map((a, i) => (
                     <li key={i}>{a}</li>
@@ -103,7 +104,7 @@ const DirittoCivilePage = () => {
           <motion.h2
             className="dp-areas-title serif"
             variants={fadeUp}
-            initial="hidden"
+            initial={false}
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
@@ -113,7 +114,7 @@ const DirittoCivilePage = () => {
             className="dp-areas-grid"
             style={{ '--dp-areas-cols': areas.length === 4 ? 2 : Math.min(areas.length, 3) }}
             variants={staggerContainer}
-            initial="hidden"
+            initial={false}
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
@@ -121,7 +122,7 @@ const DirittoCivilePage = () => {
               <motion.div key={i} className="dp-area-card" variants={fadeUp}>
                 <div className="dp-area-header">
                   <div className="dp-area-divider" />
-                  <img
+                  <SiteImage
                     src="/assets/logotipo-orange.svg"
                     alt=""
                     className="dp-area-icon"

@@ -1,3 +1,4 @@
+import SiteImage from '../components/SiteImage';
 import React from 'react';
 import { motion } from 'framer-motion';
 import './LoStudio.css';
@@ -10,16 +11,16 @@ const LoStudio = () => {
 
           <motion.div
             className="lo-studio-photo-wrap"
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: 'easeOut', delay: 0.15 }}
           >
-            <img src="/assets/dove-siamo.png" alt="Studio Legale Caruso" className="lo-studio-photo" />
+            <SiteImage src="/assets/dove-siamo.png" alt="Studio Legale Caruso" className="lo-studio-photo" priority />
           </motion.div>
 
           <motion.div
             className="lo-studio-left"
-            initial={{ opacity: 0, y: 30 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
           >

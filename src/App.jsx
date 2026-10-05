@@ -14,14 +14,19 @@ import DirittoNavigazionePage from './pages/DirittoNavigazionePage';
 import NewsPage from './pages/NewsPage';
 import LoStudio from './pages/LoStudio';
 import Contatti from './pages/Contatti';
+import NewsIndex from './pages/NewsIndex';
+import NotFound from './pages/NotFound';
+import { Seo, Breadcrumbs } from './seo/Seo';
 
-function App() {
+export function AppContent() {
   return (
-    <Router>
+    <>
+      <Seo />
       <div className="app-container">
         <ScrollToTop />
         <Navbar />
-        <main className="main-content">
+        <a className="skip-link" href="#contenuto">Vai al contenuto</a>
+        <main id="contenuto" className="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/aree-competenza" element={<AreeCompetenza />} />
@@ -33,13 +38,18 @@ function App() {
             <Route path="/diritto-della-navigazione" element={<DirittoNavigazionePage />} />
             <Route path="/lo-studio" element={<LoStudio />} />
             <Route path="/contatti" element={<Contatti />} />
+            <Route path="/news" element={<NewsIndex />} />
+            <Route path="*" element={<NotFound />} />
             <Route path="/news/:id" element={<NewsPage />} />
           </Routes>
         </main>
+        <Breadcrumbs />
         <Footer />
       </div>
-    </Router>
+    </>
   );
 }
 
-export default App;
+export default function App() {
+  return <Router><AppContent /></Router>;
+}

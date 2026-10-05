@@ -1,3 +1,4 @@
+import SiteImage from '../components/SiteImage';
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ContactSection } from './Home';
@@ -49,7 +50,7 @@ const DirittopenPage = () => {
           <motion.h1 
             className="dp-title serif"
             variants={fadeUp}
-            initial="hidden"
+            initial={false}
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
@@ -64,16 +65,16 @@ const DirittopenPage = () => {
           <motion.div 
             className="dp-hero-grid"
             variants={staggerContainer}
-            initial="hidden"
+            initial={false}
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
 
             <motion.div className="dp-hero-left" variants={fadeUp}>
-              <img
+              <SiteImage
                 src="/assets/services/penale.png"
                 alt="Diritto Penale"
-                className="dp-hero-img"
+                className="dp-hero-img" priority sizes="(max-width: 768px) 90vw, 40vw"
               />
             </motion.div>
 
@@ -87,7 +88,7 @@ const DirittopenPage = () => {
                 e giuridiche in ogni fase delle loro esigenze legali.
               </motion.p>
               <motion.div className="dp-activities" variants={fadeUp}>
-                <h3 className="dp-activities-title serif">Attività principali</h3>
+                <h2 className="dp-activities-title serif">Attività principali</h2>
                 <ul className="dp-activities-list sans">
                   {activities.map((a, i) => (
                     <li key={i}>{a}</li>
@@ -106,7 +107,7 @@ const DirittopenPage = () => {
           <motion.h2 
             className="dp-areas-title serif"
             variants={fadeUp}
-            initial="hidden"
+            initial={false}
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
@@ -116,7 +117,7 @@ const DirittopenPage = () => {
             className="dp-areas-grid"
             style={{ '--dp-areas-cols': areas.length === 4 ? 2 : Math.min(areas.length, 3) }}
             variants={staggerContainer}
-            initial="hidden"
+            initial={false}
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
@@ -124,7 +125,7 @@ const DirittopenPage = () => {
               <motion.div key={i} className="dp-area-card" variants={fadeUp}>
                 <div className="dp-area-header">
                   <div className="dp-area-divider" />
-                  <img
+                  <SiteImage
                     src="/assets/logotipo-orange.svg"
                     alt=""
                     className="dp-area-icon"

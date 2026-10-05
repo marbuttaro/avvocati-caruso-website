@@ -1,0 +1,86 @@
+{
+  "/assets/dove-siamo.png": {
+    "src": "/optimized/dove-siamo-714.webp",
+    "srcSet": "/optimized/dove-siamo-400.webp 400w, /optimized/dove-siamo-640.webp 640w, /optimized/dove-siamo-714.webp 714w",
+    "width": 714,
+    "height": 473
+  },
+  "/assets/foto.png": {
+    "src": "/optimized/foto-1280.webp",
+    "srcSet": "/optimized/foto-400.webp 400w, /optimized/foto-640.webp 640w, /optimized/foto-1280.webp 1280w",
+    "width": 1280,
+    "height": 546
+  },
+  "/assets/studio-bg.jpg": {
+    "src": "/optimized/studio-bg-1280.webp",
+    "srcSet": "/optimized/studio-bg-400.webp 400w, /optimized/studio-bg-640.webp 640w, /optimized/studio-bg-1280.webp 1280w",
+    "width": 1280,
+    "height": 854
+  },
+  "/assets/footer-bg.jpg": {
+    "src": "/optimized/footer-bg-1280.webp",
+    "srcSet": "/optimized/footer-bg-400.webp 400w, /optimized/footer-bg-640.webp 640w, /optimized/footer-bg-1280.webp 1280w",
+    "width": 1280,
+    "height": 853
+  },
+  "/assets/prof-giuseppe-caruso.jpg": {
+    "src": "/optimized/prof-giuseppe-caruso-675.webp",
+    "srcSet": "/optimized/prof-giuseppe-caruso-400.webp 400w, /optimized/prof-giuseppe-caruso-640.webp 640w, /optimized/prof-giuseppe-caruso-675.webp 675w",
+    "width": 675,
+    "height": 900
+  },
+  "/assets/prof-alfredo-caruso.jpg": {
+    "src": "/optimized/prof-alfredo-caruso-675.webp",
+    "srcSet": "/optimized/prof-alfredo-caruso-400.webp 400w, /optimized/prof-alfredo-caruso-640.webp 640w, /optimized/prof-alfredo-caruso-675.webp 675w",
+    "width": 675,
+    "height": 900
+  },
+  "/assets/prof-erika-ferone.jpg": {
+    "src": "/optimized/prof-erika-ferone-675.webp",
+    "srcSet": "/optimized/prof-erika-ferone-400.webp 400w, /optimized/prof-erika-ferone-640.webp 640w, /optimized/prof-erika-ferone-675.webp 675w",
+    "width": 675,
+    "height": 900
+  },
+  "/assets/prof-adriano-caruso.jpg": {
+    "src": "/optimized/prof-adriano-caruso-675.webp",
+    "srcSet": "/optimized/prof-adriano-caruso-400.webp 400w, /optimized/prof-adriano-caruso-640.webp 640w, /optimized/prof-adriano-caruso-675.webp 675w",
+    "width": 675,
+    "height": 900
+  },
+  "/assets/prof-francesco-conte.jpg": {
+    "src": "/optimized/prof-francesco-conte-675.webp",
+    "srcSet": "/optimized/prof-francesco-conte-400.webp 400w, /optimized/prof-francesco-conte-640.webp 640w, /optimized/prof-francesco-conte-675.webp 675w",
+    "width": 675,
+    "height": 900
+  },
+  "/assets/services/penale.png": {
+    "src": "/optimized/services-penale-460.webp",
+    "srcSet": "/optimized/services-penale-400.webp 400w, /optimized/services-penale-460.webp 460w",
+    "width": 460,
+    "height": 583
+  },
+  "/assets/services/civile.png": {
+    "src": "/optimized/services-civile-460.webp",
+    "srcSet": "/optimized/services-civile-400.webp 400w, /optimized/services-civile-460.webp 460w",
+    "width": 460,
+    "height": 583
+  },
+  "/assets/services/commerciale.png": {
+    "src": "/optimized/services-commerciale-460.webp",
+    "srcSet": "/optimized/services-commerciale-400.webp 400w, /optimized/services-commerciale-460.webp 460w",
+    "width": 460,
+    "height": 583
+  },
+  "/assets/services/compliance.png": {
+    "src": "/optimized/services-compliance-460.webp",
+    "srcSet": "/optimized/services-compliance-400.webp 400w, /optimized/services-compliance-460.webp 460w",
+    "width": 460,
+    "height": 583
+  },
+  "/assets/services/navigazione.png": {
+    "src": "/optimized/services-navigazione-460.webp",
+    "srcSet": "/optimized/services-navigazione-400.webp 400w, /optimized/services-navigazione-460.webp 460w",
+    "width": 460,
+    "height": 583
+  }
+}

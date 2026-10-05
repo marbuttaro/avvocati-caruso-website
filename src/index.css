@@ -1,29 +1,41 @@
 @font-face {
-  font-family: 'Instrument Sans';
-  src: url('/fonts/InstrumentSans-VariableFont_wdth,wght.ttf') format('truetype');
-  font-weight: 100 900;
+  font-family: 'Alegreya Sans';
+  src: url('/fonts/AlegreyaSans-Regular.woff2') format('woff2');
+  font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Instrument Sans';
-  src: url('/fonts/InstrumentSans-Italic-VariableFont_wdth,wght.ttf') format('truetype');
+  src: url('/fonts/InstrumentSans-VariableFont_wdth,wght.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Instrument Sans';
+  src: url('/fonts/InstrumentSans-Italic-VariableFont_wdth,wght.woff2') format('woff2');
   font-weight: 100 900;
   font-style: italic;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Instrument Serif';
-  src: url('/fonts/InstrumentSerif-Regular.ttf') format('truetype');
+  src: url('/fonts/InstrumentSerif-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Instrument Serif';
-  src: url('/fonts/InstrumentSerif-Italic.ttf') format('truetype');
+  src: url('/fonts/InstrumentSerif-Italic.woff2') format('woff2');
   font-weight: 400;
   font-style: italic;
+  font-display: swap;
 }
 
 :root {
@@ -56,6 +68,40 @@
   --transition-classic: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
+.hero-site-heading {
+  position: absolute;
+  bottom: clamp(3rem, 8vh, 7rem);
+  left: 0;
+  right: 0;
+  color: var(--color-cream);
+  z-index: 3;
+}
+.hero-site-heading h1 { font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 400; }
+.hero-site-heading p { font-size: clamp(1rem, 2vw, 1.25rem); margin-top: 0.5rem; }
+.seo-content-page { padding-top: 160px; padding-bottom: 80px; min-height: 60vh; }
+.seo-content-page h1 { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 400; margin-bottom: 1.5rem; }
+.seo-content-page p { line-height: 1.65; max-width: 75ch; margin-bottom: 1.5rem; }
+.seo-content-page a { text-decoration: underline; text-underline-offset: 0.2em; }
+.news-index-entry { padding: 2.5rem 0; border-bottom: 1px solid currentColor; }
+.news-index-entry h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 400; margin: 1rem 0; }
+.breadcrumbs.container { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+.breadcrumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; font-size: 0.9rem; }
+.breadcrumbs li + li::before { content: '/'; padding-right: 0.5rem; }
+.breadcrumbs a { text-decoration: underline; text-underline-offset: 0.2em; }
+.contact-page-heading { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 400; padding-top: 2.5rem; padding-bottom: 1.5rem; }
+.skip-link { position: fixed; left: 1rem; top: -100px; padding: 1rem; background: var(--color-cream); color: var(--color-navy); z-index: 10000; }
+.skip-link:focus { top: 1rem; }
+.no-js .studio-reveal-overlay { display: none; }
+.no-js .studio-v5 { position: relative; }
+.no-js .studio-v5-content { transform: none !important; }
+.no-js .accordion-bio[hidden] { display: block; }
+.no-js .accordion-toggle, .no-js .figma-form-new { display: none; }
+[id] { scroll-margin-top: 110px; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  .hero-v5-ticker { transform: none !important; }
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -79,6 +125,7 @@ h1, h2, h3, h4, .serif {
 
 .serif-italic {
   font-style: normal;
+  font-display: swap;
 }
 
 p {
