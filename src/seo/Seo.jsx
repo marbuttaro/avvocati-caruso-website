@@ -17,7 +17,7 @@ export function Breadcrumbs() {
   const { pathname } = useLocation();
   const page = getPage(pathname);
   if (page.noindex || page.path === '/') return null;
-  return <nav aria-label="Percorso di navigazione" className="breadcrumbs container"><ol>
+  return <nav aria-label="Percorso di navigazione" className="breadcrumbs container visually-hidden"><ol>
     {breadcrumbs(page).map((item, index, trail) => <li key={item.path}>
       {index === trail.length - 1 ? <span aria-current="page">{item.label}</span> : <Link to={item.path}>{item.label}</Link>}
     </li>)}

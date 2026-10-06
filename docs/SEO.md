@@ -1,5 +1,36 @@
 # SEO di Caruso Avvocati
 
+## Ripristino grafico del 6 ottobre 2026
+
+Ripristinato il design del commit `1d765fd`: preloader, testi visibili, animazioni,
+contrasti e impaginazione del footer precedenti all’intervento SEO. Gli H1 aggiunti
+a home e contatti e i breadcrumb restano accessibili senza occupare spazio nel
+layout; i breadcrumb diventano visibili quando ricevono il focus da tastiera.
+Le etichette privacy/cookie tornano visibili; diventano link soltanto quando
+sono configurati gli URL Iubenda, evitando collegamenti a pagine inesistenti.
+Il titolo Contatti del footer conserva lo stile originale usando il tag H2.
+Le biografie conservano il contenuto prerenderizzato e l’animazione di apertura.
+Senza JavaScript, il preloader è nascosto e testi e biografie restano leggibili.
+
+I font originali completi sono codificati senza perdita in WOFF2; ripristinate
+anche tutte le varianti Alegreya Sans originariamente richieste a Google Fonts.
+Restano caricamento locale, preload e `font-display: swap`, ma non il subset che
+riduceva i dati dei font. `scripts/optimize-fonts.py` preserva ora i file completi.
+
+Restano invariati metadati, canonical, JSON-LD, HTML prerenderizzato, sitemap,
+robots, redirect, 404, immagini WebP responsive e invio dei moduli. La scheda
+Compliance aggiunta alla pagina aree è rimossa per ripristinare la composizione
+originale; la pagina dedicata resta raggiungibile dalla navigazione e in sitemap.
+Le modifiche e le misure del 5 ottobre riportate sotto sono uno storico: le
+affermazioni sulla rimozione del preloader, sui titoli visibili, sul footer
+esteso e sul peso dei font non descrivono più il design corrente.
+
+Verifiche: build, 15 test SEO/email, controlli browser desktop/mobile e senza
+JavaScript. Il lint mantiene 18 errori preesistenti (riconoscimento di `motion`
+in JSX e setState negli effetti di Navbar/Preloader), senza nuovi errori.
+
+## Intervento SEO del 5 ottobre 2026
+
 Intervento del 5 ottobre 2026. Dominio canonico: **https://carusoavvocati.it**.
 Nome del sito: **Caruso Avvocati**. Sede: Via Vincenzo Cosenza 31, 80078 Pozzuoli (NA).
 

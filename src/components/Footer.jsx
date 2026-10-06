@@ -34,8 +34,6 @@ const Footer = () => {
               <li><a href="/team">I professionisti</a></li>
               <li><a href="/lo-studio">Lo Studio</a></li>
               <li><a href="/news">News</a></li>
-              <li><a href="/aree-competenza">Aree di competenza</a></li>
-              <li><a href="/contatti">Contatti</a></li>
             </ul>
           </div>
         </div>
@@ -44,8 +42,8 @@ const Footer = () => {
           <div className="footer-v3-line footer-v3-line--desktop"></div>
           <div className="footer-policy-row">
             <div className="policy-links">
-              {import.meta.env.VITE_IUBENDA_COOKIE_URL && <a href={import.meta.env.VITE_IUBENDA_COOKIE_URL}>Cookie policy</a>}
-              {import.meta.env.VITE_IUBENDA_PRIVACY_URL && <a href={import.meta.env.VITE_IUBENDA_PRIVACY_URL}>Privacy policy</a>}
+              {import.meta.env.VITE_IUBENDA_COOKIE_URL ? <a href={import.meta.env.VITE_IUBENDA_COOKIE_URL}>Cookie policy</a> : <span>Cookie policy</span>}
+              {import.meta.env.VITE_IUBENDA_PRIVACY_URL ? <a href={import.meta.env.VITE_IUBENDA_PRIVACY_URL}>Privacy policy</a> : <span>Privacy policy</span>}
             </div>
           </div>
         </div>

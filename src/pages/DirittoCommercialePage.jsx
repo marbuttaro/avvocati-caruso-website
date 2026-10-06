@@ -46,11 +46,11 @@ const DirittoCommercialePage = () => {
           <motion.h1
             className="dp-title serif"
             variants={fadeUp}
-            initial={false}
+            initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
-            Diritto commerciale:<br />assistenza alle imprese
+            Affiancare l'impresa<br />nelle scelte e nelle<br />sfide del mercato
           </motion.h1>
         </div>
       </section>
@@ -61,7 +61,7 @@ const DirittoCommercialePage = () => {
           <motion.div
             className="dp-hero-grid"
             variants={staggerContainer}
-            initial={false}
+            initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
@@ -103,7 +103,7 @@ const DirittoCommercialePage = () => {
           <motion.h2
             className="dp-areas-title serif"
             variants={fadeUp}
-            initial={false}
+            initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
@@ -113,7 +113,7 @@ const DirittoCommercialePage = () => {
             className="dp-areas-grid"
             style={{ '--dp-areas-cols': areas.length === 4 ? 2 : Math.min(areas.length, 3) }}
             variants={staggerContainer}
-            initial={false}
+            initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >

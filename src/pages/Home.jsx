@@ -1,3 +1,4 @@
+import Preloader from '../components/Preloader/Preloader';
 import SiteImage from '../components/SiteImage';
 import React, { useRef, useState, useCallback, useLayoutEffect, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -234,7 +235,7 @@ function ProfessionistiSlider() {
                 <motion.div
                   key={key}
                   layout
-                  initial={false}
+                  initial={{ opacity: 0, x: dir > 0 ? -40 : 40 }}
                   animate={{ opacity: SIZE_OPACITY[size], x: 0 }}
                   exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.28, ease: 'easeOut' } }}
                   transition={{ duration: 0.65, ease: SLIDE_EASE }}
@@ -251,7 +252,7 @@ function ProfessionistiSlider() {
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={activeIdx}
-              initial={false}
+              initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -14 }}
               transition={{ duration: 0.35, ease: 'easeOut' }}
@@ -505,13 +506,13 @@ function ContactSection() {
             <div className="contact-info-figma">
               <AnimatePresence mode="wait">
                 {activeTab === 0 ? (
-                  <motion.div key="t0" initial={false} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                  <motion.div key="t0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
                     <h2 className="serif contact-title-desktop">Hai bisogno di<br/>una consulenza<br/>legale?</h2>
                     <h2 className="serif contact-title-mobile">Hai bisogno di una<br/>consulenza legale?</h2>
                     <p className="sans">Raccontaci di quale assistenza legale hai bisogno. Lo studio ti risponderà all’indirizzo email indicato.</p>
                   </motion.div>
                 ) : (
-                  <motion.div key="t1" initial={false} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                  <motion.div key="t1" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
                     <h2 className="serif contact-title-desktop">Incontra<br/>i nostri<br/>professionisti</h2>
                     <h2 className="serif contact-title-mobile">Incontra i nostri<br/>professionisti</h2>
                     <p className="sans">Proponi una data e un orario<br/>per il primo colloquio. Lo studio<br/>confermerà la disponibilità via email.</p>
@@ -526,7 +527,7 @@ function ContactSection() {
               <noscript><p>Per inviare una richiesta, scrivi a <a href="mailto:info@carusoavvocati.it">info@carusoavvocati.it</a> oppure chiama <a href="tel:+390813032399">081 3032399</a>.</p></noscript>
               <AnimatePresence mode="wait">
                 {activeTab === 0 ? (
-                  <motion.form key="fc" data-type="contact" onSubmit={handleSubmit} aria-busy={submission.state === 'sending'} className="figma-form-new" initial={false} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.35 }}>
+                  <motion.form key="fc" data-type="contact" onSubmit={handleSubmit} aria-busy={submission.state === 'sending'} className="figma-form-new" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.35 }}>
                     <div className="form-row-2">
                       <div className="input-group"><label htmlFor="contact-first-name" className="serif">Nome</label><input id="contact-first-name" name="firstName" autoComplete="given-name" type="text" placeholder="Mario" required maxLength={100} /></div>
                       <div className="input-group"><label htmlFor="contact-last-name" className="serif">Cognome</label><input id="contact-last-name" name="lastName" autoComplete="family-name" type="text" placeholder="Rossi" required maxLength={100} /></div>
@@ -537,7 +538,7 @@ function ContactSection() {
                     <div className="form-submit-row"><button type="submit" disabled={submission.state === 'sending'} className="btn-navy-light mt-3">{submission.state === 'sending' ? 'Invio in corso…' : 'Invia la richiesta'}</button></div>
                   </motion.form>
                 ) : (
-                  <motion.form key="fb" data-type="appointment" onSubmit={handleSubmit} aria-busy={submission.state === 'sending'} className="figma-form-new" initial={false} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.35 }}>
+                  <motion.form key="fb" data-type="appointment" onSubmit={handleSubmit} aria-busy={submission.state === 'sending'} className="figma-form-new" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.35 }}>
                     <div className="form-row-2">
                       <div className="input-group"><label htmlFor="appointment-first-name" className="serif">Nome</label><input id="appointment-first-name" name="firstName" autoComplete="given-name" type="text" placeholder="Mario" required maxLength={100} /></div>
                       <div className="input-group"><label htmlFor="appointment-last-name" className="serif">Cognome</label><input id="appointment-last-name" name="lastName" autoComplete="family-name" type="text" placeholder="Rossi" required maxLength={100} /></div>
@@ -647,8 +648,7 @@ const Home = () => {
 
   return (
     <div className="home-v3">
-
-
+      <Preloader />
 
       {/* ── CodyHouse Revealing Hero ─────────────────────────────────────────
           DOM order: hero  FIRST  (z-index 2, scrolls away normally)
@@ -657,7 +657,7 @@ const Home = () => {
 
       {/* 1. Hero — first in DOM, z-index 2, scrolls off to reveal studio */}
       <section ref={heroRef} className="hero-v5">
-        <div className="hero-site-heading container"><h1 className="serif">Caruso Avvocati</h1><p>Studio legale a Pozzuoli · Dal 1988</p></div>
+        <h1 className="visually-hidden">Caruso Avvocati</h1>
         <div className="hero-v5-ticker-wrap" aria-hidden="true">
           <motion.div
             className="hero-v5-ticker"

@@ -32,6 +32,7 @@ const Preloader = () => {
   useEffect(() => {
     if (!visible) return;
     document.documentElement.classList.add('preloader-lock');
+    return () => document.documentElement.classList.remove('preloader-lock');
   }, [visible]);
 
   useEffect(() => {

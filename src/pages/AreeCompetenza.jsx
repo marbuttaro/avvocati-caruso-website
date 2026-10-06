@@ -65,7 +65,6 @@ const aree = [
   }
 ];
 
-aree.push({ id: '05', title: 'Compliance 231', slug: '/compliance-231', image: '/assets/services/compliance.png', description: 'Assistenza alle imprese per la prevenzione dei rischi e i modelli organizzativi ai sensi del D.Lgs. 231/2001.', subcategories: ['Modelli di organizzazione e gestione', 'Valutazione dei rischi', 'Organismi di vigilanza'] });
 
 const AreeCompetenza = () => {
   return (
@@ -73,7 +72,7 @@ const AreeCompetenza = () => {
       <header className="aree-header-v3 section-padding">
         <div className="container">
           <motion.h1 
-            initial={false}
+            initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             className="section-title-v3 serif-italic"
@@ -81,7 +80,7 @@ const AreeCompetenza = () => {
             Aree di competenza
           </motion.h1>
           <p className="max-w-md mt-4 opacity-70">
-            Assistenza a persone e imprese in diritto penale, civile, commerciale, della navigazione e compliance 231, dallo studio di Pozzuoli in tutta Italia.
+            Un approccio multidisciplinare che unisce rigore accademico e pragmatismo operativo.
           </p>
         </div>
       </header>
@@ -99,7 +98,7 @@ const AreeCompetenza = () => {
                   <h2 className="aree-title-v3 serif mb-4"><Link to={area.slug}>{area.title}</Link></h2>
                   <p className="aree-desc-v3 mb-5 serif-italic">{area.description}</p>
                   
-                  <h3 className="sub-heading-v3 serif-italic mb-3">Ambiti di attività</h3>
+                  <h3 className="sub-heading-v3 serif-italic mb-3">Specializzazioni</h3>
                   <ul className="aree-v3-sublist">
                     {area.subcategories.map((sub, idx) => (
                       <li key={idx} className="aree-v3-subitem">

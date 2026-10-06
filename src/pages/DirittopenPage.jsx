@@ -50,7 +50,7 @@ const DirittopenPage = () => {
           <motion.h1 
             className="dp-title serif"
             variants={fadeUp}
-            initial={false}
+            initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
@@ -65,7 +65,7 @@ const DirittopenPage = () => {
           <motion.div 
             className="dp-hero-grid"
             variants={staggerContainer}
-            initial={false}
+            initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
@@ -107,7 +107,7 @@ const DirittopenPage = () => {
           <motion.h2 
             className="dp-areas-title serif"
             variants={fadeUp}
-            initial={false}
+            initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
@@ -117,7 +117,7 @@ const DirittopenPage = () => {
             className="dp-areas-grid"
             style={{ '--dp-areas-cols': areas.length === 4 ? 2 : Math.min(areas.length, 3) }}
             variants={staggerContainer}
-            initial={false}
+            initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >

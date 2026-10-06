@@ -45,11 +45,11 @@ const DirittoCivilePage = () => {
           <motion.h1
             className="dp-title serif"
             variants={fadeUp}
-            initial={false}
+            initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
-            Diritto civile:<br />tutela e consulenza
+            Tutela e soluzioni,<br />oltre il contenzioso
           </motion.h1>
         </div>
       </section>
@@ -60,7 +60,7 @@ const DirittoCivilePage = () => {
           <motion.div
             className="dp-hero-grid"
             variants={staggerContainer}
-            initial={false}
+            initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
@@ -104,7 +104,7 @@ const DirittoCivilePage = () => {
           <motion.h2
             className="dp-areas-title serif"
             variants={fadeUp}
-            initial={false}
+            initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
@@ -114,7 +114,7 @@ const DirittoCivilePage = () => {
             className="dp-areas-grid"
             style={{ '--dp-areas-cols': areas.length === 4 ? 2 : Math.min(areas.length, 3) }}
             variants={staggerContainer}
-            initial={false}
+            initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >

@@ -56,7 +56,7 @@ const NewsPage = () => {
             <motion.article
               className="news-article-main"
               variants={fadeUp}
-              initial={false}
+              initial="hidden"
               animate="visible"
             >
               <h1 className="single-news-title serif">{article.pageTitle || article.title}</h1>
@@ -83,7 +83,7 @@ const NewsPage = () => {
             {/* COLONNA DESTRA — altre news */}
             <motion.aside
               className="news-article-sidebar"
-              initial={false}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
             >

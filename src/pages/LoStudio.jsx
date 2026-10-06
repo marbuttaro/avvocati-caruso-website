@@ -11,7 +11,7 @@ const LoStudio = () => {
 
           <motion.div
             className="lo-studio-photo-wrap"
-            initial={false}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: 'easeOut', delay: 0.15 }}
           >
@@ -20,7 +20,7 @@ const LoStudio = () => {
 
           <motion.div
             className="lo-studio-left"
-            initial={false}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
           >

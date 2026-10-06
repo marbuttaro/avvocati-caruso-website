@@ -10,11 +10,6 @@
   width: 100%;
 }
 
-.contatti-page .contact-page-heading {
-  padding-top: 1.5rem;
-  padding-bottom: 2rem;
-}
-
 @media (max-width: 992px) {
   /* Allineata all'altezza ridotta della navbar su questa pagina (68px). */
   .contatti-page {

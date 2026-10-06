@@ -1,5 +1,5 @@
 import SiteImage from '../components/SiteImage';
-import React, { useState } from 'react';
+import React, { useState, useSyncExternalStore } from 'react';
 import { motion } from 'framer-motion';
 import './Team.css';
 
@@ -7,13 +7,18 @@ import { professionals } from '../data/professionals.js';
 import { personSlug } from '../seo/site.js';
 
 
+const subscribeToHydration = () => () => {};
+const clientSnapshot = () => true;
+const serverSnapshot = () => false;
+
 function AccordionItem({ prof, index }) {
   const [open, setOpen] = useState(false);
+  const interactive = useSyncExternalStore(subscribeToHydration, clientSnapshot, serverSnapshot);
 
   return (
     <motion.div
       className="accordion-item" id={personSlug(prof.name)}
-      initial={false}
+      initial={{ opacity: 0, y: 56 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1], delay: (index % 3) * 0.12 }}
@@ -23,7 +28,7 @@ function AccordionItem({ prof, index }) {
       <div className="accordion-main">
 
         {/* Colonna sinistra — tutta cliccabile */}
-        <div className="accordion-left">
+        <div className="accordion-left" onClick={(event) => { if (!event.target.closest('button, a')) setOpen(!open); }}>
           <span className="accordion-prefix serif">{prof.prefix}</span>
           <h2 className="accordion-name serif">{prof.name}</h2>
 
@@ -40,10 +45,20 @@ function AccordionItem({ prof, index }) {
             {!open && <span className="accordion-toggle-label">Approfondisci</span>}
           </button>
 
-          <div id={`bio-${prof.id}`} hidden={!open} className="accordion-bio sans">
-            {prof.bio.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
-            {prof.email && <p className="accordion-email">Contatti: <a href={`mailto:${prof.email}`}>{prof.email}</a></p>}
-          </div>
+          <motion.div
+            className="accordion-bio-motion"
+            id={`bio-${prof.id}`}
+            initial={false}
+            animate={{ height: open ? 'auto' : 0, opacity: open ? 1 : 0 }}
+            transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
+            style={{ overflow: 'hidden' }}
+            inert={interactive && !open}
+          >
+            <div className="accordion-bio sans">
+              {prof.bio.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
+              {prof.email && <p className="accordion-email">Contatti: <a href={`mailto:${prof.email}`}>{prof.email}</a></p>}
+            </div>
+          </motion.div>
         </div>
 
         {/* Colonna destra: foto sempre visibile */}
@@ -64,7 +79,7 @@ const Team = () => {
 
           <motion.div
             className="team-header"
-            initial={false}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
           >
@@ -78,7 +93,7 @@ const Team = () => {
 
           <motion.div
             className="team-accordion"
-            initial={false}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
