@@ -1,0 +1,38 @@
+.map-consent {
+  min-height: 320px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  text-align: center;
+  color: var(--color-navy);
+  background: #e8e7e1;
+}
+
+.map-consent .map-consent-title {
+  font-size: 2rem;
+}
+
+.map-consent button {
+  min-height: 44px;
+  padding: 0.65rem 1rem;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.map-consent a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.map-consent :is(button, a):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}

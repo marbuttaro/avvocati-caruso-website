@@ -1,4 +1,5 @@
 import SiteImage from '../components/SiteImage';
+import ConsentMap from '../components/ConsentMap';
 import React from 'react';
 import { motion } from 'framer-motion';
 import './LoStudio.css';
@@ -81,14 +82,7 @@ const LoStudio = () => {
             </div>
           </div>
           <div className="lo-studio-map-wrap">
-            <iframe
-              src="https://www.google.com/maps?q=40.8233438,14.1204631&z=16&output=embed"
-              className="lo-studio-map-iframe"
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Studio Legale Caruso - Mappa"
-            />
+            <ConsentMap className="lo-studio-map-iframe" />
           </div>
         </div>
       </section>

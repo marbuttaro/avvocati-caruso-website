@@ -1,5 +1,7 @@
 import Preloader from '../components/Preloader/Preloader';
 import SiteImage from '../components/SiteImage';
+import ConsentMap from '../components/ConsentMap';
+import ContactPrivacy from '../components/ContactPrivacy';
 import React, { useRef, useState, useCallback, useLayoutEffect, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
@@ -559,6 +561,7 @@ function ContactSection() {
                   </motion.form>
                 )}
               </AnimatePresence>
+              <ContactPrivacy />
               <p className={`contact-feedback contact-feedback--${submission.state}`} role="status" aria-live="polite" aria-atomic="true">{submission.message}</p>
             </div>
           </div>
@@ -727,14 +730,7 @@ const Home = () => {
               </div>
             </div>
             <div className="dove-siamo-photo-wrap">
-              <iframe
-                src="https://www.google.com/maps?q=40.8233438,14.1204631&z=16&output=embed"
-                className="dove-siamo-map-iframe"
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Studio Legale Caruso - Mappa"
-              />
+              <ConsentMap />
             </div>
           </div>
         </section>

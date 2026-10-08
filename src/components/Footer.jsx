@@ -1,4 +1,5 @@
 import React from 'react';
+import { privacyUrl, cookieUrl, openCookiePreferences } from '../privacy/consent';
 import './Footer.css';
 
 const Footer = () => {
@@ -42,8 +43,9 @@ const Footer = () => {
           <div className="footer-v3-line footer-v3-line--desktop"></div>
           <div className="footer-policy-row">
             <div className="policy-links">
-              {import.meta.env.VITE_IUBENDA_COOKIE_URL ? <a href={import.meta.env.VITE_IUBENDA_COOKIE_URL}>Cookie policy</a> : <span>Cookie policy</span>}
-              {import.meta.env.VITE_IUBENDA_PRIVACY_URL ? <a href={import.meta.env.VITE_IUBENDA_PRIVACY_URL}>Privacy policy</a> : <span>Privacy policy</span>}
+              <a href={cookieUrl} target="_blank" rel="noopener noreferrer">Cookie policy</a>
+              <a href={privacyUrl} target="_blank" rel="noopener noreferrer">Privacy policy</a>
+              <button type="button" onClick={openCookiePreferences}>Gestisci preferenze cookie</button>
             </div>
           </div>
         </div>

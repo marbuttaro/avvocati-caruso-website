@@ -1055,6 +1055,29 @@
   margin-top: 2rem;
 }
 
+.contact-privacy {
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.contact-privacy a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.contact-privacy details {
+  margin-top: 0.75rem;
+}
+
+.contact-privacy summary {
+  cursor: pointer;
+}
+
+.contact-privacy details p {
+  margin-top: 0.75rem;
+}
+
 @media (max-width: 900px) {
   .contact-body-inner {
     flex-direction: column;

@@ -13,10 +13,33 @@ prima di `npm test`: i test SEO controllano anche i file pubblicabili in `dist`.
 - `npm run optimize:assets`: rigenera le immagini WebP, le icone e l'anteprima social.
 - [Rapporto SEO e manutenzione](docs/SEO.md): modifiche, verifiche e attività esterne.
 
-Per collegare le informative Iubenda, impostare gli URL pubblici
-`VITE_IUBENDA_PRIVACY_URL` e `VITE_IUBENDA_COOKIE_URL` e ricostruire il sito.
-Questo mostra i link alle informative; l'integrazione del consenso e del blocco
-preventivo di eventuali servizi esterni va effettuata separatamente con Iubenda.
+## Privacy e cookie
+
+Il banner iubenda si configura dalla dashboard del sito `carusoavvocati.it`
+(site ID `4704993`, policy ID `13388967`). `index.html` carica lo script unificato
+all'inizio della pagina; colori, testi e impostazioni del banner sono gestiti
+remotamente. `public/privacy-init.js` collega i cambiamenti di consenso a React.
+
+Prima del primo deploy: completare il campo del titolare nella dashboard con
+il nome o la ragione sociale confermati dallo studio. Le clausole e il banner
+sono salvati; il passaggio «Website owner and contact info» è ancora da completare.
+
+I link pubblici sono in `src/privacy/consent.js`, nel footer e accanto ai moduli.
+La mappa Google viene creata solo con consenso alla categoria Esperienza (3) e
+rimossa quando il consenso viene revocato. Senza iubenda disponibile resta il
+collegamento esterno a Google Maps. Le preferenze si riaprono dal footer.
+
+Il piano Essentials non permette clausole personalizzate. Le informazioni su
+Resend ed Ergonet integrano l'informativa nei moduli (`ContactPrivacy.jsx`).
+L'informativa iubenda include contatti, Google Maps, Vercel e iubenda.
+
+Le credenziali `IUBENDA_USER` e `IUBENDA_PASS` sono riservate all'accesso alla
+dashboard: restano nel `.env` ignorato da Git, senza prefisso `VITE_` e senza
+caricamento su Vercel. Gli identificativi nel codice sono pubblici.
+
+Verifica dopo una modifica: `npm run build && npm test`, poi prova in un browser
+senza consensi precedenti rifiuto, accettazione, revoca, ricaricamento e navigazione
+interna. Prima del consenso non devono partire richieste verso Google Maps.
 
 ## Richieste via email
 

@@ -113,16 +113,32 @@
 
 .policy-links {
   display: flex;
-  gap: 3rem;
+  flex-wrap: wrap;
+  gap: 1rem 3rem;
 }
 
-.policy-links a, .policy-links span {
+.policy-links a, .policy-links button {
   font-size: 0.85rem;
-  opacity: 0.5;
+  opacity: 0.8;
   transition: opacity 0.3s;
 }
 
-.policy-links a:hover {
+.policy-links button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.policy-links :is(a, button):hover {
+  opacity: 1;
+}
+
+.policy-links :is(a, button):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 5px;
   opacity: 1;
 }
 
@@ -219,7 +235,7 @@
     justify-content: flex-end;
   }
 
-  .policy-links a, .policy-links span {
+  .policy-links a, .policy-links button {
     font-size: 0.95rem;
   }
 }
