@@ -20,9 +20,9 @@ Il banner iubenda si configura dalla dashboard del sito `carusoavvocati.it`
 all'inizio della pagina; colori, testi e impostazioni del banner sono gestiti
 remotamente. `public/privacy-init.js` collega i cambiamenti di consenso a React.
 
-Prima del primo deploy: completare il campo del titolare nella dashboard con
-il nome o la ragione sociale confermati dallo studio. Le clausole e il banner
-sono salvati; il passaggio «Website owner and contact info» è ancora da completare.
+Titolare del trattamento: Alfredo Caruso, Via Vincenzo Cosenza 31,
+80078 Pozzuoli (NA), Italia; email `info@carusoavvocati.it`.
+I dati sono configurati nell'informativa pubblica iubenda.
 
 I link pubblici sono in `src/privacy/consent.js`, nel footer e accanto ai moduli.
 La mappa Google viene creata solo con consenso alla categoria Esperienza (3) e
