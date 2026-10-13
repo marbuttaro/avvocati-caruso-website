@@ -8,7 +8,7 @@ export const articleDate = (date) => date.split('/').reverse().join('-');
 export const personSlug = (name) => name.toLowerCase().replaceAll(' ', '-');
 
 export const pages = [
-  { path: '/', label: 'Home', title: 'Caruso Avvocati | Studio legale a Pozzuoli', description: 'Studio legale a Pozzuoli, fondato nel 1988. Assistenza in diritto penale, civile, commerciale, navigazione e compliance 231 per privati e imprese.' },
+  { path: '/', label: 'Home', title: 'Caruso Avvocati | Studio legale a Pozzuoli', description: 'Studio Legale fondato nel 1988. Assistenza in diritto penale, civile, commerciale, navigazione e compliance 231 per privati e imprese.' },
   { path: '/lo-studio', label: 'Lo studio', title: 'Lo studio legale a Pozzuoli dal 1988 | Caruso Avvocati', description: 'Fondato da Giuseppe Caruso nel 1988, lo studio di Pozzuoli assiste persone e imprese in tutta Italia, con esperienza nel diritto penale e dell’economia.', type: 'AboutPage' },
   { path: '/team', label: 'I professionisti', title: 'Gli avvocati dello studio | Caruso Avvocati, Pozzuoli', description: 'Conosci gli avvocati di Caruso Avvocati: formazione, esperienze e ambiti di attività dei professionisti dello studio legale di Pozzuoli.', type: 'AboutPage' },
   { path: '/aree-competenza', label: 'Aree di competenza', title: 'Aree di competenza dello studio | Caruso Avvocati', description: 'Diritto penale, civile, commerciale, navigazione e compliance 231: gli ambiti di assistenza di Caruso Avvocati per persone e imprese, a Pozzuoli e in Italia.', type: 'CollectionPage' },
