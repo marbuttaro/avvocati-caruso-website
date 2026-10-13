@@ -24,9 +24,9 @@
     "height": 853
   },
   "/assets/prof-giuseppe-caruso.jpg": {
-    "src": "/optimized/prof-giuseppe-caruso-675.webp",
-    "srcSet": "/optimized/prof-giuseppe-caruso-400.webp 400w, /optimized/prof-giuseppe-caruso-640.webp 640w, /optimized/prof-giuseppe-caruso-675.webp 675w",
-    "width": 675,
+    "src": "/optimized/prof-giuseppe-caruso-720.webp",
+    "srcSet": "/optimized/prof-giuseppe-caruso-400.webp 400w, /optimized/prof-giuseppe-caruso-640.webp 640w, /optimized/prof-giuseppe-caruso-720.webp 720w",
+    "width": 720,
     "height": 900
   },
   "/assets/prof-alfredo-caruso.jpg": {
