@@ -26,6 +26,24 @@ await writeFile('src/data/imageVariants.json', JSON.stringify(images, null, 2) +
 for (const size of [96, 180, 192, 512]) {
   await sharp('public/favicon.svg').resize(size, size).png().toFile(size === 180 ? 'public/apple-touch-icon.png' : `public/favicon-${size}.png`);
 }
+// favicon.ico con PNG incorporati (16, 32, 48), formato ICO supportato da tutti i browser
+const icoImages = await Promise.all([16, 32, 48].map(size => sharp('public/favicon.svg').resize(size, size).png().toBuffer()));
+const icoHeader = Buffer.alloc(6 + icoImages.length * 16);
+icoHeader.writeUInt16LE(1, 2);
+icoHeader.writeUInt16LE(icoImages.length, 4);
+let icoOffset = icoHeader.length;
+icoImages.forEach((png, i) => {
+  const size = [16, 32, 48][i];
+  const entry = 6 + i * 16;
+  icoHeader.writeUInt8(size, entry);
+  icoHeader.writeUInt8(size, entry + 1);
+  icoHeader.writeUInt16LE(1, entry + 4);
+  icoHeader.writeUInt16LE(32, entry + 6);
+  icoHeader.writeUInt32LE(png.length, entry + 8);
+  icoHeader.writeUInt32LE(icoOffset, entry + 12);
+  icoOffset += png.length;
+});
+await writeFile('public/favicon.ico', Buffer.concat([icoHeader, ...icoImages]));
 const logo = await sharp('public/assets/logo-completo.svg', { density: 200 }).resize(690, 240, { fit: 'inside' }).png().toBuffer({ resolveWithObject: true });
 const card = Buffer.from(`<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg"><rect width="1200" height="630" fill="#10202C"/><path d="M100 425H1100" stroke="#E98D47" stroke-width="2"/><text x="600" y="490" text-anchor="middle" font-family="sans-serif" font-size="34" fill="#F6F3ED">Studio legale a Pozzuoli</text><text x="600" y="547" text-anchor="middle" font-family="sans-serif" font-size="23" fill="#F6F3ED">Dal 1988 · carusoavvocati.it</text></svg>`);
 await sharp(card).composite([{ input: logo.data, top: 115, left: Math.round((1200 - logo.info.width) / 2) }]).png().toFile('public/social/caruso-avvocati.png');
