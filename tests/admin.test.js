@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, rm } from 'node:fs/promises';
+import { mkdtemp, mkdir, rm, writeFile, access, cp } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
+import { pathToFileURL } from 'node:url';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createAdminHandler } from '../server/admin.js';
@@ -11,6 +13,7 @@ import { createPageHandler } from '../server/page.js';
 import { render } from '../.prerender/entry-server.js';
 import { readFile } from 'node:fs/promises';
 import { load } from 'cheerio';
+import { prepareDynamicPages } from '../scripts/prepare-dynamic-pages.mjs';
 
 const env = { ADMIN_USERNAME: 'admin', ADMIN_PASSWORD: 'test-password-only-12345678', ADMIN_SESSION_SECRET: 'test-secret-only-12345678901234567890123456789' };
 const epoch = Date.UTC(2026, 9, 20, 12);
@@ -133,4 +136,25 @@ test('storage failures return 503 without publishing or restoring deleted seed c
   assert.equal((await call(createNewsHandler({ store }))).status, 503);
   const handler = createAdminHandler({ env, store, now: () => epoch });
   assert.equal((await call(handler, { cookie: cookie() })).status, 503);
+});
+
+test('Vercel output routes all news to live rendering and keeps institutional pages static', async t => {
+  const directory = await mkdtemp(join(tmpdir(), 'caruso-output-'));
+  t.after(() => rm(directory, { recursive: true, force: true }));
+  await mkdir(join(directory, 'news'));
+  for (const path of ['index.html', 'news.html', 'news/1.html', 'sitemap.xml', 'team.html', 'admin.html']) {
+    await writeFile(join(directory, path), 'snapshot');
+  }
+  await prepareDynamicPages(directory);
+  for (const path of ['index.html', 'news.html', 'news/1.html', 'sitemap.xml']) await assert.rejects(access(join(directory, path)));
+  for (const path of ['team.html', 'admin.html']) await access(join(directory, path));
+});
+
+test('the deployed SSR bundle renders without relying on traced node_modules exports', async t => {
+  const directory = await mkdtemp(join(tmpdir(), 'caruso-runtime-'));
+  t.after(() => rm(directory, { recursive: true, force: true }));
+  await cp('.prerender', directory, { recursive: true });
+  const url = pathToFileURL(join(directory, 'entry-server.js')).href;
+  const html = execFileSync(process.execPath, ['--input-type=module', '-e', 'const {render} = await import(process.argv[1]); process.stdout.write(render("/news", []));', url], { encoding: 'utf8', cwd: directory });
+  assert.match(html, /Notizie e approfondimenti giuridici/);
 });

@@ -5,7 +5,11 @@ import { createAdminHandler } from './server/admin.js'
 import { createNewsHandler } from './server/news.js'
 
 // https://vite.dev/config/
-export default defineConfig(({ mode }) => ({
+export default defineConfig(({ mode, isSsrBuild }) => ({
+  build: { copyPublicDir: !isSsrBuild },
+  // Bundle the runtime: Vercel's file tracing must not choose different package
+  // export conditions from the Node process serving the generated SSR entry.
+  ssr: { noExternal: true },
   plugins: [react(), {
     name: 'local-contact-api',
     configureServer(server) {
