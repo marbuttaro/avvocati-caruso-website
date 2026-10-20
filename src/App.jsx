@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { lazy, Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
@@ -17,8 +17,13 @@ import Contatti from './pages/Contatti';
 import NewsIndex from './pages/NewsIndex';
 import NotFound from './pages/NotFound';
 import { Seo, Breadcrumbs } from './seo/Seo';
+import { NewsProvider } from './data/NewsContext';
 
-export function AppContent() {
+const Admin = lazy(() => import('./pages/Admin'));
+
+function SiteContent() {
+  const { pathname } = useLocation();
+  if (pathname.replace(/\/+$/, '') === '/admin') return <><Seo /><Suspense fallback={<p className="container seo-content-page" role="status">Caricamento…</p>}><Admin /></Suspense></>;
   return (
     <>
       <Seo />
@@ -50,6 +55,10 @@ export function AppContent() {
   );
 }
 
-export default function App() {
-  return <Router><AppContent /></Router>;
+export function AppContent({ initialNews }) {
+  return <NewsProvider initialNews={initialNews}><SiteContent /></NewsProvider>;
+}
+
+export default function App({ initialNews }) {
+  return <Router><AppContent initialNews={initialNews} /></Router>;
 }

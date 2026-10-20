@@ -94,7 +94,9 @@ test('unknown routes are noindex and the hosting config preserves real 404s', ()
   assert.match($('h1').text(), /Pagina non trovata/);
   assert.equal(getPage('/news/999').noindex, true);
   const config = JSON.parse(readFileSync('vercel.json', 'utf8'));
-  assert.equal(config.rewrites, undefined);
+  assert.ok(config.rewrites.some(rule => rule.source === '/news/:id' && rule.destination.startsWith('/api/page')));
+  assert.ok(config.rewrites.some(rule => rule.source === '/sitemap.xml'));
+  assert.equal(getPage('/admin').noindex, true);
   assert.equal(config.cleanUrls, true);
   assert.ok(config.redirects.some(rule => rule.source === '/news/3' && rule.destination === '/news/1' && rule.permanent));
 });

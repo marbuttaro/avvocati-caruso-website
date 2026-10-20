@@ -27,9 +27,17 @@ export const pages = [
   })),
 ];
 
-export function getPage(pathname) {
+export function getPages(articles = newsItems) {
+  return [...pages.filter(page => !page.article), ...articles.map(article => ({
+    path: article.slug, label: article.title, title: article.seoTitle || `${article.title} | ${SITE_NAME}`,
+    description: article.description || article.subtitle || article.content.slice(0, 155), article,
+  }))];
+}
+
+export function getPage(pathname, articles = newsItems) {
   const path = pathname.replace(/\/+$/, '') || '/';
-  return pages.find(page => page.path === path) || {
+  if (path === '/admin') return { path, label: 'Area riservata', title: 'Gestione articoli | Caruso Avvocati', description: 'Accesso riservato alla gestione degli articoli di Caruso Avvocati.', noindex: true };
+  return getPages(articles).find(page => page.path === path) || {
     path, label: 'Pagina non trovata', title: 'Pagina non trovata | Caruso Avvocati',
     description: 'La pagina richiesta non è disponibile. Consulta le aree di competenza dello studio Caruso Avvocati o contattaci per assistenza.', noindex: true,
   };
@@ -75,7 +83,8 @@ export function structuredData(page) {
     graph.push({
       '@type': 'BlogPosting', '@id': `${url}#article`, url, headline: page.article.pageTitle || page.article.title,
       description: page.description, datePublished: articleDate(page.article.date), inLanguage: 'it-IT', articleSection: page.article.category,
-      author: { '@type': 'Person', name: authorName, url: `${SITE_URL}/team#${personSlug(authorName)}` },
+      author: authorName ? { '@type': 'Person', name: authorName, url: `${SITE_URL}/team#${personSlug(authorName)}` } : { '@id': organization['@id'] },
+      ...(page.article.updatedAt ? { dateModified: page.article.updatedAt } : {}),
       publisher: { '@id': organization['@id'] }, mainEntityOfPage: { '@id': `${url}#webpage` }, image: SOCIAL_IMAGE,
     });
   }
@@ -94,7 +103,7 @@ export function renderSeoHead(page) {
     ...(!page.noindex ? [`<link data-seo rel="canonical" href="${escapeHtml(canonical)}">`] : []),
     ...Object.entries({ 'og:site_name': SITE_NAME, 'og:locale': 'it_IT', 'og:type': page.article ? 'article' : 'website', 'og:title': page.title, 'og:description': page.description, 'og:url': canonical, 'og:image': SOCIAL_IMAGE, 'og:image:width': '1200', 'og:image:height': '630', 'og:image:type': 'image/png', 'og:image:alt': 'Caruso Avvocati — Studio legale a Pozzuoli' }).map(([name, value]) => meta(name, value, true)),
     ...Object.entries({ 'twitter:card': 'summary_large_image', 'twitter:title': page.title, 'twitter:description': page.description, 'twitter:image': SOCIAL_IMAGE, 'twitter:image:alt': 'Caruso Avvocati — Studio legale a Pozzuoli' }).map(([name, value]) => meta(name, value)),
-    ...(page.article ? [meta('article:published_time', articleDate(page.article.date), true), meta('article:section', page.article.category, true)] : []),
+    ...(page.article ? [meta('article:published_time', articleDate(page.article.date), true), ...(page.article.category ? [meta('article:section', page.article.category, true)] : [])] : []),
     ...(!page.noindex ? [`<script data-seo type="application/ld+json">${JSON.stringify(structuredData(page)).replace(/</g, '\\u003c')}</script>`] : []),
   ].join('\n');
 }

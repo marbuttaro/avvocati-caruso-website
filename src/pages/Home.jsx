@@ -6,7 +6,7 @@ import React, { useRef, useState, useCallback, useLayoutEffect, useEffect } from
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
-import { newsItems } from '../data/newsData';
+import { useNews } from '../data/news-context.js';
 import { smoothScrollTo } from '../utils/smoothScroll';
 import './Home.css';
 
@@ -75,6 +75,7 @@ const professionals = [
 ];
 
 function NewsSlider() {
+  const newsItems = useNews();
   const trackRef = useRef(null);
   const dragging = useRef(false);
   const startX = useRef(0);
@@ -114,9 +115,9 @@ function NewsSlider() {
             <div className="news-v5-header-line" />
             <SiteImage src="/assets/logotipo-orange.svg" alt="" className="news-v5-icon" width={26} height={26} />
           </div>
-          <span className="news-v5-category">{item.category}</span>
+          {item.category && <span className="news-v5-category">{item.category}</span>}
           <a href={item.slug} className="news-v5-card-title-link"><h3 className="news-v5-card-title serif">{item.title}</h3></a>
-          <p className="news-v5-court serif">{item.court}</p>
+          {item.court && <p className="news-v5-court serif">{item.court}</p>}
           <a href={item.slug} className="news-v5-link">Leggi l'articolo</a>
         </div>
       ))}

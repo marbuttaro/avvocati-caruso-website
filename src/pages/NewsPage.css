@@ -68,6 +68,7 @@
 }
 
 .single-news-title {
+  overflow-wrap: anywhere;
   font-size: 64px;
   font-weight: 400;
   color: var(--color-navy);
@@ -96,6 +97,8 @@
 }
 
 .single-news-content p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
   font-family: var(--font-sans);
   font-size: 1rem;
   line-height: 1.3;

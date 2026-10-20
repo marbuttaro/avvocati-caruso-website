@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { newsItems } from '../data/newsData';
+import { useNews } from '../data/news-context.js';
 import './NewsPage.css';
 import NotFound from './NotFound';
 import { articleDate, personSlug } from '../seo/site.js';
@@ -12,12 +12,13 @@ const fadeUp = {
 };
 
 const NewsPage = () => {
+  const newsItems = useNews();
   const { id } = useParams();
   const currentId = /^\d+$/.test(id) ? Number(id) : NaN;
   const article = newsItems.find(item => item.slug === `/news/${id}`);
   const seenTitles = new Set(article ? [article.title] : []);
   const otherNews = newsItems.filter(item => {
-    if (item.id === currentId || seenTitles.has(item.title)) return false;
+    if (item.id === article?.id || seenTitles.has(item.title)) return false;
     seenTitles.add(item.title);
     return true;
   }).slice(0, 3);
@@ -41,14 +42,14 @@ const NewsPage = () => {
     <div className="single-news-page bg-cream">
       <section className="single-news-section">
         <div className="container">
-          <div className="single-news-article-nav">
+          {newsItems.length > 1 && <div className="single-news-article-nav">
             <Link to={prevArticle.slug} className="single-news-article-nav-link serif">
               <span className="single-news-article-nav-arrow">&lt;</span> Indietro
             </Link>
             <Link to={nextArticle.slug} className="single-news-article-nav-link serif">
               Prossimo <span className="single-news-article-nav-arrow">&gt;</span>
             </Link>
-          </div>
+          </div>}
 
           <div className="news-article-layout">
 
@@ -81,7 +82,7 @@ const NewsPage = () => {
             </motion.article>
 
             {/* COLONNA DESTRA — altre news */}
-            <motion.aside
+            {otherNews.length > 0 && <motion.aside
               className="news-article-sidebar"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -103,7 +104,7 @@ const NewsPage = () => {
                   </Link>
                 ))}
               </div>
-            </motion.aside>
+            </motion.aside>}
 
           </div>
         </div>

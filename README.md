@@ -4,7 +4,8 @@ Sito React/Vite pubblicato su Vercel, progetto `sito-web`.
 
 ## SEO e pubblicazione
 
-La build genera HTML completo per ogni URL, sitemap XML e robots.txt.
+La build genera HTML per le pagine istituzionali e robots.txt. Homepage, news e
+sitemap sono servite dal server con il JSON aggiornato, anche prima di JavaScript.
 Le pagine restano interattive con l'idratazione React. Eseguire `npm run build`
 prima di `npm test`: i test SEO controllano anche i file pubblicabili in `dist`.
 
@@ -77,3 +78,43 @@ e usa `delivered@resend.dev` anche come email del visitatore.
 Le richieste hanno validazione server, limite di dimensione, controllo dell'origine,
 honeypot e idempotenza sui tentativi ripetuti. Questi controlli non sostituiscono
 un rate limit condiviso o le regole anti-abuso del firewall Vercel.
+
+## Dashboard news
+
+Accesso: https://carusoavvocati.it/admin. L’account amministratore usa
+`ADMIN_USERNAME`, `ADMIN_PASSWORD` e `ADMIN_SESSION_SECRET`, presenti nel `.env`
+locale ignorato da Git e configurati come segreti nell’ambiente Production di Vercel.
+Le credenziali non devono avere il prefisso `VITE_`. Password di almeno 16 caratteri
+e segreto di sessione casuale di almeno 32 caratteri; la rotazione di uno dei due
+invalida le sessioni precedenti dopo il deploy. Le sessioni durano 8 ore e usano
+cookie HttpOnly, Secure in produzione e SameSite Strict. L’accesso ammette fino a
+8 tentativi per IP in finestre di 15 minuti, con contatori persistenti su Blob.
+
+La dashboard permette ricerca, creazione, anteprima, modifica ed eliminazione
+degli articoli. I soli campi sono titolo (240 caratteri) e testo (100.000 caratteri);
+la data italiana viene assegnata alla pubblicazione. Il testo è semplice, senza
+HTML, immagini o allegati, con paragrafi e a capo mantenuti. L’eliminazione richiede
+conferma e rimuove l’articolo anche dalla sitemap. Le modifiche non richiedono deploy.
+
+Non c’è un database: lo store privato Vercel Blob `caruso-news` conserva un solo
+oggetto JSON in `news/articles.json`, con `version`, `nextId` e `articles`. Gli
+articoli esistenti sono migrati da `src/data/news.json` solo all’inizializzazione;
+i deploy successivi non sovrascrivono il file. Le scritture condizionate all’ETag
+impediscono che due salvataggi simultanei si sovrascrivano. Se compare un conflitto,
+“Ricarica l’elenco” aggiorna la revisione mantenendo il testo aperto. Gli ID non
+vengono riutilizzati; il 3 resta riservato al vecchio redirect verso `/news/1`.
+
+`GET /api/news` espone gli articoli pubblici; `/api/admin` richiede una sessione
+per lettura e scrittura editoriali. Homepage, elenco news, singoli articoli e
+sitemap vengono generati con i dati correnti da `/api/page`; gli articoli eliminati
+restituiscono HTTP 404. I guasti dello storage restituiscono 503 senza ripristinare
+contenuti vecchi. `/admin` è escluso dall’indicizzazione e dalla sitemap.
+
+In locale `npm run dev` usa `.data/news.json`, ignorato da Git, inizializzato con
+gli articoli originali. Non scrive nello store di produzione. Il percorso può essere
+sostituito con `NEWS_FILE`. Gli ambienti Preview non hanno credenziali editoriali
+né accesso allo store di produzione: per abilitarli serve uno store separato e le
+variabili dedicate; il percorso previsto è `preview/articles.json`.
+
+Per verificare: `npm run build && npm test`. I test coprono CRUD, persistenza,
+concorrenza, sessioni, validazione, CSRF, HTML pubblico e sitemap aggiornati.
