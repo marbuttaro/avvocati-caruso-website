@@ -64,6 +64,8 @@ const NewsPage = () => {
               {article.subtitle && (
                 <p className="single-news-subtitle serif">{article.subtitle}</p>
               )}
+              {article.category && <p className="single-news-category">{article.category}</p>}
+              {article.court && <p className="single-news-court"><span>Ente emittente: </span>{article.court}</p>}
               <time className="single-news-date" dateTime={articleDate(article.date)}>{article.date}</time>
 
               <div className="single-news-content sans">

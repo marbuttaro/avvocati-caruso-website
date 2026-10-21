@@ -158,3 +158,78 @@ test('the deployed SSR bundle renders without relying on traced node_modules exp
   const html = execFileSync(process.execPath, ['--input-type=module', '-e', 'const {render} = await import(process.argv[1]); process.stdout.write(render("/news", []));', url], { encoding: 'utf8', cwd: directory });
   assert.match(html, /Notizie e approfondimenti giuridici/);
 });
+
+test('metadata survives edits, accepts clearing, and categories persist and reuse canonical names', async t => {
+  const { handler, store, file } = await fixture(t);
+  const initial = await call(handler, { cookie: cookie() });
+  assert.deepEqual(initial.body.categories, ['Diritto penale', 'Diritto societario']);
+  const original = initial.body.articles[0];
+  const preserved = await call(handler, { cookie: cookie(), method: 'PATCH', body: {
+    revision: initial.body.revision, id: original.id, title: original.title, content: original.content,
+  } });
+  for (const key of ['subtitle', 'court', 'category']) assert.equal(preserved.body.article[key], original[key]);
+  const created = await call(handler, { cookie: cookie(), method: 'POST', body: {
+    revision: preserved.body.revision, title: 'Nuova sentenza', content: 'Testo della sentenza.',
+    subtitle: '  Sottotitolo della sentenza  ', court: '  Corte di Cassazione  ', category: '  Diritto   amministrativo  ',
+  } });
+  assert.equal(created.status, 201);
+  assert.equal(created.body.article.subtitle, 'Sottotitolo della sentenza');
+  assert.equal(created.body.article.court, 'Corte di Cassazione');
+  assert.equal(created.body.article.category, 'Diritto amministrativo');
+  assert.equal(created.body.article.description, 'Sottotitolo della sentenza');
+  const reused = await call(handler, { cookie: cookie(), method: 'PATCH', body: {
+    revision: created.body.revision, id: created.body.article.id, title: 'Nuova sentenza', content: 'Testo aggiornato.',
+    category: 'diritto AMMINISTRATIVO',
+  } });
+  assert.equal(reused.body.article.category, 'Diritto amministrativo');
+  assert.equal(reused.body.categories.filter(value => /amministrativo/i.test(value)).length, 1);
+  assert.equal(reused.body.article.court, 'Corte di Cassazione');
+  const cleared = await call(handler, { cookie: cookie(), method: 'PATCH', body: {
+    revision: reused.body.revision, id: created.body.article.id, title: 'Nuova sentenza', content: 'Testo aggiornato.',
+    subtitle: '', court: '', category: '',
+  } });
+  for (const key of ['subtitle', 'court', 'category']) assert.equal(cleared.body.article[key], '');
+  const removed = await call(handler, { cookie: cookie(), method: 'DELETE', body: {
+    revision: cleared.body.revision, id: created.body.article.id,
+  } });
+  assert.ok(removed.body.categories.includes('Diritto amministrativo'));
+  assert.deepEqual((await createFileStore(file).read()).data.categories, removed.body.categories);
+  assert.deepEqual((await store.read()).data.articles[0].subtitle, original.subtitle);
+});
+
+test('invalid metadata cannot change articles or create categories', async t => {
+  const { handler, store } = await fixture(t);
+  const initial = await store.read();
+  for (const [key, limit] of [['subtitle', 1000], ['court', 300], ['category', 100]]) {
+    for (const value of [null, 12, {}, [], 'prima\nseconda', 'prima\rseconda', 'x'.repeat(limit + 1)]) {
+      const result = await call(handler, { cookie: cookie(), method: 'POST', body: {
+        revision: initial.revision, title: 'Titolo', content: 'Testo', [key]: value,
+      } });
+      assert.equal(result.status, 400, `${key}: ${JSON.stringify(value)}`);
+    }
+  }
+  assert.deepEqual(await store.read(), initial);
+});
+
+test('public pages render metadata safely and expose the category in SEO', async t => {
+  const { handler, store } = await fixture(t);
+  const initial = await store.read();
+  const created = await call(handler, { cookie: cookie(), method: 'POST', body: {
+    revision: initial.revision, title: 'Decisione recente', content: 'Testo pubblico.',
+    subtitle: 'Sottotitolo <script>alert(1)</script>', court: 'Ente <img src=x onerror=alert(1)>', category: 'Diritto <nuovo>',
+  } });
+  assert.equal(created.status, 201);
+  const pageHandler = createPageHandler({ render, store, template: () => readFile('.prerender/template.html', 'utf8'), env });
+  const page = await call(pageHandler, { url: '/api/page?path=/news/4' });
+  const $ = load(page.raw);
+  assert.equal($('.single-news-subtitle').text(), created.body.article.subtitle);
+  assert.equal($('.single-news-category').text(), created.body.article.category);
+  assert.equal($('.single-news-court').text(), `Ente emittente: ${created.body.article.court}`);
+  assert.equal($('.news-article-main script, .news-article-main img').length, 0);
+  assert.equal($('meta[property="article:section"]').attr('content'), created.body.article.category);
+  const home = load((await call(pageHandler, { url: '/api/page?path=/' })).raw);
+  assert.ok(home('.news-v5-category').toArray().some(el => home(el).text() === created.body.article.category));
+  assert.ok(home('.news-v5-court').toArray().some(el => home(el).text() === created.body.article.court));
+  const index = load((await call(pageHandler, { url: '/api/page?path=/news' })).raw);
+  assert.ok(index('.news-index-entry').first().text().includes(created.body.article.subtitle));
+});

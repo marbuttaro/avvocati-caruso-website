@@ -5,6 +5,8 @@ import './Admin.css';
 export default function Admin() {
   const [authenticated, setAuthenticated] = useState(null);
   const [articles, setArticles] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [newCategory, setNewCategory] = useState(false);
   const [revision, setRevision] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -18,7 +20,7 @@ export default function Admin() {
   const [deleting, setDeleting] = useState(null);
   const dialog = useRef(null);
   const titleInput = useRef(null);
-  const dirty = draft && (draft.title !== draft.originalTitle || draft.content !== draft.originalContent);
+  const dirty = draft && ['title', 'content', 'subtitle', 'court', 'category'].some(key => draft[key] !== draft.original[key]);
 
   async function request(action, method = 'GET', body) {
     const response = await fetch(`/api/admin?action=${action}`, {
@@ -33,7 +35,7 @@ export default function Admin() {
     return data;
   }
 
-  function updateArticles(data) { setArticles(data.articles); setRevision(data.revision); }
+  function updateArticles(data) { setArticles(data.articles); setCategories(data.categories || []); setRevision(data.revision); }
 
   useEffect(() => {
     let active = true;
@@ -43,7 +45,7 @@ export default function Admin() {
         if (response.status === 401) { setAuthenticated(false); return; }
         const data = await response.json();
         if (!response.ok) throw new Error(data.error);
-        setArticles(data.articles); setRevision(data.revision); setAuthenticated(true);
+        setArticles(data.articles); setCategories(data.categories || []); setRevision(data.revision); setAuthenticated(true);
       })
       .catch(() => { if (active) { setAuthenticated(false); setError('L’accesso non è disponibile. Riprova tra poco.'); } });
     return () => { active = false; };
@@ -72,8 +74,9 @@ export default function Admin() {
 
   function openEditor(article) {
     if (dirty && !window.confirm('Vuoi lasciare le modifiche senza salvarle?')) return;
-    const title = article?.title || '', content = article?.content || '';
-    setDraft({ id: article?.id || null, title, content, originalTitle: title, originalContent: content });
+    const fields = Object.fromEntries(['title', 'content', 'subtitle', 'court', 'category'].map(key => [key, article?.[key] || '']));
+    setDraft({ id: article?.id || null, ...fields, original: fields });
+    setNewCategory(false);
     setPreview(false); setError(''); setNotice('');
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
@@ -86,7 +89,7 @@ export default function Admin() {
   async function save(event) {
     event.preventDefault(); setPending(true); setError(''); setNotice('');
     try {
-      const data = await request('articles', draft.id ? 'PATCH' : 'POST', { id: draft.id, title: draft.title, content: draft.content, revision });
+      const data = await request('articles', draft.id ? 'PATCH' : 'POST', { id: draft.id, title: draft.title, content: draft.content, subtitle: draft.subtitle, court: draft.court, category: draft.category, revision });
       updateArticles(data); setDraft(null);
       setNotice(draft.id ? 'Le modifiche sono online.' : 'L’articolo è online.');
     } catch (failure) { setError(failure.message || 'Il salvataggio non è disponibile. Riprova tra poco.'); }
@@ -118,7 +121,7 @@ export default function Admin() {
     finally { setPending(false); }
   }
 
-  const filtered = articles.filter(article => `${article.title} ${article.content}`.toLocaleLowerCase('it').includes(search.toLocaleLowerCase('it')));
+  const filtered = articles.filter(article => `${article.title} ${article.subtitle || ''} ${article.court || ''} ${article.category || ''} ${article.content}`.toLocaleLowerCase('it').includes(search.toLocaleLowerCase('it')));
 
   return <div className="admin-shell">
     <header className="admin-header">
@@ -148,13 +151,28 @@ export default function Admin() {
         {notice && <p className="admin-notice" role="status"><Check size={18} aria-hidden="true" /> {notice}</p>}
         {draft ? <form className="admin-editor" onSubmit={save}>
           <div className="admin-editor-toolbar"><span className="admin-hint">{draft.id ? 'Le modifiche saranno visibili dopo il salvataggio.' : 'La pubblicazione rende l’articolo visibile sul sito.'}</span><button type="button" className="admin-text-button" onClick={() => setPreview(!preview)} aria-pressed={preview}><Eye size={17} aria-hidden="true" /> {preview ? 'Torna al testo' : 'Anteprima'}</button></div>
-          <div hidden={preview} className="admin-fields"><label htmlFor="article-title">Titolo</label><input ref={titleInput} id="article-title" className="admin-title-input" value={draft.title} onChange={e => setDraft({ ...draft, title: e.target.value })} maxLength={240} required disabled={pending} /><label htmlFor="article-content">Testo</label><textarea id="article-content" value={draft.content} onChange={e => setDraft({ ...draft, content: e.target.value })} maxLength={100000} required rows={16} disabled={pending} /><span className="admin-hint">I paragrafi e gli a capo vengono mantenuti.</span></div>
-          {preview && <article className="admin-preview"><span className="admin-eyebrow">Anteprima dell’articolo</span><h2>{draft.title || 'Titolo da scrivere'}</h2>{draft.content ? draft.content.split(/\n\s*\n/).map((paragraph, i) => <p key={i}>{paragraph}</p>) : <p>Il testo dell’articolo è ancora vuoto.</p>}</article>}
-          <div className="admin-editor-footer"><button className="admin-text-button" type="button" onClick={closeEditor} disabled={pending}>Annulla</button><button className="admin-button" type="submit" disabled={pending || !draft.title.trim() || !draft.content.trim()}>{pending ? 'Salvataggio…' : draft.id ? 'Salva modifiche' : 'Pubblica articolo'} <ArrowUpRight size={19} aria-hidden="true" /></button></div>
+          <div hidden={preview} className="admin-fields"><label htmlFor="article-title">Titolo</label><input ref={titleInput} id="article-title" className="admin-title-input" value={draft.title} onChange={e => setDraft({ ...draft, title: e.target.value })} maxLength={240} required disabled={pending} /><label htmlFor="article-subtitle">Sottotitolo <span className="admin-hint">(facoltativo)</span></label>
+            <input id="article-subtitle" value={draft.subtitle} onChange={e => setDraft({ ...draft, subtitle: e.target.value })} maxLength={1000} disabled={pending} />
+            <label htmlFor="article-court">Ente emittente <span className="admin-hint">(facoltativo)</span></label>
+            <input id="article-court" value={draft.court} onChange={e => setDraft({ ...draft, court: e.target.value })} maxLength={300} placeholder="Es. Tribunale di Napoli, Sezione Penale" disabled={pending} />
+            <label htmlFor="article-category">Categoria <span className="admin-hint">(facoltativa)</span></label>
+            <select id="article-category" value={newCategory ? '__new__' : draft.category ? `category:${draft.category}` : ''} onChange={e => { setNewCategory(e.target.value === '__new__'); setDraft({ ...draft, category: e.target.value === '__new__' ? '' : e.target.value.replace(/^category:/, '') }); }} disabled={pending}>
+              <option value="">Nessuna categoria</option>
+              {categories.map(category => <option key={category} value={`category:${category}`}>{category}</option>)}
+              <option value="__new__">+ Crea nuova categoria</option>
+            </select>
+            {newCategory && <div className="admin-new-category">
+              <label htmlFor="article-new-category">Nome della nuova categoria</label>
+              <input id="article-new-category" value={draft.category} onChange={e => setDraft({ ...draft, category: e.target.value })} maxLength={100} required disabled={pending} aria-describedby="category-hint" />
+              <p id="category-hint" className="admin-hint">Sarà disponibile anche per gli altri articoli dopo il salvataggio.</p>
+            </div>}
+            <label htmlFor="article-content">Testo</label><textarea id="article-content" value={draft.content} onChange={e => setDraft({ ...draft, content: e.target.value })} maxLength={100000} required rows={16} disabled={pending} /><span className="admin-hint">I paragrafi e gli a capo vengono mantenuti.</span></div>
+          {preview && <article className="admin-preview"><span className="admin-eyebrow">Anteprima dell’articolo</span><h2>{draft.title || 'Titolo da scrivere'}</h2>{draft.subtitle && <p className="admin-preview-subtitle">{draft.subtitle}</p>}{draft.category && <p className="admin-preview-category">{draft.category}</p>}{draft.court && <p className="admin-preview-court">Ente emittente: {draft.court}</p>}{draft.content ? draft.content.split(/\n\s*\n/).map((paragraph, i) => <p key={i}>{paragraph}</p>) : <p>Il testo dell’articolo è ancora vuoto.</p>}</article>}
+          <div className="admin-editor-footer"><button className="admin-text-button" type="button" onClick={closeEditor} disabled={pending}>Annulla</button><button className="admin-button" type="submit" disabled={pending || !draft.title.trim() || !draft.content.trim() || (newCategory && !draft.category.trim())}>{pending ? 'Salvataggio…' : draft.id ? 'Salva modifiche' : 'Pubblica articolo'} <ArrowUpRight size={19} aria-hidden="true" /></button></div>
         </form> : <>
           <div className="admin-list-toolbar"><span>{articles.length} {articles.length === 1 ? 'articolo pubblicato' : 'articoli pubblicati'}</span><label className="admin-search"><Search size={18} aria-hidden="true" /><span className="visually-hidden">Cerca articoli</span><input type="search" placeholder="Cerca articoli" value={search} onChange={e => setSearch(e.target.value)} /></label></div>
           <div className="admin-articles">{filtered.map(article => <article className="admin-article-row" key={article.id}>
-            <div className="admin-article-copy"><time>{article.date}</time><h2><button onClick={() => openEditor(article)}>{article.title}</button></h2><p>{article.content.replace(/\s+/g, ' ').slice(0, 180)}{article.content.length > 180 ? '…' : ''}</p></div>
+            <div className="admin-article-copy"><time>{article.date}</time>{article.category && <span className="admin-article-category"> · {article.category}</span>}<h2><button onClick={() => openEditor(article)}>{article.title}</button></h2><p>{article.content.replace(/\s+/g, ' ').slice(0, 180)}{article.content.length > 180 ? '…' : ''}</p></div>
             <div className="admin-row-actions"><a href={article.slug} target="_blank" rel="noreferrer" aria-label={`Leggi: ${article.title}`} title="Leggi sul sito"><ArrowUpRight size={20} /></a><button onClick={() => openEditor(article)} aria-label={`Modifica: ${article.title}`} title="Modifica articolo" disabled={pending}><Pencil size={18} /></button><button className="admin-delete-button" onClick={() => setDeleting(article)} aria-label={`Elimina: ${article.title}`} title="Elimina articolo" disabled={pending}><Trash2 size={18} /></button></div>
           </article>)}</div>
           {!filtered.length && <div className="admin-empty"><h2>{search ? 'Nessun articolo trovato' : 'Il prossimo approfondimento parte da qui.'}</h2><p>{search ? 'Prova con un altro titolo o una parola del testo.' : 'Pubblica il primo articolo dello studio.'}</p>{!search && <button className="admin-button" onClick={() => openEditor()}>Scrivi un articolo <Plus size={18} aria-hidden="true" /></button>}</div>}

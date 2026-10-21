@@ -91,13 +91,20 @@ cookie HttpOnly, Secure in produzione e SameSite Strict. L’accesso ammette fin
 8 tentativi per IP in finestre di 15 minuti, con contatori persistenti su Blob.
 
 La dashboard permette ricerca, creazione, anteprima, modifica ed eliminazione
-degli articoli. I soli campi sono titolo (240 caratteri) e testo (100.000 caratteri);
-la data italiana viene assegnata alla pubblicazione. Il testo è semplice, senza
+degli articoli. Oltre a titolo (240 caratteri) e testo (100.000 caratteri), sono
+disponibili sottotitolo (1.000 caratteri), ente emittente (300 caratteri) e categoria
+(100 caratteri), tutti facoltativi e su una sola riga. La categoria si seleziona
+tra quelle esistenti oppure si crea durante il salvataggio dell’articolo. Spazi
+ripetuti e differenze di maiuscole non creano duplicati; le categorie restano
+disponibili anche quando non sono più associate ad articoli. L’ente emittente usa
+il campo storico `court`, mantenendo i dati degli articoli d’esempio.
+La data italiana viene assegnata alla pubblicazione. Il testo è semplice, senza
 HTML, immagini o allegati, con paragrafi e a capo mantenuti. L’eliminazione richiede
 conferma e rimuove l’articolo anche dalla sitemap. Le modifiche non richiedono deploy.
 
 Non c’è un database: lo store privato Vercel Blob `caruso-news` conserva un solo
-oggetto JSON in `news/articles.json`, con `version`, `nextId` e `articles`. Gli
+oggetto JSON in `news/articles.json`, con `version`, `nextId`, `articles` e
+`categories` (elenco aggiunto automaticamente al primo salvataggio). Gli
 articoli esistenti sono migrati da `src/data/news.json` solo all’inizializzazione;
 i deploy successivi non sovrascrivono il file. Le scritture condizionate all’ETag
 impediscono che due salvataggi simultanei si sovrascrivano. Se compare un conflitto,

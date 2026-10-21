@@ -2,6 +2,8 @@ import { configured, validCredentials, sessionCookie, clearCookie, authenticated
 import { ConflictError, createNewsStore } from './news-store.js';
 import { readBody, reply, sameOrigin } from './http.js';
 
+import { newsCategories, normalizeCategory, categoryKey } from '../src/data/newsCategories.js';
+
 const FAILURE = 'Le modifiche non sono state salvate. Riprova tra poco.';
 const conflict = 'Gli articoli sono cambiati. Ricarica l’elenco prima di salvare; il testo che hai scritto resta disponibile.';
 
@@ -25,18 +27,35 @@ export function createAdminHandler({ env = process.env, store = createNewsStore(
       if (action === 'session' && req.method === 'GET') return reply(res, 200, { authenticated: true });
       if (action !== 'articles') return reply(res, 404, { error: 'Richiesta non trovata.' });
       const current = await store.read();
-      if (req.method === 'GET') return reply(res, 200, { articles: current.data.articles, revision: current.revision });
+      if (req.method === 'GET') return reply(res, 200, { articles: current.data.articles, categories: newsCategories(current.data), revision: current.revision });
       const body = await readBody(req);
       if (body.revision !== current.revision) return reply(res, 409, { error: conflict });
       const data = structuredClone(current.data);
+      data.categories = newsCategories(data);
       let article;
       if (req.method === 'POST' || req.method === 'PATCH') {
         const title = typeof body.title === 'string' ? body.title.trim() : '';
         const content = typeof body.content === 'string' ? body.content.replace(/\r\n?/g, '\n').trim() : '';
         if (!title || title.length > 240 || /[\r\n]/.test(title)) return reply(res, 400, { error: 'Scrivi un titolo su una sola riga, fino a 240 caratteri.' });
         if (!content || content.length > 100_000) return reply(res, 400, { error: 'Scrivi il testo dell’articolo, fino a 100.000 caratteri.' });
+        const existing = req.method === 'PATCH' ? data.articles.find(item => item.id === body.id) : null;
+        if (req.method === 'PATCH' && !existing) return reply(res, 404, { error: 'L’articolo è già stato eliminato. Ricarica l’elenco.' });
+        const metadata = {};
+        for (const [key, label, limit] of [['subtitle', 'sottotitolo', 1000], ['court', 'ente emittente', 300], ['category', 'categoria', 100]]) {
+          const value = body[key] === undefined ? (existing?.[key] || '') : body[key];
+          if (typeof value !== 'string' || value.trim().length > limit || /[\r\n]/.test(value)) {
+            return reply(res, 400, { error: `Il campo ${label} deve essere un testo su una sola riga, fino a ${limit} caratteri.` });
+          }
+          metadata[key] = value.trim();
+        }
+        if (metadata.category) {
+          const category = normalizeCategory(metadata.category);
+          metadata.category = data.categories.find(value => categoryKey(value) === categoryKey(category)) || category;
+          if (!data.categories.includes(metadata.category)) data.categories.push(metadata.category);
+          data.categories.sort((a, b) => a.localeCompare(b, 'it'));
+        }
         const stamp = new Date(now()).toISOString();
-        const fields = { title, content, pageTitle: title, seoTitle: `${title} | Caruso Avvocati`, subtitle: '', description: content.replace(/\s+/g, ' ').slice(0, 155), updatedAt: stamp };
+        const fields = { title, content, pageTitle: title, seoTitle: `${title} | Caruso Avvocati`, ...metadata, description: (metadata.subtitle || content).replace(/\s+/g, ' ').slice(0, 155), updatedAt: stamp };
         if (req.method === 'POST') {
           const id = data.nextId++;
           article = { ...fields, id, slug: `/news/${id}`, date: new Intl.DateTimeFormat('it-IT', { timeZone: 'Europe/Rome', day: '2-digit', month: '2-digit', year: 'numeric' }).format(new Date(now())), createdAt: stamp };
@@ -53,7 +72,7 @@ export function createAdminHandler({ env = process.env, store = createNewsStore(
         data.articles.splice(index, 1);
       }
       const revision = await store.write(data, current.revision);
-      return reply(res, req.method === 'POST' ? 201 : 200, { articles: data.articles, revision, ...(article ? { article } : {}) });
+      return reply(res, req.method === 'POST' ? 201 : 200, { articles: data.articles, categories: data.categories, revision, ...(article ? { article } : {}) });
     } catch (error) {
       if (error instanceof ConflictError) return reply(res, 409, { error: conflict });
       if (error.message === 'too_large') return reply(res, 413, { error: 'Il testo è troppo lungo. Usa al massimo 100.000 caratteri.' });
