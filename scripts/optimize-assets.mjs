@@ -24,10 +24,10 @@ for (const file of files) {
 }
 await writeFile('src/data/imageVariants.json', JSON.stringify(images, null, 2) + '\n');
 for (const size of [96, 180, 192, 512]) {
-  await sharp('public/favicon.svg').resize(size, size).png().toFile(size === 180 ? 'public/apple-touch-icon.png' : `public/favicon-${size}.png`);
+  await sharp('public/assets/favicon-source.png').resize(size, size).png().toFile(size === 180 ? 'public/apple-touch-icon.png' : `public/favicon-${size}.png`);
 }
 // favicon.ico con PNG incorporati (16, 32, 48), formato ICO supportato da tutti i browser
-const icoImages = await Promise.all([16, 32, 48].map(size => sharp('public/favicon.svg').resize(size, size).png().toBuffer()));
+const icoImages = await Promise.all([16, 32, 48].map(size => sharp('public/assets/favicon-source.png').resize(size, size).png().toBuffer()));
 const icoHeader = Buffer.alloc(6 + icoImages.length * 16);
 icoHeader.writeUInt16LE(1, 2);
 icoHeader.writeUInt16LE(icoImages.length, 4);
