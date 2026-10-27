@@ -125,3 +125,24 @@ variabili dedicate; il percorso previsto è `preview/articles.json`.
 
 Per verificare: `npm run build && npm test`. I test coprono CRUD, persistenza,
 concorrenza, sessioni, validazione, CSRF, HTML pubblico e sitemap aggiornati.
+
+### Verifica salvataggi e conflitti
+
+`npm run build && npm test` copre anche il comportamento degli ETag dello storage.
+Le letture private usano `useCache: false` e `Accept-Encoding: identity`: una
+risposta compressa può trasformare l’ETag in `W/"…"`, che Blob rifiuta con
+`ifMatch` anche senza modifiche concorrenti. Non rimuovere semplicemente `W/`
+e non disabilitare le scritture condizionate. Un identificatore mancante o debole
+interrompe l’operazione anziché consentire una sovrascrittura senza protezione.
+
+Smoke test opzionale sullo storage reale: `npm run build && npm run smoke:news`.
+Richiede `BLOB_READ_WRITE_TOKEN` nel `.env` locale o nell’ambiente. Crea un JSON
+privato con UUID sotto `diagnostics/`, esegue via HTTP login, creazione di un
+articolo lungo, modifica, conflitti, ricaricamento, categorie, HTML/sitemap e
+cancellazione. Verifica anche due scritture Blob concorrenti. Il file di prova
+viene rimosso nel blocco `finally`; non vengono modificati gli articoli online.
+
+Dopo un deploy, verificare anche l’accesso a `/admin`, la revisione forte restituita
+da `GET /api/admin?action=articles` e `npm run check:seo`. Una scheda aperta prima
+della correzione può avere ancora la vecchia revisione: «Ricarica l’elenco» mantiene
+la bozza e permette di riprovare «Pubblica articolo» o «Salva modifiche».

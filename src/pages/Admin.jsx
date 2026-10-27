@@ -107,9 +107,14 @@ export default function Admin() {
   }
 
   async function refresh() {
-    setPending(true); setError('');
-    try { updateArticles(await request('articles')); setNotice('L’elenco è aggiornato.'); }
-    catch (failure) { setError(failure.message || 'L’elenco non è disponibile. Riprova.'); }
+    setPending(true); setError(''); setNotice('Aggiornamento dell’elenco…');
+    try {
+      updateArticles(await request('articles'));
+      setNotice(draft
+        ? `L’elenco è aggiornato e la bozza è stata mantenuta. Premi «${draft.id ? 'Salva modifiche' : 'Pubblica articolo'}» per salvare.`
+        : 'L’elenco è aggiornato.');
+    }
+    catch (failure) { setNotice(''); setError(failure.message || 'L’elenco non è disponibile. Riprova.'); }
     finally { setPending(false); }
   }
 
@@ -147,7 +152,7 @@ export default function Admin() {
         </form>
       </div> : <>
         <div className="admin-page-heading"><div><span className="admin-eyebrow">Area riservata · News</span><h1>{draft ? draft.id ? 'Modifica articolo' : 'Nuovo articolo' : 'Articoli'}</h1></div>{!draft && <button className="admin-button" onClick={() => openEditor()} disabled={pending}><Plus size={19} aria-hidden="true" /> Nuovo articolo</button>}{draft && <button className="admin-text-button" onClick={closeEditor} disabled={pending}><X size={18} aria-hidden="true" /> Chiudi</button>}</div>
-        {error && <div className="admin-error" role="alert"><p>{error}</p><button className="admin-text-button" onClick={refresh} disabled={pending}>Ricarica l’elenco</button></div>}
+        {error && <div className="admin-error" role="alert"><p>{error}</p><button className="admin-text-button" onClick={refresh} disabled={pending}>{pending ? 'Aggiornamento…' : 'Ricarica l’elenco'}</button></div>}
         {notice && <p className="admin-notice" role="status"><Check size={18} aria-hidden="true" /> {notice}</p>}
         {draft ? <form className="admin-editor" onSubmit={save}>
           <div className="admin-editor-toolbar"><span className="admin-hint">{draft.id ? 'Le modifiche saranno visibili dopo il salvataggio.' : 'La pubblicazione rende l’articolo visibile sul sito.'}</span><button type="button" className="admin-text-button" onClick={() => setPreview(!preview)} aria-pressed={preview}><Eye size={17} aria-hidden="true" /> {preview ? 'Torna al testo' : 'Anteprima'}</button></div>

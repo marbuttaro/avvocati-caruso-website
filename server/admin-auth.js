@@ -1,5 +1,7 @@
 import { createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
-import { get, put } from '@vercel/blob';
+import { put } from '@vercel/blob';
+
+import { readBlobDocument } from './blob-document.js';
 
 const COOKIE = 'caruso_admin';
 const LIFETIME = 8 * 60 * 60;
@@ -41,14 +43,14 @@ export async function allowLogin(req, env, now = Date.now()) {
   }
   const options = { access: 'private', ...(env.BLOB_READ_WRITE_TOKEN ? { token: env.BLOB_READ_WRITE_TOKEN } : { storeId: env.BLOB_STORE_ID }) };
   const pathname = `auth/${key}.json`;
-  const result = await get(pathname, { ...options, useCache: false });
-  const previous = result ? await new Response(result.stream).json() : null;
+  const result = await readBlobDocument(pathname, options);
+  const previous = result?.data;
   const count = previous?.bucket === bucket ? previous.count + 1 : 1;
   if (count > 8) return false;
   try {
     await put(pathname, JSON.stringify({ bucket, count }), {
       ...options, addRandomSuffix: false, allowOverwrite: Boolean(result),
-      ...(result ? { ifMatch: result.blob.etag } : {}), contentType: 'application/json', cacheControlMaxAge: 60,
+      ...(result ? { ifMatch: result.revision } : {}), contentType: 'application/json', cacheControlMaxAge: 60,
     });
     return true;
   } catch (error) {

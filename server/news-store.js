@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { get, put, BlobPreconditionFailedError } from '@vercel/blob';
+import { readBlobDocument, requireStrongRevision } from './blob-document.js';
 import initialNews from '../src/data/news.json' with { type: 'json' };
 
 export class ConflictError extends Error {}
@@ -32,21 +33,21 @@ export function createFileStore(file = resolve('.data/news.json')) {
   return { read, write };
 }
 
-export function createBlobStore(env = process.env, pathname = 'news/articles.json') {
+export function createBlobStore(env = process.env, pathname = 'news/articles.json', client = { get, put }) {
   const options = { access: 'private', ...(env.BLOB_READ_WRITE_TOKEN ? { token: env.BLOB_READ_WRITE_TOKEN } : { storeId: env.BLOB_STORE_ID }) };
   return {
     async read() {
-      const result = await get(pathname, { ...options, useCache: false });
+      const result = await readBlobDocument(pathname, options, client.get);
       if (!result) throw new Error('News JSON has not been initialized');
-      return { data: await new Response(result.stream).json(), revision: result.blob.etag };
+      return result;
     },
     async write(data, revision) {
       try {
-        const result = await put(pathname, JSON.stringify(data, null, 2) + '\n', {
+        const result = await client.put(pathname, JSON.stringify(data, null, 2) + '\n', {
           ...options, contentType: 'application/json', addRandomSuffix: false,
-          allowOverwrite: true, ifMatch: revision, cacheControlMaxAge: 60,
+          allowOverwrite: true, ifMatch: requireStrongRevision(revision), cacheControlMaxAge: 60,
         });
-        return result.etag;
+        return requireStrongRevision(result.etag);
       } catch (error) {
         if (error instanceof BlobPreconditionFailedError) throw new ConflictError();
         throw error;

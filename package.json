@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "test": "node --test tests/*.test.js",
     "preview": "vite preview",
+    "smoke:news": "node scripts/smoke-news.mjs",
     "test:seo": "node --test tests/seo.test.js",
     "check:seo": "node scripts/check-seo.mjs",
     "optimize:assets": "node scripts/optimize-assets.mjs"
