@@ -1,6 +1,45 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, Check, Eye, EyeOff, LogOut, Pencil, Plus, Search, Trash2, X } from 'lucide-react';
+import { ArrowUpRight, Check, Eye, EyeOff, ImagePlus, LogOut, Pencil, Plus, Search, Trash2, X } from 'lucide-react';
 import './Admin.css';
+
+const IMAGE_MAX_SIDE = 1600;
+const IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+
+// Ridimensiona la foto nel browser (lato lungo max 1600 px) e la converte in WebP, o in JPEG se il browser non sa
+// creare WebP: così anche le foto pesanti dello smartphone si caricano in fretta e la pagina resta leggera.
+async function prepareImage(file) {
+  if (!IMAGE_TYPES.includes(file.type)) throw new Error('Formato non supportato. Usa una foto JPG, PNG o WebP.');
+  if (file.size > 25_000_000) throw new Error('La foto è troppo pesante (massimo 25 MB).');
+  let bitmap;
+  try { bitmap = await createImageBitmap(file); }
+  catch { throw new Error('Non è stato possibile leggere la foto. Prova con un altro file.'); }
+  const scale = Math.min(1, IMAGE_MAX_SIDE / Math.max(bitmap.width, bitmap.height));
+  const width = Math.round(bitmap.width * scale), height = Math.round(bitmap.height * scale);
+  const canvas = document.createElement('canvas');
+  canvas.width = width; canvas.height = height;
+  const context = canvas.getContext('2d');
+  context.fillStyle = '#ffffff'; context.fillRect(0, 0, width, height);
+  context.drawImage(bitmap, 0, 0, width, height);
+  bitmap.close?.();
+  const encode = (type, quality) => new Promise(done => canvas.toBlob(done, type, quality));
+  let blob = await encode('image/webp', 0.82);
+  if (!blob || blob.type !== 'image/webp') blob = await encode('image/jpeg', 0.85);
+  if (!blob) throw new Error('Non è stato possibile preparare la foto. Prova con un altro file.');
+  const data = await new Promise((done, fail) => {
+    const reader = new FileReader();
+    reader.onload = () => done(String(reader.result).split(',')[1]);
+    reader.onerror = () => fail(new Error('Non è stato possibile leggere la foto.'));
+    reader.readAsDataURL(blob);
+  });
+  return { data, width, height };
+}
+
+// Stessa regola della pagina pubblica: l'immagine va dopo circa metà dei paragrafi.
+function splitForImage(content) {
+  const paragraphs = content.split(/\n\s*\n/).filter(p => p.trim());
+  const split = Math.ceil(paragraphs.length / 2);
+  return [paragraphs.slice(0, split), paragraphs.slice(split)];
+}
 
 export default function Admin() {
   const [authenticated, setAuthenticated] = useState(null);
@@ -18,9 +57,11 @@ export default function Admin() {
   const [draft, setDraft] = useState(null);
   const [preview, setPreview] = useState(false);
   const [deleting, setDeleting] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const imageInput = useRef(null);
   const dialog = useRef(null);
   const titleInput = useRef(null);
-  const dirty = draft && ['title', 'content', 'subtitle', 'court', 'category'].some(key => draft[key] !== draft.original[key]);
+  const dirty = draft && (['title', 'content', 'subtitle', 'court', 'category'].some(key => draft[key] !== draft.original[key]) || JSON.stringify(draft.image) !== JSON.stringify(draft.original.image));
 
   async function request(action, method = 'GET', body) {
     const response = await fetch(`/api/admin?action=${action}`, {
@@ -75,7 +116,8 @@ export default function Admin() {
   function openEditor(article) {
     if (dirty && !window.confirm('Vuoi lasciare le modifiche senza salvarle?')) return;
     const fields = Object.fromEntries(['title', 'content', 'subtitle', 'court', 'category'].map(key => [key, article?.[key] || '']));
-    setDraft({ id: article?.id || null, ...fields, original: fields });
+    const image = article?.image ? { ...article.image } : null;
+    setDraft({ id: article?.id || null, ...fields, image, original: { ...fields, image } });
     setNewCategory(false);
     setPreview(false); setError(''); setNotice('');
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -89,11 +131,24 @@ export default function Admin() {
   async function save(event) {
     event.preventDefault(); setPending(true); setError(''); setNotice('');
     try {
-      const data = await request('articles', draft.id ? 'PATCH' : 'POST', { id: draft.id, title: draft.title, content: draft.content, subtitle: draft.subtitle, court: draft.court, category: draft.category, revision });
+      const data = await request('articles', draft.id ? 'PATCH' : 'POST', { id: draft.id, title: draft.title, content: draft.content, subtitle: draft.subtitle, court: draft.court, category: draft.category, image: draft.image, revision });
       updateArticles(data); setDraft(null);
       setNotice(draft.id ? 'Le modifiche sono online.' : 'L’articolo è online.');
     } catch (failure) { setError(failure.message || 'Il salvataggio non è disponibile. Riprova tra poco.'); }
     finally { setPending(false); }
+  }
+
+  async function chooseImage(event) {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+    if (!file) return;
+    setUploading(true); setError('');
+    try {
+      const { data, width, height } = await prepareImage(file);
+      const { url } = await request('image', 'POST', { data });
+      setDraft(current => current && { ...current, image: { url, width, height, alt: current.image?.alt || '' } });
+    } catch (failure) { setError(failure.message || 'La foto non è stata caricata. Riprova.'); }
+    finally { setUploading(false); }
   }
 
   async function remove() {
@@ -171,9 +226,26 @@ export default function Admin() {
               <input id="article-new-category" value={draft.category} onChange={e => setDraft({ ...draft, category: e.target.value })} maxLength={100} required disabled={pending} aria-describedby="category-hint" />
               <p id="category-hint" className="admin-hint">Sarà disponibile anche per gli altri articoli dopo il salvataggio.</p>
             </div>}
-            <label htmlFor="article-content">Testo</label><textarea id="article-content" value={draft.content} onChange={e => setDraft({ ...draft, content: e.target.value })} maxLength={100000} required rows={16} disabled={pending} /><span className="admin-hint">I paragrafi e gli a capo vengono mantenuti.</span></div>
-          {preview && <article className="admin-preview"><span className="admin-eyebrow">Anteprima dell’articolo</span><h2>{draft.title || 'Titolo da scrivere'}</h2>{draft.subtitle && <p className="admin-preview-subtitle">{draft.subtitle}</p>}{draft.category && <p className="admin-preview-category">{draft.category}</p>}{draft.court && <p className="admin-preview-court">Ente emittente: {draft.court}</p>}{draft.content ? draft.content.split(/\n\s*\n/).map((paragraph, i) => <p key={i}>{paragraph}</p>) : <p>Il testo dell’articolo è ancora vuoto.</p>}</article>}
-          <div className="admin-editor-footer"><button className="admin-text-button" type="button" onClick={closeEditor} disabled={pending}>Annulla</button><button className="admin-button" type="submit" disabled={pending || !draft.title.trim() || !draft.content.trim() || (newCategory && !draft.category.trim())}>{pending ? 'Salvataggio…' : draft.id ? 'Salva modifiche' : 'Pubblica articolo'} <ArrowUpRight size={19} aria-hidden="true" /></button></div>
+            <label htmlFor="article-content">Testo</label><textarea id="article-content" value={draft.content} onChange={e => setDraft({ ...draft, content: e.target.value })} maxLength={100000} required rows={16} disabled={pending} /><span className="admin-hint">I paragrafi e gli a capo vengono mantenuti.</span>
+            <fieldset className="admin-image-field" disabled={pending || uploading}>
+              <legend>Immagine <span className="admin-hint">(facoltativa)</span></legend>
+              <p className="admin-hint">Viene mostrata a metà dell’articolo, tra i paragrafi. Non compare nell’elenco delle news.</p>
+              {draft.image ? <div className="admin-image-current">
+                <img src={draft.image.url} alt="" width={draft.image.width} height={draft.image.height} />
+                <div className="admin-image-actions">
+                  <button type="button" className="admin-text-button" onClick={() => imageInput.current?.click()}><ImagePlus size={17} aria-hidden="true" /> {uploading ? 'Caricamento…' : 'Sostituisci'}</button>
+                  <button type="button" className="admin-text-button admin-image-remove" onClick={() => setDraft({ ...draft, image: null })}><Trash2 size={16} aria-hidden="true" /> Rimuovi</button>
+                </div>
+                <label htmlFor="article-image-alt">Descrizione dell’immagine <span className="admin-hint">(facoltativa, per chi usa lettori di schermo e per Google)</span></label>
+                <input id="article-image-alt" value={draft.image.alt} onChange={e => setDraft({ ...draft, image: { ...draft.image, alt: e.target.value } })} maxLength={300} placeholder="Es. L’ingresso del Tribunale di Napoli" />
+              </div> : <button type="button" className="admin-image-add" onClick={() => imageInput.current?.click()}>
+                <ImagePlus size={22} aria-hidden="true" /> {uploading ? 'Caricamento della foto…' : 'Aggiungi un’immagine'}
+                <span className="admin-hint">JPG, PNG o WebP</span>
+              </button>}
+              <input ref={imageInput} type="file" accept="image/jpeg,image/png,image/webp" onChange={chooseImage} hidden />
+            </fieldset></div>
+          {preview && <article className="admin-preview"><span className="admin-eyebrow">Anteprima dell’articolo</span><h2>{draft.title || 'Titolo da scrivere'}</h2>{draft.subtitle && <p className="admin-preview-subtitle">{draft.subtitle}</p>}{draft.category && <p className="admin-preview-category">{draft.category}</p>}{draft.court && <p className="admin-preview-court">Ente emittente: {draft.court}</p>}{draft.content ? (() => { const [top, bottom] = splitForImage(draft.content); return <>{top.map((paragraph, i) => <p key={i}>{paragraph}</p>)}{draft.image && <img className="admin-preview-image" src={draft.image.url} alt={draft.image.alt} width={draft.image.width} height={draft.image.height} />}{bottom.map((paragraph, i) => <p key={`b${i}`}>{paragraph}</p>)}</>; })() : <p>Il testo dell’articolo è ancora vuoto.</p>}</article>}
+          <div className="admin-editor-footer"><button className="admin-text-button" type="button" onClick={closeEditor} disabled={pending}>Annulla</button><button className="admin-button" type="submit" disabled={pending || uploading || !draft.title.trim() || !draft.content.trim() || (newCategory && !draft.category.trim())}>{pending ? 'Salvataggio…' : draft.id ? 'Salva modifiche' : 'Pubblica articolo'} <ArrowUpRight size={19} aria-hidden="true" /></button></div>
         </form> : <>
           <div className="admin-list-toolbar"><span>{articles.length} {articles.length === 1 ? 'articolo pubblicato' : 'articoli pubblicati'}</span><label className="admin-search"><Search size={18} aria-hidden="true" /><span className="visually-hidden">Cerca articoli</span><input type="search" placeholder="Cerca articoli" value={search} onChange={e => setSearch(e.target.value)} /></label></div>
           <div className="admin-articles">{filtered.map(article => <article className="admin-article-row" key={article.id}>

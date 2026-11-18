@@ -104,3 +104,15 @@
   .admin-dialog { padding: 28px 24px; }
 }
 @media (prefers-reduced-motion: reduce) { .admin-shell * { transition: none; } }
+
+/* Immagine facoltativa dell'articolo */
+.admin-image-field { border: 0; padding: 0; margin: 32px 0 0; min-width: 0; }
+.admin-image-field legend { padding: 0; margin-bottom: 4px; }
+.admin-image-field > .admin-hint { margin: 0 0 14px; }
+.admin-image-add { width: 100%; min-height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; border: 1px dashed #1c2e4a66; border-radius: 3px; background: #ffffff45; color: var(--color-navy); font-size: 15px; cursor: pointer; transition: background .18s, border-color .18s; }
+.admin-image-add:hover { background: #ffffff90; border-color: var(--color-navy); }
+.admin-image-current img { display: block; width: 100%; max-width: 520px; height: auto; border-radius: 3px; border: 1px solid #1c2e4a26; }
+.admin-image-actions { display: flex; flex-wrap: wrap; gap: 20px; margin: 12px 0 24px; }
+.admin-image-remove { color: #9b2c2c; }
+.admin-image-field fieldset:disabled, .admin-image-field:disabled .admin-image-add { opacity: .6; cursor: progress; }
+.admin-preview .admin-preview-image { display: block; width: auto; max-width: 100%; height: auto; max-height: min(560px, 75vh); border-radius: 18px; margin: 40px 0; }

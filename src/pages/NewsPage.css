@@ -116,17 +116,19 @@
 }
 
 /* ── Immagine articolo ── */
+/* Le foto orizzontali occupano tutta la larghezza del testo; quelle verticali
+   sono limitate in altezza (mai tagliate) e restano allineate al testo. */
 .news-article-img-wrap {
   margin: 2.5rem 0;
-  border-radius: 18px;
-  overflow: hidden;
 }
 
 .news-article-img {
-  width: 100%;
-  height: auto;
   display: block;
-  object-fit: cover;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: min(560px, 75vh);
+  border-radius: 18px;
 }
 
 /* ── Colonna destra — sidebar ── */
@@ -289,7 +291,11 @@
   }
 
   .news-article-img-wrap {
-    border-radius: 12px;
     margin: 1.75rem 0;
+  }
+
+  .news-article-img {
+    border-radius: 12px;
+    max-height: 70vh;
   }
 }

@@ -85,7 +85,7 @@ export function structuredData(page) {
       description: page.description, datePublished: articleDate(page.article.date), inLanguage: 'it-IT', articleSection: page.article.category,
       author: authorName ? { '@type': 'Person', name: authorName, url: `${SITE_URL}/team#${personSlug(authorName)}` } : { '@id': organization['@id'] },
       ...(page.article.updatedAt ? { dateModified: page.article.updatedAt } : {}),
-      publisher: { '@id': organization['@id'] }, mainEntityOfPage: { '@id': `${url}#webpage` }, image: SOCIAL_IMAGE,
+      publisher: { '@id': organization['@id'] }, mainEntityOfPage: { '@id': `${url}#webpage` }, image: page.article.image?.url?.startsWith('https://') ? page.article.image.url : SOCIAL_IMAGE,
     });
   }
   return { '@context': 'https://schema.org', '@graph': graph };
@@ -93,16 +93,25 @@ export function structuredData(page) {
 
 export const escapeHtml = (value) => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 
+// Immagine per le anteprime social: quella dell'articolo, se c'è, altrimenti quella generale dello studio.
+function socialImage(page) {
+  const image = page.article?.image;
+  if (!image?.url?.startsWith('https://')) return { url: SOCIAL_IMAGE, width: '1200', height: '630', type: 'image/png', alt: 'Caruso Avvocati — Studio legale a Pozzuoli' };
+  const type = { webp: 'image/webp', jpg: 'image/jpeg', png: 'image/png' }[image.url.split('.').pop()] || 'image/jpeg';
+  return { url: image.url, width: String(image.width), height: String(image.height), type, alt: image.alt || page.article.title };
+}
+
 export function renderSeoHead(page) {
   const canonical = `${SITE_URL}${page.path}`;
+  const image = socialImage(page);
   const meta = (name, value, property = false) => `<meta data-seo ${property ? 'property' : 'name'}="${name}" content="${escapeHtml(value)}">`;
   return [
     `<title data-seo>${escapeHtml(page.title)}</title>`, meta('description', page.description),
     meta('robots', page.noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'),
     meta('application-name', SITE_NAME), meta('apple-mobile-web-app-title', SITE_NAME),
     ...(!page.noindex ? [`<link data-seo rel="canonical" href="${escapeHtml(canonical)}">`] : []),
-    ...Object.entries({ 'og:site_name': SITE_NAME, 'og:locale': 'it_IT', 'og:type': page.article ? 'article' : 'website', 'og:title': page.title, 'og:description': page.description, 'og:url': canonical, 'og:image': SOCIAL_IMAGE, 'og:image:width': '1200', 'og:image:height': '630', 'og:image:type': 'image/png', 'og:image:alt': 'Caruso Avvocati — Studio legale a Pozzuoli' }).map(([name, value]) => meta(name, value, true)),
-    ...Object.entries({ 'twitter:card': 'summary_large_image', 'twitter:title': page.title, 'twitter:description': page.description, 'twitter:image': SOCIAL_IMAGE, 'twitter:image:alt': 'Caruso Avvocati — Studio legale a Pozzuoli' }).map(([name, value]) => meta(name, value)),
+    ...Object.entries({ 'og:site_name': SITE_NAME, 'og:locale': 'it_IT', 'og:type': page.article ? 'article' : 'website', 'og:title': page.title, 'og:description': page.description, 'og:url': canonical, 'og:image': image.url, 'og:image:width': image.width, 'og:image:height': image.height, 'og:image:type': image.type, 'og:image:alt': image.alt }).map(([name, value]) => meta(name, value, true)),
+    ...Object.entries({ 'twitter:card': 'summary_large_image', 'twitter:title': page.title, 'twitter:description': page.description, 'twitter:image': image.url, 'twitter:image:alt': image.alt }).map(([name, value]) => meta(name, value)),
     ...(page.article ? [meta('article:published_time', articleDate(page.article.date), true), ...(page.article.category ? [meta('article:section', page.article.category, true)] : [])] : []),
     ...(!page.noindex ? [`<script data-seo type="application/ld+json">${JSON.stringify(structuredData(page)).replace(/</g, '\\u003c')}</script>`] : []),
   ].join('\n');

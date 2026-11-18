@@ -72,6 +72,20 @@ const NewsPage = () => {
                 {topParagraphs.map((p, i) => <p key={i}>{p}</p>)}
               </div>
 
+              {article.image && (
+                <figure className="news-article-img-wrap">
+                  <img
+                    className="news-article-img"
+                    src={article.image.url}
+                    alt={article.image.alt || article.title}
+                    width={article.image.width}
+                    height={article.image.height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </figure>
+              )}
+
               {bottomParagraphs.length > 0 && (
                 <div className="single-news-content sans">
                   {bottomParagraphs.map((p, i) => <p key={i}>{p}</p>)}
