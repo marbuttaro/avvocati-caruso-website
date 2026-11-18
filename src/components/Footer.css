@@ -68,6 +68,45 @@
 /* Links Section */
 .footer-v3-links {
   padding-right: 14rem;
+  position: relative;
+}
+
+/* LinkedIn: su desktop allineato al bordo destro della linea e centrato in altezza
+   rispetto al menu; su tablet e mobile sotto i contatti, al centro. */
+.footer-linkedin {
+  color: #F6F3ED;
+  line-height: 0;
+  transition: opacity 0.3s;
+}
+
+.footer-linkedin svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.footer-linkedin:hover {
+  opacity: 0.8;
+}
+
+.footer-linkedin:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 5px;
+}
+
+.footer-linkedin--desktop {
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.footer-linkedin--mobile {
+  display: none;
+}
+
+/* Indirizzo su una riga su desktop, su due righe (via / CAP e città) su tablet e mobile */
+.address-break {
+  display: none;
 }
 
 .footer-links-large {
@@ -150,8 +189,27 @@
     gap: 3rem;
   }
 
-  .footer-v3-links {
-    padding-right: 0;
+  /* Ordine su tablet e mobile: logo, menu, contatti (con LinkedIn sotto) */
+  .footer-v3-brand-stack { order: 1; }
+  .footer-v3-links { order: 2; padding-right: 0; }
+  .footer-v3-line--mobile { order: 3; }
+  .footer-v3-contacts { order: 4; }
+
+  .footer-linkedin--desktop {
+    display: none;
+  }
+
+  .footer-linkedin--mobile {
+    display: inline-block;
+    margin-top: 1.5rem;
+  }
+
+  .address-separator {
+    display: none;
+  }
+
+  .address-break {
+    display: inline;
   }
 
   .footer-links-large {
@@ -202,8 +260,7 @@
     width: 100%;
     height: 1px;
     background-color: rgba(255, 255, 255, 0.15);
-    margin-top: 2.25rem;
-    margin-bottom: -12px;
+    margin: 0;
   }
 
   .footer-v3-line--desktop {
